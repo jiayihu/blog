@@ -1,0 +1,22 @@
+{
+  "name": "blog",
+  "version": "0.1.0",
+  "description": "Personal blog",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "metalsmith",
+    "blog"
+  ],
+  "author": "Jiayi Hu",
+  "license": "MIT",
+  "dependencies": {
+    "metalsmith": "^2.1.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^6.0.4",
+    "eslint": "^2.9.0"
+  }
+}
