@@ -6,7 +6,7 @@
   "scripts": {
     "build": "node index.js",
     "deploy": "gh-pages -d public",
-    "start": "http-server ./public -p 3000",
+    "start": "gulp",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -27,11 +27,17 @@
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
+    "browser-sync": "^2.18.13",
+    "del": "^3.0.0",
     "eslint": "^4.2.0",
     "gh-pages": "^1.0.0",
+    "gulp": "^3.9.1",
+    "gulp-sass": "^3.1.0",
     "metalsmith-collections": "^0.9.0",
     "metalsmith-drafts": "0.0.1",
+    "metalsmith-ignore": "^0.1.2",
     "nunjucks": "^3.0.1",
-    "pug": "^2.0.0-rc.2"
+    "pug": "^2.0.0-rc.2",
+    "run-sequence": "^2.0.0"
   }
 }
