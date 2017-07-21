@@ -8,7 +8,7 @@ const pagination = require('metalsmith-pagination');
 const snippet = require('metalsmith-snippet');
 const ignore = require('metalsmith-ignore');
 
-module.exports = function() {
+module.exports = function(callback) {
   return metalsmith(__dirname)
     .source('src')
     .use(ignore('scss/*'))
@@ -54,5 +54,5 @@ module.exports = function() {
       })
     )
     .destination('public')
-    .build(err => console.log(err));
+    .build(err => console.log(err), () => callback());
 };

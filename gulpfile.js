@@ -8,16 +8,15 @@ const metalsmith = require('./index');
 
 gulp.task('metalsmith', () => {
   del.sync(['public/**/*.html']);
-  return metalsmith();
+  metalsmith(() => browserSync.reload());
 });
 
 gulp.task('metalsmith:watch', () => {
-  return gulp.watch('./layouts/**/*.html', ['metalsmith']);
+  return gulp.watch(['./layouts/**/*.html', './src/articles/*.md'], ['metalsmith']);
 });
 
 gulp.task('browserSync', () => {
   return browserSync({
-    files: './public/',
     server: {
       baseDir: './public',
     },
@@ -28,7 +27,8 @@ gulp.task('sass', () => {
   return gulp
     .src('./src/scss/main.scss')
     .pipe(sass().on('error', sass.logError))
-    .pipe(gulp.dest('./public/css'));
+    .pipe(gulp.dest('./public/css'))
+    .on('end', () => browserSync.reload());
 });
 
 gulp.task('sass:watch', () => {
