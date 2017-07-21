@@ -7,9 +7,11 @@ const permalinks = require('metalsmith-permalinks');
 const pagination = require('metalsmith-pagination');
 const snippet = require('metalsmith-snippet');
 
-module.exports = function(callback) {
-  return metalsmith(__dirname)
+function build(success) {
+  metalsmith(__dirname)
     .source('src')
+    .clean(false)
+    .use(drafts())
     .use(
       collections({
         articles: {
@@ -19,7 +21,6 @@ module.exports = function(callback) {
         },
       })
     )
-    .use(drafts())
     .use(
       pagination({
         'collections.articles': {
@@ -52,5 +53,10 @@ module.exports = function(callback) {
       })
     )
     .destination('public')
-    .build(err => console.log(err), () => callback());
-};
+    .build(err => {
+      if(err) console.log(err);
+      else success();
+    });
+}
+
+module.exports = build;

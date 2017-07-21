@@ -1,10 +1,18 @@
 const gulp = require('gulp');
+
 const browserSync = require('browser-sync');
 const runSequence = require('run-sequence');
 const del = require('del');
 const postcss = require('gulp-postcss');
 
 const metalsmith = require('./index');
+
+function swallowError(error) {
+  // If you want details of the error in the console
+  console.log(error.toString());
+
+  this.emit('end');
+}
 
 gulp.task('metalsmith', () => {
   del.sync(['public/**/*.html']);
@@ -27,6 +35,7 @@ gulp.task('css', () => {
   return gulp
     .src('./styles/main.css')
     .pipe(postcss())
+    .on('error', swallowError)
     .pipe(gulp.dest('./public/css/'))
     .on('end', () => browserSync.reload());
 });
