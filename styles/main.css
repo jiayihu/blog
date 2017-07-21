@@ -1,4 +1,3 @@
-@import '_settings.css';
+@import '_settings';
 
-@import 'tachyons/tachyons.css';
-@import 'generic/_shared.css';
+@import 'tachyons/tachyons';

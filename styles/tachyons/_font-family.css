@@ -17,7 +17,8 @@
 }
 
 .serif {
-  font-family: georgia,
+  font-family: 'Merriweather',
+               georgia,
                times,
                serif;
 }

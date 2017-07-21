@@ -3,21 +3,31 @@
     <meta charset="utf-8">
     <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Chronichle of Jiayi</title>
+    <title>Chronichles of Jiayi</title>
     <link rel="stylesheet" href="/css/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Merriweather:400,400i,700" rel="stylesheet">    
   </head>
 
-  <body>
-    {% for article in pagination.files %}
-      <article class="content-article">
-        <header>
-          <span class="timestamp">{{ article.date }}</span>
-          <h2>
-            <a href="{{ '/' + article.path }}">{{ article.title }}</a>
-          </h2>
-        </header>
-      </article>
-    {% endfor %}
+  <body class="serif">
+    {% include "layouts/partials/_nav.html" %}
+
+    <ul class="list pl0">
+      {% for article in pagination.files %}
+      <li class="pa3 pa4-ns bb b--black-10">
+        <article class="mw7 center">
+            <header>
+              <h2 class="f3 mb1">
+                <a href="{{ '/' + article.path }}" class="link">{{ article.title }}</a>
+              </h2>
+              <p class="mb3 f6">{{ article.date }}</p>
+            </header>
+            <section class="lh-copy">
+                The positioning of text within the page margins. Alignment can be flush left, flush right, justified, or centered. Flush left and flush right are sometimes referred to as left justified and right justified.
+            </section>
+          </article>
+      </li>
+      {% endfor %}
+    </ul>
 
     <nav>
       {% if pagination.previous %}
@@ -27,6 +37,8 @@
         <a href="{{ '/' + pagination.next.path }}">| Older</a>
       {% endif %}
     </nav>
+
+    {% include "layouts/partials/_footer.html" %}
   </body>
 </html>
             
