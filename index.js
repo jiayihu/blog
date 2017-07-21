@@ -1,6 +1,5 @@
 const metalsmith = require('metalsmith');
 
-const assets = require('metalsmith-assets');
 const collections = require('metalsmith-collections');
 const drafts = require('metalsmith-drafts');
 const ignore = require('metalsmith-ignore');
@@ -21,7 +20,7 @@ function build(success) {
   metalsmith(__dirname)
     .source('src')
     .clean(false)
-    .use(ignore(['styles/**/*.css', 'assets/**/*', 'assets/**/.*']))
+    .use(ignore(['styles/**/*.css', 'static/**/*', 'static/**/.*', 'js/**/*.js']))
     .use(drafts())
     .use(
       collections({
@@ -62,12 +61,6 @@ function build(success) {
       layouts({
         engine: 'nunjucks',
         pretty: true,
-      })
-    )
-    .use(
-      assets({
-        source: './src/assets',
-        destination: './',
       })
     )
     .destination('public')

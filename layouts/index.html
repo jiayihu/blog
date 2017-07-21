@@ -1,15 +1,18 @@
 <html>
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Jiayi's Chronicles</title>
-    <link rel="stylesheet" href="/css/main.css">
+    {% include "layouts/partials/_head.html" %}
     <link href="https://fonts.googleapis.com/css?family=Merriweather:400,400i,700" rel="stylesheet">    
+    <title>Jiayi's Chronicles</title>
   </head>
 
   <body class="serif">
     {% include "layouts/partials/_nav.html" %}
+
+    <blockquote class="i measure-narrow center mt5">
+      <p class="lh-copy lh-title-ns">
+          Chronicles of a young developer's journey
+      </p>
+    </blockquote>
 
     <ul class="list pl0">
       {% for article in pagination.files %}
@@ -38,7 +41,7 @@
       {% endif %}
     </nav>
 
-    {% include "layouts/partials/_footer.html" %}
+    {% include "layouts/partials/_footer.html" %}    
   </body>
 </html>
             
