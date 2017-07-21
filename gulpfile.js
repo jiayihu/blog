@@ -32,7 +32,7 @@ gulp.task('browserSync', () => {
 
 gulp.task('css', () => {
   return gulp
-    .src('./styles/main.css')
+    .src('./src/styles/main.css')
     .pipe(postcss())
     .on('error', swallowError)
     .pipe(gulp.dest('./public/css/'))
@@ -40,7 +40,7 @@ gulp.task('css', () => {
 });
 
 gulp.task('css:watch', () => {
-  gulp.watch('./styles/**/*.css', ['css']);
+  gulp.watch('./src/styles/**/*.css', ['css']);
 });
 
 gulp.task('default', () => {

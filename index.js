@@ -6,6 +6,7 @@ const drafts = require('metalsmith-drafts');
 const permalinks = require('metalsmith-permalinks');
 const pagination = require('metalsmith-pagination');
 const snippet = require('metalsmith-snippet');
+const ignore = require('metalsmith-ignore');
 
 const nunjucks = require('nunjucks');
 
@@ -18,6 +19,7 @@ function build(success) {
   metalsmith(__dirname)
     .source('src')
     .clean(false)
+    .use(ignore(['styles/**/*.css']))
     .use(drafts())
     .use(
       collections({
