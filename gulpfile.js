@@ -8,7 +8,6 @@ const postcss = require('gulp-postcss');
 const metalsmith = require('./index');
 
 function swallowError(error) {
-  // If you want details of the error in the console
   console.log(error.toString());
 
   this.emit('end');

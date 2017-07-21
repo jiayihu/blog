@@ -7,6 +7,13 @@ const permalinks = require('metalsmith-permalinks');
 const pagination = require('metalsmith-pagination');
 const snippet = require('metalsmith-snippet');
 
+const nunjucks = require('nunjucks');
+
+// Disable caching
+nunjucks.configure({
+  noCache: true,
+});
+
 function build(success) {
   metalsmith(__dirname)
     .source('src')
