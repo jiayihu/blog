@@ -1,12 +1,14 @@
 const metalsmith = require('metalsmith');
-const md = require('metalsmith-markdown');
-const layouts = require('metalsmith-layouts');
+
+const assets = require('metalsmith-assets');
 const collections = require('metalsmith-collections');
 const drafts = require('metalsmith-drafts');
-const permalinks = require('metalsmith-permalinks');
-const pagination = require('metalsmith-pagination');
-const snippet = require('metalsmith-snippet');
 const ignore = require('metalsmith-ignore');
+const layouts = require('metalsmith-layouts');
+const md = require('metalsmith-markdown');
+const pagination = require('metalsmith-pagination');
+const permalinks = require('metalsmith-permalinks');
+const snippet = require('metalsmith-snippet');
 
 const nunjucks = require('nunjucks');
 
@@ -19,7 +21,7 @@ function build(success) {
   metalsmith(__dirname)
     .source('src')
     .clean(false)
-    .use(ignore(['styles/**/*.css']))
+    .use(ignore(['styles/**/*.css', 'assets/**/*', 'assets/**/.*']))
     .use(drafts())
     .use(
       collections({
@@ -35,6 +37,7 @@ function build(success) {
         'collections.articles': {
           perPage: 5,
           first: 'index.html',
+          filter: page => !page.static,
           path: 'page/:num/index.html',
           layout: 'index.html',
         },
@@ -61,9 +64,15 @@ function build(success) {
         pretty: true,
       })
     )
+    .use(
+      assets({
+        source: './src/assets',
+        destination: './',
+      })
+    )
     .destination('public')
     .build(err => {
-      if(err) console.log(err);
+      if (err) console.log(err);
       else success();
     });
 }

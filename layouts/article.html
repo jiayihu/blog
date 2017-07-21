@@ -3,28 +3,32 @@
     <meta charset="utf-8">
     <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ title }} | Chronicles of Jiayi</title>
+    <title>{{ title }} | Jiayi's Chronicles</title>
     <link rel="stylesheet" href="/css/main.css">
     <link href="https://fonts.googleapis.com/css?family=Merriweather:400,400i,700" rel="stylesheet">  
   </head>
 
   <body class="serif">
+    {% include "layouts/partials/_nav.html" %}
+
     <article>
-        <div class="vh-100 dt w-100 tc bg-dark-gray white cover" style="background:url({{ cover }}) no-repeat center;">
-          <div class="dtc v-mid">
-            <h1 class="f1 f-headline-l fw1 i white-60">{{ title }}</h1>
-            <div class="ph0 mh0 measure f4 lh-copy center">
-              <p class="fw1 white-70">
-                It's the space you put between the notes that make the music.
-              </p>
-              <p class="f6 ttu tracked fs-normal white-70">Jiayi Hu - {{ date }}</p>
-            </div>
+      <header class="vh-100 dt w-100 tc bg-dark-gray white cover" style="background:url({{ cover }}) no-repeat center;">
+        <div class="dtc v-mid">
+          <h1 class="f1 f-headline-l fw1 i white-60">{{ title }}</h1>
+          <div class="ph0 mh0 measure f4 lh-copy center">
+            <p class="fw1 white-70">
+              It's the space you put between the notes that make the music.
+            </p>
+            <p class="f6 ttu tracked fs-normal white-70">Jiayi Hu - {{ date }}</p>
           </div>
         </div>
-        <div class="center measure-wide f5 pv5 lh-copy ph2">
-          <h1 class="f1 lh-title">{{ title }}</h1>
-          {{ contents | safe }}
-        </div>
-      </article>
+      </header>
+      <section class="center measure-wide f5 pv5 lh-copy ph2">
+        <h1 class="f1 lh-title">{{ title }}</h1>
+        {{ contents | safe }}
+      </section>
+    </article>
+
+    {% include "layouts/partials/_footer.html" %}
   </body>
 </html>
