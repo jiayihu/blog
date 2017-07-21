@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "node index.js",
-    "deploy": "cp CNAME public && gh-pages -d public",
+    "deploy": "cp assets public && gh-pages -d public",
     "start": "gulp",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
