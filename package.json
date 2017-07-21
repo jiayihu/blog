@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "node index.js",
-    "deploy": "gh-pages -d public",
+    "deploy": "cp CNAME public && gh-pages -d public",
     "start": "gulp",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -16,7 +16,6 @@
   "author": "Jiayi Hu",
   "license": "MIT",
   "dependencies": {
-    "jade": "^1.11.0",
     "metalsmith": "^2.1.0",
     "metalsmith-define": "^2.0.1",
     "metalsmith-layouts": "^1.6.5",
@@ -26,18 +25,21 @@
     "metalsmith-snippet": "^2.0.0"
   },
   "devDependencies": {
+    "autoprefixer": "^7.1.2",
     "babel-eslint": "^7.2.3",
     "browser-sync": "^2.18.13",
     "del": "^3.0.0",
     "eslint": "^4.2.0",
     "gh-pages": "^1.0.0",
     "gulp": "^3.9.1",
-    "gulp-sass": "^3.1.0",
+    "gulp-postcss": "^7.0.0",
     "metalsmith-collections": "^0.9.0",
     "metalsmith-drafts": "0.0.1",
     "metalsmith-ignore": "^0.1.2",
     "nunjucks": "^3.0.1",
-    "pug": "^2.0.0-rc.2",
+    "postcss": "^6.0.8",
+    "postcss-cssnext": "^3.0.2",
+    "postcss-import": "^10.0.0",
     "run-sequence": "^2.0.0"
   }
 }

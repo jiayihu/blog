@@ -6,12 +6,10 @@ const drafts = require('metalsmith-drafts');
 const permalinks = require('metalsmith-permalinks');
 const pagination = require('metalsmith-pagination');
 const snippet = require('metalsmith-snippet');
-const ignore = require('metalsmith-ignore');
 
 module.exports = function(callback) {
   return metalsmith(__dirname)
     .source('src')
-    .use(ignore('scss/*'))
     .use(
       collections({
         articles: {
