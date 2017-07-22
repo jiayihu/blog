@@ -6,7 +6,7 @@
 */
 
 .link {
-  color: var(--gold);
+  color: var(--red);
   text-decoration: none;
   transition: color .15s ease-in;
 }
