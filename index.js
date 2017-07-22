@@ -11,6 +11,18 @@ const snippet = require('metalsmith-snippet');
 
 const nunjucks = require('nunjucks');
 
+const marked = require('marked');
+
+const renderer = new marked.Renderer();
+const defaultLinkRenderer = renderer.link;
+renderer.link = function(...args) {
+  return defaultLinkRenderer.apply(renderer, args).replace('<a', '<a class="red dim"');
+};
+
+marked.setOptions({
+  renderer,
+});
+
 // Disable caching
 nunjucks.configure({
   noCache: true,
