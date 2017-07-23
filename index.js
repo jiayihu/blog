@@ -25,6 +25,7 @@ marked.setOptions({
 
 // Disable caching
 nunjucks.configure({
+  autoescape: false,
   noCache: true,
 });
 

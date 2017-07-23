@@ -1,3 +1,5 @@
-import { sayHi } from './modules/example';
+import addAnchors from './modules/anchors';
 
-sayHi();
+const isArticle = document.body.classList.contains('page--article');
+
+if (isArticle) addAnchors();
