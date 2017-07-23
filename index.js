@@ -19,6 +19,8 @@ renderer.link = function(...args) {
   return defaultLinkRenderer.apply(renderer, args).replace('<a', '<a class="red dim"');
 };
 
+renderer.codespan = text => `<code class="purple">${text}</code>`;
+
 marked.setOptions({
   renderer,
 });
