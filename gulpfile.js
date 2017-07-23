@@ -1,9 +1,11 @@
 const gulp = require('gulp');
-
+const gulpIf = require('gulp-if');
 const browserSync = require('browser-sync');
 const runSequence = require('run-sequence');
 const del = require('del');
+
 const postcss = require('gulp-postcss');
+const cleanCSS = require('gulp-clean-css');
 
 const metalsmith = require('./index');
 
@@ -11,6 +13,9 @@ const watchify = require('watchify');
 const browserify = require('browserify');
 const source = require('vinyl-source-stream');
 const buffer = require('vinyl-buffer');
+const uglify = require('gulp-uglify');
+
+const IS_DEV = process.env.NODE_ENV !== 'production';
 
 /**
  * Javascript
@@ -19,12 +24,12 @@ const buffer = require('vinyl-buffer');
 gulp.task('js', () => {
   const customOpts = {
     cache: {},
-    debug: true,
+    debug: IS_DEV,
     entries: './src/js/main.js',
     transform: [['babelify', { presets: ['es2015'] }]],
   };
   const appBundle = browserify(customOpts);
-  appBundle.plugin(watchify);
+  if (IS_DEV) appBundle.plugin(watchify);
 
   const buildApp = function() {
     return appBundle
@@ -33,11 +38,12 @@ gulp.task('js', () => {
       .pipe(source('main.js'))
       .pipe(buffer())
       .on('error', console.log)
+      .pipe(gulpIf(!IS_DEV, uglify()))
       .pipe(gulp.dest('./public/js/'))
       .pipe(browserSync.stream());
   };
 
-  appBundle.on('update', buildApp);
+  if (IS_DEV) appBundle.on('update', buildApp);
 
   return buildApp();
 });
@@ -64,6 +70,7 @@ gulp.task('css', () => {
     .src('./src/styles/main.css')
     .pipe(postcss())
     .on('error', swallowError)
+    .pipe(gulpIf(!IS_DEV, cleanCSS()))
     .pipe(gulp.dest('./public/css/'))
     .pipe(browserSync.stream());
 });
@@ -97,6 +104,10 @@ gulp.task('default', () => {
     'css:watch',
     'metalsmith:watch',
   ]);
+});
+
+gulp.task('build', () => {
+  runSequence('clean', ['static', 'metalsmith', 'css', 'js']);
 });
 
 function swallowError(error) {
