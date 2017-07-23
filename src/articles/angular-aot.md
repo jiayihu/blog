@@ -1,6 +1,7 @@
 ---
 title: Angular AOT compilation with Webpack
-date: 22-07-2017
+subtitle: Avoid runtime compilation, reduce bundle size and increase application start
+date: July 22nd, 2017
 author: Jiayi Hu
 layout: article.html
 cover: http://mrmrs.github.io/photos/u/009.jpg

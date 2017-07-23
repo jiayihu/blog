@@ -4,7 +4,7 @@
     <title>{{ title }} | Jiayi's Chronicles</title>
   </head>
 
-  <body class="serif">
+  <body class="page--article serif">
     {% include "layouts/partials/_nav.html" %}
 
     <article>
@@ -13,7 +13,7 @@
           <h1 class="f1 f-headline-l fw1 i white-60">{{ title }}</h1>
           <div class="ph0 mh0 measure f4 lh-copy center">
             <p class="fw1 white-70">
-              It's the space you put between the notes that make the music.
+              {{ subtitle }}
             </p>
             <p class="f6 ttu tracked fs-normal white-70">Jiayi Hu - {{ date }}</p>
           </div>
@@ -21,7 +21,7 @@
       </header>
       <section class="center measure-wide f5 pv5 lh-copy ph2">
         <h1 class="f1 lh-title">{{ title }}</h1>
-        {{ contents | safe }}
+        <div class="article-content">{{ contents }}</div>
       </section>
     </article>
 

@@ -24,9 +24,7 @@
               </h2>
               <p class="mb3 f6">{{ article.date }}</p>
             </header>
-            <section class="lh-copy">
-                The positioning of text within the page margins. Alignment can be flush left, flush right, justified, or centered. Flush left and flush right are sometimes referred to as left justified and right justified.
-            </section>
+            <section class="lh-copy">{{ article.snippet }}</section>
           </article>
       </li>
       {% endfor %}
