@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "cross-env NODE_ENV=production gulp build",
-    "deploy": "cp assets public && gh-pages -d public",
+    "deploy": "npm run build && gh-pages -d public",
     "start": "gulp",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

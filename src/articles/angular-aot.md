@@ -195,7 +195,7 @@ Actually... if you try the compilation you're likely to run into a lot of scary 
 
 Your code, especially your components, must follow some specific rules like not having `private` properties or methods in templates. You can find the list of rules [here](https://medium.com/@isaacplmann/making-your-angular-2-library-statically-analyzable-for-aot-e1c6f3ebedd5).
 
-**Important note**: these rules must be followed by every piece of your application, even by external Angular libraries imported in your project. Otherwise, the compilation will throw.
+**Important note**: these rules must be followed by *every* piece of your application, even by external Angular libraries imported in your project. Otherwise, the compilation will throw.
 
 The AOT compiler errors usually fall into 3 categories:
 

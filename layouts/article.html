@@ -11,15 +11,15 @@
     <article>
       <header 
         class="vh-100 dt w-100 tc bg-dark-gray white cover" 
-        style="background-color: {{ coverColor | replace("\\", "") }}; background:url({{ cover }}) no-repeat center;"
+        style="background:url({{ cover }}) no-repeat center, {{ coverColor | replace("\\", "") }};"
       >
         <div class="dtc v-mid">
           <h1 class="f1 f-headline-l fw1 i white-90 ph3">{{ title }}</h1>
-          <div class="ph0 mh0 measure f4 lh-copy center">
-            <p class="fw1 white-70">
+          <div class="ph0 mh0 measure f4 lh-copy center white-80">
+            <p class="fw1">
               {{ subtitle }}
             </p>
-            <p class="f6 ttu tracked fs-normal white-70">Jiayi Hu - {{ date }}</p>
+            <p class="f6 ttu tracked fs-normal">Jiayi Hu - {{ date }}</p>
           </div>
         </div>
       </header>
