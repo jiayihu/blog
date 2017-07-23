@@ -2,6 +2,7 @@ const metalsmith = require('metalsmith');
 
 const collections = require('metalsmith-collections');
 const drafts = require('metalsmith-drafts');
+const filename = require('./scripts/filename');
 const ignore = require('metalsmith-ignore');
 const layouts = require('metalsmith-layouts');
 const md = require('metalsmith-markdown');
@@ -67,6 +68,7 @@ function build(success) {
         maxLength: 300,
       })
     )
+    .use(filename())
     .use(
       permalinks({
         pattern: ':title',
