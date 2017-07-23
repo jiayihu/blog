@@ -217,11 +217,11 @@ Before AOT compilation the `@angular` package had a size of 3.13MB uncompressed,
 
 Pre-AOT (click to open):
 
-[![Bundle size - pre AOT](/images/angular-aot/bundle-size-pre-aot.png)](/images/angular-aot/bundle-size-pre-aot.png)
+![Bundle size - pre AOT](/images/angular-aot/bundle-size-pre-aot.png)
 
 Post-AOT (click to open):
 
-[![Bundle size - post AOT](/images/angular-aot/bundle-size-post-aot.png)](/images/angular-aot/bundle-size-post-aot.png)
+![Bundle size - post AOT](/images/angular-aot/bundle-size-post-aot.png)
 
 ### Performance
 
@@ -231,11 +231,11 @@ Thanks to those statically compiled files, the initial loading time has been red
 
 Pre-AOT:
 
-[![Loading time - pre AOT](/images/angular-aot/loading-pre-aot.png)](/images/angular-aot/loading-pre-aot.png)
+![Loading time - pre AOT](/images/angular-aot/loading-pre-aot.png)
 
 Post-AOT:
 
-[![Loading time - post AOT](/images/angular-aot/loading-post-aot.png)](/images/angular-aot/loading-post-aot.png)
+![Loading time - post AOT](/images/angular-aot/loading-post-aot.png)
 
 ## Final words
 

@@ -22,6 +22,16 @@ renderer.link = function(...args) {
 
 renderer.codespan = text => `<code class="purple">${text}</code>`;
 
+const defaultImgRenderer = renderer.image;
+renderer.image = function(href, title, text) {
+  return `
+    <figure>
+      <a href="${href}" target="_blank">${defaultImgRenderer.call(renderer, href, title, text)}</a>
+      <figcaption class="f6 i tr mt1" >${text}</figcaption>
+    </figure>
+  `;
+};
+
 marked.setOptions({
   renderer,
 });
