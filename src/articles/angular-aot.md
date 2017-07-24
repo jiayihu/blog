@@ -4,8 +4,8 @@ subtitle: Set up AOT compilation in Webpack to avoid runtime compilation, reduce
 date: July 22nd, 2017
 author: Jiayi Hu
 layout: article.html
-cover: /images/angular-aot/angular.jpg
-coverColor: \#2f81e2
+cover: /images/angular-aot/cover.jpg
+coverColor: \#737373
 ---
 
 
