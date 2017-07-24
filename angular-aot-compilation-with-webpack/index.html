@@ -123,7 +123,7 @@ entry: path.join(root.src, IS_DEV ? &#39;main.ts&#39; : &#39;main-prod.ts&#39;),
 <pre><code class="lang-diff">const webpack = require(&#39;webpack&#39;);
 + const AotPlugin = require(&#39;@ngtools/webpack&#39;).AotPlugin;
 
-+ const IS_DEV = process.env.NODE_ENV === &#39;production&#39;;
++ const IS_DEV = process.env.NODE_ENV !== &#39;production&#39;;
 
 const devPlugins = [
   // Your usual development plugins
