@@ -46,7 +46,7 @@ function build(success) {
   metalsmith(__dirname)
     .source('src')
     .metadata({
-      siteurl: 'http://blog.jiayihu.net/',
+      siteurl: 'http://blog.jiayihu.net',
     })
     .clean(false)
     .use(ignore(['styles/**/*.css', 'static/**/*', 'static/**/.*', 'js/**/*.js']))
