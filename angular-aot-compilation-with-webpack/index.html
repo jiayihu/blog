@@ -80,7 +80,7 @@ The information is completely missing or extremely incomplete in the <a class="r
 <p>In this article, I&#39;ll share my experience about how to make the AOT compilation work with a custom Webpack configuration.</p>
 <h3 id="disclaimer">Disclaimer</h3>
 <p>This article won&#39;t explain the details of <a class="red dim" href="https://angular.io/guide/aot-compiler">what AOT compilation is</a> or <a class="red dim" href="http://blog.mgechev.com/2016/08/14/ahead-of-time-compilation-angular-offline-precompilation/">what it does technically</a>. Also, the following parts assume you are using a custom Webpack configuration.</p>
-<p>If you&#39;re using standard <a class="red dim" href="https://github.com/angular/angular-cli">angular-cli</a> it will magically take care of AOT compilation for you and the command is <code class="purple">ng build --prod</code>. But you could still find the following information useful if you ejected the Webpack configuration.</p>
+<p>If you&#39;re using standard <a class="red dim" href="https://github.com/angular/angular-cli">angular-cli</a> it will magically take care of AOT compilation for you and the command is <code class="purple">ng build --prod</code>. But you could still find the following information useful if you ejected the Webpack configuration or if you&#39;re curious about how it works under the hood.</p>
 <h2 id="webpack-configuration">Webpack configuration</h2>
 <p>The first step towards successful AOT compilation is adding <code class="purple">AOTPlugin</code> to your Webpack configuration file, usually named <code class="purple">webpack.config.js</code>.
 You can install the plugin from the package <a class="red dim" href="https://github.com/angular/angular-cli/tree/master/packages/%40ngtools/webpack">@ngtools/webpack</a>, the official plugin from the Angular team and used under the hood in <code class="purple">angular-cli</code>.</p>
@@ -94,13 +94,13 @@ You can install the plugin from the package <a class="red dim" href="https://git
 const prodPlugins = [
  new AotPlugin({
    tsConfigPath: &#39;tsconfig-prod.json&#39;,
-   entryModule: path.resolve(__dirname, &#39;examples/app/app.module#AppModule&#39;)
+   entryModule: path.resolve(__dirname, &#39;src/app/app.module#AppModule&#39;)
  }),
 ];
 
 // The value &#39;production&#39; depends on what NODE_ENV is set when running Webpack
 // to compile the production bundle
-const IS_DEV = process.env.NODE_ENV === &#39;production&#39;;
+const IS_DEV = process.env.NODE_ENV !== &#39;production&#39;;
 </code></pre>
 </li>
 <li><p>Change <code class="purple">entry</code> path based on the environment. We&#39;ll see in a while what <code class="purple">main-prod.ts</code> is:</p>
@@ -199,7 +199,7 @@ module.exports = {
 <h2 id="main-prod-ts">main-prod.ts</h2>
 <p>Last step of the configuration: create a new file <code class="purple">main-prod.ts</code>, very similar to the usual <code class="purple">main-prod.ts</code>, where you bootstrap the application. The main differences are:</p>
 <ol>
-<li><p>We&#39;re importing <code class="purple">enableProdMode</code>, which will disable development behaviours. For instance, the application won&#39;t warn about <a class="red dim" href="https://github.com/angular/angular/issues/6005">&quot;expression has changed&quot; error</a>.</p>
+<li><p>We&#39;re importing <code class="purple">enableProdMode</code>, which will disable development behaviours. For instance, the application won&#39;t warn about <a class="red dim" href="https://github.com/angular/angular/issues/6005">&quot;expression has changed&quot; errors</a>.</p>
 </li>
 <li><p>We&#39;re using <code class="purple">@angular/platform-browser</code> instead of <code class="purple">@angular/platform-browser-dynamic</code>. This will avoid including the JIT compiler (about 2MB uncompressed) in the final bundle and it will instead make use of the AOT compilation files, included by <code class="purple">@ngtools/webpack</code>.</p>
 </li>
@@ -214,7 +214,7 @@ const platform = platformBrowser();
 platform.bootstrapModule(AppModule);
 </code></pre>
 <h2 id="make-your-code-aot-ready">Make your code AOT ready</h2>
-<p>Now you&#39;re finally ready to run the AOT compilation! 🎉  This is an example of the npm script in <code class="purple">package.json</code>, which can be ran using <code class="purple">npm run build</code>:</p>
+<p>Now you&#39;re finally ready to run the AOT compilation! 🎉 This is an example of the npm script in <code class="purple">package.json</code>, which can be ran using <code class="purple">npm run build</code>:</p>
 <pre><code class="lang-json">{
   &quot;scripts&quot;: {
     &quot;build&quot;: &quot;cross-env NODE_ENV=production webpack&quot;
@@ -253,7 +253,7 @@ platform.bootstrapModule(AppModule);
       <figcaption class="f6 i tr mt1" >Bundle size - post AOT</figcaption>
     </figure>
   </p>
-<h3 id="performance">Performance</h3>
+<h3 id="loading-time">Loading time</h3>
 <p>Another difference can be seen on the right side of the images. The AOT compiled application uses <code class="purple">.ngfactory.ts</code> files, produced by the AOT compiler, which replaces the HTML templates and avoids runtime compilation.</p>
 <p>Thanks to those statically compiled files, the initial loading time has been reduced by about 70%.</p>
 <p>Pre-AOT:</p>
