@@ -1,13 +1,13 @@
 import readingTime from 'reading-time';
 
 function injectTime(time) {
-  const content = document.querySelector('.article-content');
+  const meta = document.querySelector('.article-meta');
 
-  const node = document.createElement('p');
+  const node = document.createElement('span');
   node.classList.add('i', 'f5');
-  node.textContent = time;
+  node.textContent = ` - ${time}`;
 
-  content.parentNode.insertBefore(node, content);
+  meta.appendChild(node);
 }
 
 export default function addReadingTime() {
