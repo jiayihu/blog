@@ -21,7 +21,7 @@ In this article, I'll share my experience about how to make the AOT compilation 
 
 This article won't explain the details of [what AOT compilation is](https://angular.io/guide/aot-compiler) or [what it does technically](http://blog.mgechev.com/2016/08/14/ahead-of-time-compilation-angular-offline-precompilation/). Also, the following parts assume you are using a custom Webpack configuration.
 
-If you're using standard [angular-cli](https://github.com/angular/angular-cli) it will magically take care of AOT compilation for you and the command is `ng build --prod`. But you could still find the following information useful if you ejected the Webpack configuration.
+If you're using standard [angular-cli](https://github.com/angular/angular-cli) it will magically take care of AOT compilation for you and the command is `ng build --prod`. But you could still find the following information useful if you ejected the Webpack configuration or if you're curious about how it works under the hood.
 
 ## Webpack configuration
 
@@ -42,13 +42,13 @@ The plugin uses `ngc`, the Angular AOT compiler, internally.
   const prodPlugins = [
     new AotPlugin({
       tsConfigPath: 'tsconfig-prod.json',
-      entryModule: path.resolve(__dirname, 'examples/app/app.module#AppModule')
+      entryModule: path.resolve(__dirname, 'src/app/app.module#AppModule')
     }),
   ];
 
   // The value 'production' depends on what NODE_ENV is set when running Webpack
   // to compile the production bundle
-  const IS_DEV = process.env.NODE_ENV === 'production';
+  const IS_DEV = process.env.NODE_ENV !== 'production';
   ```
 
 2. Change `entry` path based on the environment. We'll see in a while what `main-prod.ts` is:
@@ -78,7 +78,7 @@ The resulting change to `webpack.config.js` should look similar to the following
 const webpack = require('webpack');
 + const AotPlugin = require('@ngtools/webpack').AotPlugin;
 
-+ const IS_DEV = process.env.NODE_ENV === 'production';
++ const IS_DEV = process.env.NODE_ENV !== 'production';
 
 const devPlugins = [
   // Your usual development plugins
@@ -162,7 +162,7 @@ The [complete list of possible options](https://github.com/angular/angular/blob/
 
 Last step of the configuration: create a new file `main-prod.ts`, very similar to the usual `main-prod.ts`, where you bootstrap the application. The main differences are:
 
-1. We're importing `enableProdMode`, which will disable development behaviours. For instance, the application won't warn about ["expression has changed" error](https://github.com/angular/angular/issues/6005).
+1. We're importing `enableProdMode`, which will disable development behaviours. For instance, the application won't warn about ["expression has changed" errors](https://github.com/angular/angular/issues/6005).
 
 2. We're using `@angular/platform-browser` instead of `@angular/platform-browser-dynamic`. This will avoid including the JIT compiler (about 2MB uncompressed) in the final bundle and it will instead make use of the AOT compilation files, included by `@ngtools/webpack`.
 
@@ -179,7 +179,7 @@ platform.bootstrapModule(AppModule);
 
 ## Make your code AOT ready
 
-Now you're finally ready to run the AOT compilation! 🎉  This is an example of the npm script in `package.json`, which can be ran using `npm run build`:
+Now you're finally ready to run the AOT compilation! 🎉 This is an example of the npm script in `package.json`, which can be ran using `npm run build`:
 
 ```json
 {
@@ -224,7 +224,7 @@ Post-AOT (click to open):
 
 ![Bundle size - post AOT](/images/angular-aot/bundle-size-post-aot.png)
 
-### Performance
+### Loading time
 
 Another difference can be seen on the right side of the images. The AOT compiled application uses `.ngfactory.ts` files, produced by the AOT compiler, which replaces the HTML templates and avoids runtime compilation.
 
