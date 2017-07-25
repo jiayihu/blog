@@ -1,1 +1,7 @@
 @import 'tachyons/tachyons';
+
+@import '_generic';
+
+@import 'partials/_flexbox';
+@import 'partials/_size';
+@import 'partials/_spacing';

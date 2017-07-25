@@ -15,6 +15,8 @@ const source = require('vinyl-source-stream');
 const buffer = require('vinyl-buffer');
 const uglify = require('gulp-uglify');
 
+require('dotenv').config();
+
 const IS_DEV = process.env.NODE_ENV !== 'production';
 
 /**
@@ -26,7 +28,9 @@ gulp.task('js', () => {
     cache: {},
     debug: IS_DEV,
     entries: './src/js/main.js',
-    transform: [['babelify', { presets: ['es2015'] }]],
+    transform: [
+      ['babelify', { presets: ['es2015'], plugins: ['transform-inline-environment-variables'] }],
+    ],
   };
   const appBundle = browserify(customOpts);
   if (IS_DEV) appBundle.plugin(watchify);
