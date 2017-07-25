@@ -1,9 +1,5 @@
 import timeago from 'timeago.js';
 
-// ISSUE_ID is globally injected by article template
-const API_URL = `https://api.github.com/repos/jiayihu/blog/issues/${window.ISSUE_ID}/comments`;
-const TOKEN = process.env.GITHUB;
-
 const relativeFromNow = timeago();
 
 function renderComment(comment) {
@@ -63,7 +59,7 @@ function renderNoComments() {
 function renderError() {
   const info = `
   <div class="flex items-center justify-center pa4 bg-washed-red near-black f6">
-    <span class="lh-title ml3">Comments are not available yet for this article.</span>
+    <span class="lh-title ml3">Comments are not shown yet for this article.</span>
   </div>
   `;
 
@@ -71,6 +67,12 @@ function renderError() {
 }
 
 export default function renderComments() {
+  if (!window.ISSUE_ID) return renderError(); // ISSUE_ID is globally injected by article template
+
+  // ISSUE_ID is globally injected by article template
+  const API_URL = `https://api.github.com/repos/jiayihu/blog/issues/${window.ISSUE_ID}/comments`;
+  const TOKEN = process.env.GITHUBA + process.env.GITHUBB;
+
   fetch(API_URL, {
     headers: {
       Accept: 'application/vnd.github.v3.html+json',
@@ -79,7 +81,10 @@ export default function renderComments() {
     },
     mode: 'cors',
   })
-    .then(response => response.json())
+    .then(response => {
+      if (response.ok) return response.json();
+      else return Promise.reject(response.statusText);
+    })
     .then(comments => {
       if (!comments.length) {
         renderNoComments();
