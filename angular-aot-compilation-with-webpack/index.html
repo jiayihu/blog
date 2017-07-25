@@ -285,30 +285,37 @@ platform.bootstrapModule(AppModule);
       </section>
     </article>
 
-    <div class="center measure-wide">
-  <hr />
+    <div class="comments measure-wide center">
+      <script>var ISSUE_ID = '2';</script>
 
-  <div id="disqus_thread"></div>
-</div>
+      <h3>Comments</h3>
 
-<script>
-var disqus_developer = 1;
+      <div class="br2 ba b--lightest-blue bg-washed-blue f6 mb5">
+        <div class="flex items-center">
+          <div class="fg1 pa3">
+            <div>
+              <p class="black-70 measure lh-copy mv0">
+                This blog is using GitHub Issues as comments. You can post by replying to issue
+                <a href="https://github.com/jiayihu/blog/issues/2#new_comment_field"  class="link black f5 underline-hover" target="_blank">
+                  #2
+                </a>
+              </p>
+            </div>
+          </div>
+          <div class="w5 pa3">
+            <a 
+              href="https://github.com/jiayihu/blog/issues/2#new_comment_field" 
+              class="no-underline f6 tc db w-100 pv3 bg-animate bg-blue hover-bg-dark-blue white br2"
+              target="_blank"
+            >
+              Post a comment
+            </a>
+          </div>
+        </div>
+      </div>
 
-var disqus_config = function () {
-  this.page.url = 'http://blog.jiayihu.net/angular-aot-compilation-with-webpack';
-  this.page.identifier = 'angular-aot-compilation-with-webpack';
-};
-
-(function() { // DON'T EDIT BELOW THIS LINE
-  var d = document, s = d.createElement('script');
-  s.setAttribute('defer', 'defer');
-  s.src = 'https://jiayi-chronicles.disqus.com/embed.js';
-  s.setAttribute('data-timestamp', +new Date());
-  (d.head || d.body).appendChild(s);
-})();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-
+      <div class="comments-content"></div>
+    </div>
 
     <footer class="pv4 ph3 ph5-ns tc">
   <a class="link dim gray dib h2 w2 br-100 mr3 " href="http://twitter.com/jiayi_ghu" title="">
@@ -332,7 +339,7 @@ var disqus_config = function () {
   <small class="mt4 f6 db tc">© 2017. All Rights Reserved</small>
 </footer>
 
-<script src="https://ft-polyfill-service.herokuapp.com/v2/polyfill.min.js"></script>
+<script src="https://ft-polyfill-service.herokuapp.com/v2/polyfill.min.js?features=default,fetch"></script>
 <script src="/js/main.js"></script>
 <script src="/js/prism.js"></script>
 
