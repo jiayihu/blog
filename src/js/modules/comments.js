@@ -73,13 +73,13 @@ export default function renderComments() {
   // ISSUE_ID is globally injected by article template
   const API_URL = `https://api.github.com/repos/jiayihu/blog/issues/${window.ISSUE_ID}/comments`;
   // Github doesn't allow access tokens to be committed, but we need to push the script to GH Pages.
-  const TOKEN = hex2ascii(process.env.GITHUB);
+  const TOKEN = hex2ascii(process.env.GITHUB_HEX);
 
   fetch(API_URL, {
     headers: {
       Accept: 'application/vnd.github.v3.html+json',
       Authorization: `token ${TOKEN}`,
-      'Content-Type': 'tapplicationext/json',
+      'Content-Type': 'application/json',
     },
     mode: 'cors',
   })

@@ -3,6 +3,7 @@ const metalsmith = require('metalsmith');
 const collections = require('metalsmith-collections');
 const drafts = require('metalsmith-drafts');
 const filename = require('./scripts/filename');
+const githubComments = require('./scripts/gh-comments');
 const ignore = require('metalsmith-ignore');
 const layouts = require('metalsmith-layouts');
 const md = require('metalsmith-markdown');
@@ -41,6 +42,8 @@ nunjucks.configure({
   autoescape: false,
   noCache: true,
 });
+
+const IS_DEV = process.env.NODE_ENV !== 'production';
 
 function build(success) {
   metalsmith(__dirname)
@@ -82,6 +85,7 @@ function build(success) {
       })
     )
     .use(filename())
+    .use(IS_DEV ? () => {} : githubComments())
     .use(
       permalinks({
         pattern: ':title',
@@ -95,7 +99,7 @@ function build(success) {
     )
     .destination('public')
     .build(err => {
-      if (err) console.log(err);
+      if (err) console.log('Error with Metalsmith build', err);
       else success();
     });
 }

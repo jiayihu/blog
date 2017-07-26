@@ -1,24 +1,24 @@
 <div class="comments measure-wide center">
-  <script>var ISSUE_ID = '{{ issue }}';</script>
+  <script>var ISSUE_ID = '{{ issueId }}';</script>
 
   <h3>Comments</h3>
 
-  {% if issue %}
+  {% if issueId %}
     <div class="br2 ba b--lightest-blue bg-washed-blue f6 mb5">
       <div class="flex items-center">
         <div class="fg1 pa3">
           <div>
             <p class="black-70 measure lh-copy mv0">
               This blog is using GitHub Issues as comments. You can post by replying to issue
-              <a href="https://github.com/jiayihu/blog/issues/{{ issue }}#new_comment_field"  class="link black f5 underline-hover" target="_blank">
-                #{{ issue }}
+              <a href="https://github.com/jiayihu/blog/issues/{{ issueId }}#new_comment_field"  class="link black f5 underline-hover" target="_blank">
+                #{{ issueId }}
               </a>
             </p>
           </div>
         </div>
         <div class="w5 pa3">
           <a 
-            href="https://github.com/jiayihu/blog/issues/{{ issue }}#new_comment_field" 
+            href="https://github.com/jiayihu/blog/issues/{{ issueId }}#new_comment_field" 
             class="no-underline f6 tc db w-100 pv3 bg-animate bg-blue hover-bg-dark-blue white br2"
             target="_blank"
           >
