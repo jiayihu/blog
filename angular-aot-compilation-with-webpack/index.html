@@ -30,7 +30,7 @@
 
   </head>
 
-  <body class="page--article serif">
+  <body class="page--article bg-black-025 serif">
     <nav class="db dt-l w-100 border-box pa3 ph5-l">
   <a class="db dtc-l v-mid mid-gray link underline-hover w-100 w-25-l tc tl-l mb2 mb0-l f3" href="/" title="Home">
     Jiayi's Chronicles
@@ -43,8 +43,8 @@
 
 
     <article>
-      <header 
-        class="vh-100 dt w-100 tc bg-dark-gray white cover" 
+      <header
+        class="vh-100 dt w-100 tc bg-dark-gray white cover"
         style="background:url(/images/angular-aot/cover.jpg) no-repeat center, #737373;"
       >
         <div class="bg-black-50 dtc v-mid">
@@ -58,8 +58,8 @@
         </div>
       </header>
       <section class="article-main f5 pv5 lh-copy ph2 relative">
-        <a 
-          href="https://github.com/jiayihu/blog/tree/master/src/articles/angular-aot.md" 
+        <a
+          href="https://github.com/jiayihu/blog/tree/master/src/articles/angular-aot.md"
           class="color-inherit f6 o-50 no-underline underline-hover glow absolute top-1 right-1"
           target="_blank"
         >
@@ -70,14 +70,14 @@
                   </g>
                 </svg>
             </span>
-            Edit on Github
+            Edit on GitHub
         </a>
 
         <div class="center measure-wide">
           <h1 class="f1 lh-title">Angular AOT compilation with Webpack</h1>
           <div class="article-content"><p>Recently I&#39;ve been dealing very often with Angular 2+ AOT compilation in Webpack and I&#39;ve always found it an exhausting activity.
 The information is completely missing or extremely incomplete in the <a class="red dim" href="https://angular.io/guide/aot-compiler">official Angular documentation</a>, with no mentions about how to run it with a custom Webpack configuration.</p>
-<p>Despite we&#39;re almost at <a class="red dim" href="https://github.com/angular/angular/blob/master/CHANGELOG.md#500-beta0-2017-07-19">Angular 5</a>, the AOT compilation is still very experimental in my opinion and it&#39;s a journey of try &amp; error, digging into Angular source code and Github issues until you succeed or give up.<br>Nevertheless, <a class="red dim" href="https://angular.io/guide/aot-compiler#why-do-aot-compilation">its benefits</a> are often a requirement for your application.</p>
+<p>Despite we&#39;re almost at <a class="red dim" href="https://github.com/angular/angular/blob/master/CHANGELOG.md#500-beta0-2017-07-19">Angular 5</a>, the AOT compilation is still very experimental in my opinion and it&#39;s a journey of try &amp; error, digging into Angular source code and GitHub issues until you succeed or give up.<br>Nevertheless, <a class="red dim" href="https://angular.io/guide/aot-compiler#why-do-aot-compilation">its benefits</a> are often a requirement for your application.</p>
 <p>In this article, I&#39;ll share my experience about how to make the AOT compilation work with a custom Webpack configuration.</p>
 <h3 id="disclaimer">Disclaimer</h3>
 <p>This article won&#39;t explain the details of <a class="red dim" href="https://angular.io/guide/aot-compiler">what AOT compilation is</a> or <a class="red dim" href="http://blog.mgechev.com/2016/08/14/ahead-of-time-compilation-angular-offline-precompilation/">what it does technically</a>. Also, the following parts assume you are using a custom Webpack configuration.</p>
@@ -320,7 +320,7 @@ platform.bootstrapModule(AppModule);
 </div>
 
 
-    <footer class="pv4 ph3 ph5-ns tc">
+    <footer class="pv4 ph3 ph5-ns tc mt4">
   <a class="link dim gray dib h2 w2 br-100 mr3 " href="http://twitter.com/jiayi_ghu" title="">
     <svg data-icon="twitter" viewBox="0 0 32 32" style="fill:currentcolor">
       <title>twitter icon</title>
