@@ -5,12 +5,12 @@
     {% include "layouts/partials/_social.html" %}
   </head>
 
-  <body class="page--article serif">
+  <body class="page--article bg-black-025 serif">
     {% include "layouts/partials/_nav.html" %}
 
     <article>
-      <header 
-        class="vh-100 dt w-100 tc bg-dark-gray white cover" 
+      <header
+        class="vh-100 dt w-100 tc bg-dark-gray white cover"
         style="background:url({{ cover }}) no-repeat center, {{ coverColor | replace("\\", "") }};"
       >
         <div class="bg-black-50 dtc v-mid">
@@ -24,8 +24,8 @@
         </div>
       </header>
       <section class="article-main f5 pv5 lh-copy ph2 relative">
-        <a 
-          href="https://github.com/jiayihu/blog/tree/master/src/articles/{{ fileName }}.md" 
+        <a
+          href="https://github.com/jiayihu/blog/tree/master/src/articles/{{ fileName }}.md"
           class="color-inherit f6 o-50 no-underline underline-hover glow absolute top-1 right-1"
           target="_blank"
         >
@@ -36,7 +36,7 @@
                   </g>
                 </svg>
             </span>
-            Edit on Github
+            Edit on GitHub
         </a>
 
         <div class="center measure-wide">

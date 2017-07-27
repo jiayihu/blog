@@ -3,7 +3,7 @@ import hex2ascii from './hex';
 
 const relativeFromNow = timeago();
 
-function renderComment(comment) {
+function commentHTML(comment) {
   return `
     <li class="comment flex mt3">
       <div class="comment__author mr2 tc">
@@ -33,46 +33,41 @@ function renderComment(comment) {
   `;
 }
 
+function listHTML(comments) {
+  return `
+    <ul class="list pl0">
+      ${comments.map(comment => commentHTML(comment)).join('')}
+    </ul>
+  `;
+}
+
+function noCommentsHTML() {
+  return `
+    <p class="f6 tc">Be the first to comment.<p>
+  `;
+}
+
+function errorHTML() {
+  return `
+    <div class="flex items-center justify-center pa4 bg-washed-red near-black f6">
+      <span class="lh-title ml3">Comments are not shown yet for this article.</span>
+    </div>
+  `;
+}
+
 function renderContent(content) {
   const container = document.querySelector('.comments-content');
 
+  // Comments from Github API are already sanitized
   container.innerHTML = content;
 }
 
-function renderList(comments) {
-  const list = `
-    <ul class="list pl0">
-      ${comments.map(comment => renderComment(comment)).join('')}
-    </ul>
-  `;
-
-  renderContent(list);
-}
-
-function renderNoComments() {
-  const info = `
-    <p class="f6 tc">Be the first to comment.<p>
-  `;
-
-  renderContent(info);
-}
-
-function renderError() {
-  const info = `
-  <div class="flex items-center justify-center pa4 bg-washed-red near-black f6">
-    <span class="lh-title ml3">Comments are not shown yet for this article.</span>
-  </div>
-  `;
-
-  renderContent(info);
-}
-
 export default function renderComments() {
-  if (!window.ISSUE_ID) return renderError(); // ISSUE_ID is globally injected by article template
+  if (!window.ISSUE_ID) return renderContent(errorHTML()); // ISSUE_ID is globally injected by article template
 
   // ISSUE_ID is globally injected by article template
   const API_URL = `https://api.github.com/repos/jiayihu/blog/issues/${window.ISSUE_ID}/comments`;
-  // Github doesn't allow access tokens to be committed, but we need to push the script to GH Pages.
+  // GitHub doesn't allow access tokens to be committed, but we need to push the script to GH Pages.
   const TOKEN = hex2ascii(process.env.GITHUB_HEX);
 
   fetch(API_URL, {
@@ -89,14 +84,14 @@ export default function renderComments() {
     })
     .then(comments => {
       if (!comments.length) {
-        renderNoComments();
+        renderContent(noCommentsHTML());
         return;
       }
 
-      renderList(comments);
+      renderContent(listHTML(comments));
     })
     .catch(error => {
       console.error(error);
-      renderError();
+      renderContent(errorHTML());
     });
 }

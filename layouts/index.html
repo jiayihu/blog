@@ -1,11 +1,11 @@
 <html>
   <head>
     {% include "layouts/partials/_head.html" %}
-    <link href="https://fonts.googleapis.com/css?family=Merriweather:400,400i,700" rel="stylesheet">    
+    <link href="https://fonts.googleapis.com/css?family=Merriweather:400,400i,700" rel="stylesheet">
     <title>Jiayi's Chronicles</title>
   </head>
 
-  <body class="serif">
+  <body class="serif bg-black-025">
     {% include "layouts/partials/_nav.html" %}
 
     <blockquote class="i measure-narrow center mt5">
@@ -16,7 +16,7 @@
 
     <ul class="list pl0">
       {% for article in pagination.files %}
-      <li class="pa3 pa4-ns bb b--black-10">
+      <li class="pa3 pa4-ns">
         <article class="mw7 center">
             <header>
               <h2 class="f3 mb1">
@@ -39,7 +39,6 @@
       {% endif %}
     </nav>
 
-    {% include "layouts/partials/_footer.html" %}    
+    {% include "layouts/partials/_footer.html" %}
   </body>
 </html>
-            
