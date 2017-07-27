@@ -1,5 +1,8 @@
 {
   "articles/angular-aot.html": {
     "issueId": 2
+  },
+  "articles/github-comments.html": {
+    "issueId": 29
   }
 }

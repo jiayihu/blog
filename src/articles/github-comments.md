@@ -18,11 +18,11 @@ You can read more about the former in [Replacing Disqus with GitHub Comments](ht
 
 Without Disqus, the page loading time has improved by 35% and the size has been reduced of about 400KB. You can compare the following two network profiles, done with Chrome devtools and using a simulated regular 3G connection. 
 
-![Timeline with Disqus](/images/gh-comments/timeline-with-disqus.png)
+![Timeline with Disqus](/images/github-comments/timeline-with-disqus.png)
 
-![Timeline without Disqus](/images/gh-comments/timeline-without-disqus.png)
+![Timeline without Disqus](/images/github-comments/timeline-without-disqus.png)
 
-Beyong improved performance you also gain the following points:
+Beyond improved performance you also gain the following points:
 
 - No reader tracking
 - Comments can be written in [Markdown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
@@ -34,13 +34,13 @@ Beyong improved performance you also gain the following points:
 
 ### Cons
 
-Of course this system is not suitable for anyone and have some important cons:
+Of course. this system is not suitable for anyone and have some important cons:
 
 - More difficult setup
 - Readers must have a GitHub account in order to comment
-- Readers must leave the blog to comment in the GitHub issue
+- Readers must leave the blog to comment on the GitHub issue
 
-For the last point you could register an [OAuth application](https://developer.github.com/apps/building-integrations/setting-up-and-registering-oauth-apps/) to post comments from your blog, but you'd still need to ask the authorization to your reader.
+For the last point, you could register an [OAuth application](https://developer.github.com/apps/building-integrations/setting-up-and-registering-oauth-apps/) to post comments from your blog, but you'd still need to ask the authorization to your reader.
 
 ## Setting up
 
@@ -48,14 +48,14 @@ The concept behind showing the comments in your blog is pretty simple:
 
 1. Create a GitHub issue when you publish a new article, such as [https://github.com/jiayihu/blog/issues/29](https://github.com/jiayihu/blog/issues/29)
 
-2. Users will comment in the issue related to an article
+2. Users will comment on the issue related to an article
 
 3. You get the comments JSON using [GitHub API](https://developer.github.com/v3/)
 
 4. You render them using plain Javascript, HTML and CSS
 
 About the third point, you should create a GitHub [Access Token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/) to avoid hitting the rate limits. The only permission needed is `public_repo`, do not add more scopes because they're not needed.  
-Without authentication you won't be allowed to make more than 60 requests per hour, whereas with a token the limit is increased up to 5000 requests per hour.
+Without authentication, you won't be allowed to make more than 60 requests per hour, whereas with a token the limit is increased up to 5000 requests per hour.
 
 Then you only need to retrieve the JSON from GitHub and render the comments into the DOM.
 
@@ -186,15 +186,15 @@ You can see the result at the bottom of this article. Nice, isn't it?
 
 An improvement of the previous setup is automating the creation of an issue every time you publish a new article. Basically, you won't need to remember to do any manual work once you have set up the system.
 
-The script is available on npm as [gh-issues-for-comments](https://github.com/jiayihu/gh-issues-for-comments) and it will take care of opening the GitHub issues with a proper title, description and even labels. [The issue for this article](https://github.com/jiayihu/blog/issues/29) is an example of how mine are auto-generated.
+The script is available on npm as [gh-issues-for-comments](https://github.com/jiayihu/gh-issues-for-comments) and it will take care of opening the GitHub issues with a proper title, description and even labels. [The issue for this article](https://github.com/jiayihu/blog/issues/29) is an example of how mine is auto-generated.
 The script will also create and update a file called `gh-comments.json` to keep track of the issues.
 
 Feel free to read the source code, Pull Requests are welcome!
 
 <br />
 
-Lastly if you are using Metalsmith like me, I've also published a plugin called [metalsmith-gh-comments](https://github.com/jiayihu/metalsmith-gh-comments). It will run `gh-issues-for-comments` and add an `issueId` property to each article for layout usage.  
-I also suggest configuring the plugin only in production phase, when you're about to publish the article and less likely to change it:
+Lastly, if you are using Metalsmith like me, I've also published a plugin called [metalsmith-gh-comments](https://github.com/jiayihu/metalsmith-gh-comments). It will run `gh-issues-for-comments` and add an `issueId` property to each article for layout usage.  
+I also suggest configuring the plugin only in the production phase, when you're about to publish the article and less likely to change it:
 
 ```javascript
 const githubComments = require('metalsmith-gh-comments');
@@ -214,8 +214,8 @@ const IS_DEV = process.env.NODE_ENV !== 'production';
 
 ## Conclusion
 
-So far I'm satistied of this setup. I don't expect my blog to receive a huge number of comments and I write about tech topics, threfore the readers are likely to have a GitHub account.
+So far I'm satisfied with this setup. I don't expect my blog to receive a huge number of comments and I write about tech topics, therefore the readers are likely to have a GitHub account.
 
-A point of improvement would be allowing to post comments on the blog without leaving the page, but also without an OAuth application. The latter would require an authorization, such as when you sign up using Facebook or Twitter.
+A point of improvement would be the possibility of posting comments on the blog without leaving the page, but also without an OAuth application. The latter would require an authorization, such as when you sign up using Facebook or Twitter.
 
 Let me know what are your thoughts.
