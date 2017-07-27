@@ -11,7 +11,7 @@ coverColor: \#737373
 Recently I've been dealing very often with Angular 2+ AOT compilation in Webpack and I've always found it an exhausting activity.
 The information is completely missing or extremely incomplete in the [official Angular documentation](https://angular.io/guide/aot-compiler), with no mentions about how to run it with a custom Webpack configuration.
 
-Despite we're almost at [Angular 5](https://github.com/angular/angular/blob/master/CHANGELOG.md#500-beta0-2017-07-19), the AOT compilation is still very experimental in my opinion and it's a journey of try & error, digging into Angular source code and Github issues until you succeed or give up.  
+Despite we're almost at [Angular 5](https://github.com/angular/angular/blob/master/CHANGELOG.md#500-beta0-2017-07-19), the AOT compilation is still very experimental in my opinion and it's a journey of try & error, digging into Angular source code and GitHub issues until you succeed or give up.  
 Nevertheless, [its benefits](https://angular.io/guide/aot-compiler#why-do-aot-compilation) are often a requirement for your application.
 
 In this article, I'll share my experience about how to make the AOT compilation work with a custom Webpack configuration.
