@@ -48,6 +48,8 @@
     "metalsmith-assets": "^0.1.0",
     "metalsmith-collections": "^0.9.0",
     "metalsmith-drafts": "0.0.1",
+    "metalsmith-filepath": "^1.0.1",
+    "metalsmith-gh-comments": "^0.1.0",
     "metalsmith-ignore": "^0.1.2",
     "nunjucks": "^3.0.1",
     "postcss": "^6.0.8",
@@ -58,5 +60,13 @@
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.9.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jiayihu/blog.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jiayihu/blog/issues"
+  },
+  "homepage": "https://github.com/jiayihu/blog#readme"
 }

@@ -1,9 +1,11 @@
 const metalsmith = require('metalsmith');
+require('dotenv').config();
 
 const collections = require('metalsmith-collections');
 const drafts = require('metalsmith-drafts');
 const filename = require('./scripts/filename');
-const githubComments = require('./scripts/gh-comments');
+const filepath = require('metalsmith-filepath');
+const githubComments = require('metalsmith-gh-comments');
 const ignore = require('metalsmith-ignore');
 const layouts = require('metalsmith-layouts');
 const md = require('metalsmith-markdown');
@@ -12,8 +14,8 @@ const permalinks = require('metalsmith-permalinks');
 const snippet = require('metalsmith-snippet');
 
 const nunjucks = require('nunjucks');
-
 const marked = require('marked');
+const url = require('url');
 
 const renderer = new marked.Renderer();
 const defaultLinkRenderer = renderer.link;
@@ -85,7 +87,31 @@ function build(success) {
       })
     )
     .use(filename())
-    .use(IS_DEV ? () => {} : githubComments())
+    .use(filepath({ absolute: false }))
+    .use(
+      IS_DEV
+        ? () => {}
+        : githubComments({
+            filter: article => !article.static,
+
+            // gh-issues-for-comments options
+            idProperty: 'link',
+            getIssue(article) {
+              const formattedTitle = article.title.replace(/\s/g, '-').toLowerCase();
+              const articleUrl = url.resolve('http://blog.jiayihu.net', formattedTitle);
+
+              return {
+                title: `Comments: ${article.title}`,
+                body: `This issue is reserved for comments to [${article.title}](${articleUrl}). Leave a comment below and it will be shown in the blog page.`, // eslint-disable-line
+                labels: ['comments'],
+              };
+            },
+            username: 'jiayihu',
+            repo: 'blog',
+            token: process.env.GITHUB,
+            jsonPath: 'scripts/gh-comments.json',
+          })
+    )
     .use(
       permalinks({
         pattern: ':title',
