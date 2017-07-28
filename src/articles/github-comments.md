@@ -104,7 +104,7 @@ function renderContent(content) {
   container.innerHTML = content;
 }
 
-export default function commentHTMLs() {
+export default function renderComments() {
   if (!window.ISSUE_ID) return renderContent(errorHTML());
 
   // ISSUE_ID is globally injected by the article template
