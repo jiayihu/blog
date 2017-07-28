@@ -143,6 +143,19 @@ export default function renderComments() {
 
 The template is also pretty straightforward. The value `issueId` can be added in the article Markdown, for instance using the [YAML front matter](https://jekyllrb.com/docs/frontmatter/) if you have Jekyll. I use the same approach in [Metalsmith](http://www.metalsmith.io), the static site generator of my blog.
 
+```markdown
+---
+title: Your article title
+issueId: 1
+date: July 27th, 2017
+layout: article.html
+---
+
+Your article content.
+```
+
+The comments box template is the following instead:
+
 ```html
 <div class="comments measure-wide center">
   <script>var ISSUE_ID = '{{ issueId }}';</script>
