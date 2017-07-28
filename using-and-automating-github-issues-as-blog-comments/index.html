@@ -103,7 +103,7 @@
 <li>Complete control of comments appearance</li>
 </ul>
 <h3 id="cons">Cons</h3>
-<p>Of course. this system is not suitable for anyone and have some important cons:</p>
+<p>Of course, this system is not suitable for anyone and have some important cons:</p>
 <ul>
 <li>More difficult setup</li>
 <li>Readers must have a GitHub account in order to comment</li>
@@ -125,7 +125,7 @@
 <p>About the third point, you should create a GitHub <a class="red dim" href="https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/">Access Token</a> to avoid hitting the rate limits. The only permission needed is <code class="purple">public_repo</code>, do not add more scopes because they&#39;re not needed.<br>Without authentication, you won&#39;t be allowed to make more than 60 requests per hour, whereas with a token the limit is increased up to 5000 requests per hour.</p>
 <p>Then you only need to retrieve the JSON from GitHub and render the comments into the DOM.</p>
 <h3 id="the-script">The script</h3>
-<p>I based my script on the post <a class="red dim" href="http://hydroecology.net/using-github-to-host-blog-comments/">Using GitHub to host blog comments: a working example</a>, but it comes without dependencies and written modern ES6 Javascript. Remember to transpile it to ES5 using <a class="red dim" href="https://babeljs.io">Babel</a>.</p>
+<p>I based my script on the post <a class="red dim" href="http://hydroecology.net/using-github-to-host-blog-comments/">Using GitHub to host blog comments: a working example</a>, but it comes without dependencies and written in modern ES6 Javascript. Remember to transpile it to ES5 using <a class="red dim" href="https://babeljs.io">Babel</a>.</p>
 <p>The complete script can be found on my blog repo at <a class="red dim" href="https://github.com/jiayihu/blog/blob/master/src/js/modules/comments.js">/src/js/modules/comments.js</a>. Note that the strange CSS classes you&#39;ll see 
 are from <a class="red dim" href="http://tachyons.io">Tachyons</a>, used to build the UI with Atomic CSS.</p>
 <pre><code class="lang-javascript">function commentHTML(comment) {
