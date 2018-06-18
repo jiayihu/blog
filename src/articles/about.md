@@ -5,9 +5,9 @@ layout: about.html
 static: true
 ---
 
-Hi, I'm **Jiayi Hu** and I write **chronicles** posts about my journey as a young 21 y/o web developer.
+Hi, I'm **Jiayi Hu** and I write **chronicles** posts about my journey as a young 222 y/o web developer.
 
-I'm currently working remotely as Front-end Developer, Trainer and Consultant leveraging ReactJS & Redux by Facebook and Angular by Google. 
+I'm currently working remotely as Front-end Developer, Trainer and Consultant leveraging ReactJS, by Facebook, Angular by Google and Redux by a smart guy. 
 
 I'm also an active member of the Italian communities *“React Italia”, "Angular Italia" and “Frontenders Verona”* and I enjoy speaking at public tech events.
 
