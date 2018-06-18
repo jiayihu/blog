@@ -24,8 +24,8 @@ The previous marble diagram of `.map` could be written as:
 
 ```
 -1 ---2 ---3 ---|
-  .map(x => x * 10)
--10---20---30---|
+  .map(x => x * 2)
+-2 ---4 ---6 ---|
 ```
 
 Every alphanumeric string is considered as an emitted value and hyphens `'-'` are units of time. To be precise: 
@@ -90,7 +90,7 @@ By default, Observables use `AsyncScheduler` which is based on `setInterval` for
 - "What a time frame '-' means actually?"
 - "1 **virtual** millisecond".
 
-Let's see a more complete version of the previous test and not how everything is imported from `rxjs` without further libraries:
+Let's see a more complete version of the previous test and note how everything is imported from `rxjs` without further libraries:
 
 ```typescript
 import { Observable, of, timer, throwError, Observer } from 'rxjs';
@@ -148,12 +148,18 @@ The following example tests about error recovery in `rx-polling` and `helpers.co
 test('It should retry on error', () => {
   scheduler.run(helpers => {
     const source$ = helpers.cold('-1-2-#');
-    const expected = '-1-2- ------ -1-2- ----- -(1|)';
+    const expected = '-1-2- ------ -1-2- ------ -(1|)';
     const polling$ = polling(source$, { interval: 6 }).pipe(take(5));
 
     helpers.expectObservable(polling$).toBe(expected);
   });
 });
+```
+
+The expected result, in the previous snippet, waits for 6 frames before retrying. The same marble can be written more concisely using the new time progression syntax, by expressing it as `6ms` surrounded by a space to avoid ambiguity with a series of emitted values:
+
+```typescript
+const expected = '-1-2- 6ms -1-2- 6ms -(1|)';
 ```
 
 And that's it! You should be able to finally test Observables in your application! This is just an introduction but we've covered a lot of concepts, so have a rest before reading the rest of the article and absolutely give it a try!
