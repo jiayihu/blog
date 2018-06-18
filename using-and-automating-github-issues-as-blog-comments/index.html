@@ -75,8 +75,8 @@
 
         <div class="center measure-wide">
           <h1 class="f1 lh-title">Using and automating GitHub issues as blog comments</h1>
-          <div class="article-content"><p>When dealing with blog comments, I&#39;ve been using <a class="red dim" href="https://disqus.com/">Disqus</a> for the last years but I was interested in giving GitHub issues a shot. Besides my blog is already completely freely hosted on <a class="red dim" href="https://pages.github.com">GitHub Pages</a>, therefore moving the comments to the platform would have been a nice addition.</p>
-<p>I can&#39;t say Disqus is a bad product. It just works™ and it&#39;s easy to setup for anyone, even without any technical skill. But it doesn&#39;t come without costs, which are <strong>slow loading times</strong> and <strong>user tracking</strong>.<br>You can read more about the former in <a class="red dim" href="http://donw.io/post/github-comments/">Replacing Disqus with GitHub Comments</a>, which is also the article that inspired me into trying GitHub comments, whereas <a class="red dim" href="https://replyable.com/2017/03/disqus-is-your-data-worth-trading-for-convenience/">The hidden price of using Disqus</a> provides more details about the latter.</p>
+          <div class="article-content"><p>When dealing with blog comments, I&#39;ve been using <a class="dark-red dim" href="https://disqus.com/">Disqus</a> for the last years but I was interested in giving GitHub issues a shot. Besides my blog is already completely freely hosted on <a class="dark-red dim" href="https://pages.github.com">GitHub Pages</a>, therefore moving the comments to the platform would have been a nice addition.</p>
+<p>I can&#39;t say Disqus is a bad product. It just works™ and it&#39;s easy to setup for anyone, even without any technical skill. But it doesn&#39;t come without costs, which are <strong>slow loading times</strong> and <strong>user tracking</strong>.<br>You can read more about the former in <a class="dark-red dim" href="http://donw.io/post/github-comments/">Replacing Disqus with GitHub Comments</a>, which is also the article that inspired me into trying GitHub comments, whereas <a class="dark-red dim" href="https://replyable.com/2017/03/disqus-is-your-data-worth-trading-for-convenience/">The hidden price of using Disqus</a> provides more details about the latter.</p>
 <h2 id="pros-cons">Pros &amp; Cons</h2>
 <h3 id="pros">Pros</h3>
 <p>Without Disqus, the page loading time has improved by 35% and the size has been reduced of about 400KB. You can compare the following two network profiles, done with Chrome devtools and using a simulated regular 3G connection. </p>
@@ -97,7 +97,7 @@
 <p>Beyond improved performance you also gain the following points:</p>
 <ul>
 <li>No reader tracking</li>
-<li>Comments can be written in <a class="red dim" href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">Markdown</a></li>
+<li>Comments can be written in <a class="dark-red dim" href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">Markdown</a></li>
 <li>Free protection from spamming, since a GitHub account is required</li>
 <li>(Hopefully) comments of higher quality from real GitHub profiles</li>
 <li>Reply notifications for blog authors and readers via GitHub, using the same platform we love</li>
@@ -111,25 +111,25 @@
 <li>Readers must have a GitHub account in order to comment</li>
 <li>Readers must leave the blog to comment on the GitHub issue</li>
 </ul>
-<p>For the last point, you could register an <a class="red dim" href="https://developer.github.com/apps/building-integrations/setting-up-and-registering-oauth-apps/">OAuth application</a> to post comments from your blog, but you&#39;d still need to ask the authorization to your reader.</p>
+<p>For the last point, you could register an <a class="dark-red dim" href="https://developer.github.com/apps/building-integrations/setting-up-and-registering-oauth-apps/">OAuth application</a> to post comments from your blog, but you&#39;d still need to ask the authorization to your reader.</p>
 <h2 id="setting-up">Setting up</h2>
 <p>The concept behind showing the comments in your blog is pretty simple: </p>
 <ol>
-<li><p>Create a GitHub issue when you publish a new article, such as <a class="red dim" href="https://github.com/jiayihu/blog/issues/29">https://github.com/jiayihu/blog/issues/29</a></p>
+<li><p>Create a GitHub issue when you publish a new article, such as <a class="dark-red dim" href="https://github.com/jiayihu/blog/issues/29">https://github.com/jiayihu/blog/issues/29</a></p>
 </li>
 <li><p>Users will comment on the issue related to an article</p>
 </li>
-<li><p>You get the comments JSON using <a class="red dim" href="https://developer.github.com/v3/">GitHub API</a></p>
+<li><p>You get the comments JSON using <a class="dark-red dim" href="https://developer.github.com/v3/">GitHub API</a></p>
 </li>
 <li><p>You render them using plain Javascript, HTML and CSS</p>
 </li>
 </ol>
-<p>About the third point, you should create a GitHub <a class="red dim" href="https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/">Access Token</a> to avoid hitting the rate limits. The only permission needed is <code class="purple">public_repo</code>, do not add more scopes because they&#39;re not needed.<br>Without authentication, you won&#39;t be allowed to make more than 60 requests per hour, whereas with a token the limit is increased up to 5000 requests per hour.</p>
+<p>About the third point, you should create a GitHub <a class="dark-red dim" href="https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/">Access Token</a> to avoid hitting the rate limits. The only permission needed is <code class="purple">public_repo</code>, do not add more scopes because they&#39;re not needed.<br>Without authentication, you won&#39;t be allowed to make more than 60 requests per hour, whereas with a token the limit is increased up to 5000 requests per hour.</p>
 <p>Then you only need to retrieve the JSON from GitHub and render the comments into the DOM.</p>
 <h3 id="the-script">The script</h3>
-<p>I based my script on the post <a class="red dim" href="http://hydroecology.net/using-github-to-host-blog-comments/">Using GitHub to host blog comments: a working example</a>, but it comes without dependencies and written in modern ES6 Javascript. Remember to transpile it to ES5 using <a class="red dim" href="https://babeljs.io">Babel</a>.</p>
-<p>The complete script can be found on my blog repo at <a class="red dim" href="https://github.com/jiayihu/blog/blob/master/src/js/modules/comments.js">/src/js/modules/comments.js</a>. Note that the strange CSS classes you&#39;ll see 
-are from <a class="red dim" href="http://tachyons.io">Tachyons</a>, used to build the UI with Atomic CSS.</p>
+<p>I based my script on the post <a class="dark-red dim" href="http://hydroecology.net/using-github-to-host-blog-comments/">Using GitHub to host blog comments: a working example</a>, but it comes without dependencies and written in modern ES6 Javascript. Remember to transpile it to ES5 using <a class="dark-red dim" href="https://babeljs.io">Babel</a>.</p>
+<p>The complete script can be found on my blog repo at <a class="dark-red dim" href="https://github.com/jiayihu/blog/blob/master/src/js/modules/comments.js">/src/js/modules/comments.js</a>. Note that the strange CSS classes you&#39;ll see 
+are from <a class="dark-red dim" href="http://tachyons.io">Tachyons</a>, used to build the UI with Atomic CSS.</p>
 <pre><code class="lang-javascript">function commentHTML(comment) {
   return `
     &lt;li class=&quot;comment flex mt3&quot;&gt;
@@ -202,7 +202,7 @@ export default function renderComments() {
 }
 </code></pre>
 <h3 id="the-template">The template</h3>
-<p>The template is also pretty straightforward. The value <code class="purple">issueId</code> can be added in the article Markdown, for instance using the <a class="red dim" href="https://jekyllrb.com/docs/frontmatter/">YAML front matter</a> if you have Jekyll. I use the same approach in <a class="red dim" href="http://www.metalsmith.io">Metalsmith</a>, the static site generator of my blog.</p>
+<p>The template is also pretty straightforward. The value <code class="purple">issueId</code> can be added in the article Markdown, for instance using the <a class="dark-red dim" href="https://jekyllrb.com/docs/frontmatter/">YAML front matter</a> if you have Jekyll. I use the same approach in <a class="dark-red dim" href="http://www.metalsmith.io">Metalsmith</a>, the static site generator of my blog.</p>
 <pre><code class="lang-markdown">---
 title: Your article title
 issueId: 1
@@ -251,11 +251,11 @@ Your article content.
 You can see the result at the bottom of this article. Nice, isn&#39;t it?</p>
 <h2 id="automate-issue-creation">Automate issue creation</h2>
 <p>An improvement of the previous setup is automating the creation of an issue every time you publish a new article. Basically, you won&#39;t need to remember to do any manual work once you have set up the system.</p>
-<p>The script is available on npm as <a class="red dim" href="https://github.com/jiayihu/gh-issues-for-comments">gh-issues-for-comments</a> and it will take care of opening the GitHub issues with a proper title, description and even labels. <a class="red dim" href="https://github.com/jiayihu/blog/issues/29">The issue for this article</a> is an example of how mine is auto-generated.
+<p>The script is available on npm as <a class="dark-red dim" href="https://github.com/jiayihu/gh-issues-for-comments">gh-issues-for-comments</a> and it will take care of opening the GitHub issues with a proper title, description and even labels. <a class="dark-red dim" href="https://github.com/jiayihu/blog/issues/29">The issue for this article</a> is an example of how mine is auto-generated.
 The script will also create and update a file called <code class="purple">gh-comments.json</code> to keep track of the issues.</p>
 <p>Feel free to read the source code, Pull Requests are welcome!</p>
 <p><br></p>
-<p>Lastly, if you are using Metalsmith like me, I&#39;ve also published a plugin called <a class="red dim" href="https://github.com/jiayihu/metalsmith-gh-comments">metalsmith-gh-comments</a>. It will run <code class="purple">gh-issues-for-comments</code> and add an <code class="purple">issueId</code> property to each article for layout usage.<br>I also suggest configuring the plugin only in the production phase, when you&#39;re about to publish the article and less likely to change it:</p>
+<p>Lastly, if you are using Metalsmith like me, I&#39;ve also published a plugin called <a class="dark-red dim" href="https://github.com/jiayihu/metalsmith-gh-comments">metalsmith-gh-comments</a>. It will run <code class="purple">gh-issues-for-comments</code> and add an <code class="purple">issueId</code> property to each article for layout usage.<br>I also suggest configuring the plugin only in the production phase, when you&#39;re about to publish the article and less likely to change it:</p>
 <pre><code class="lang-javascript">const githubComments = require(&#39;metalsmith-gh-comments&#39;);
 
 const IS_DEV = process.env.NODE_ENV !== &#39;production&#39;;
