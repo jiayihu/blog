@@ -28,7 +28,7 @@ renderer.codespan = text => `<code class="purple">${text}</code>`;
 renderer.image = function(href, title, text) {
   return `
     <figure>
-      <a href="${href}" target="_blank">
+      <a href="${href}" target="_blank" rel="noopener noreferrer">
         <img class="lozad" data-src="${href}" alt="${text}" />
       <figcaption class="f6 i tr mt1" >${text}</figcaption>
     </figure>
