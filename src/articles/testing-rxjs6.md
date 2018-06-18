@@ -12,7 +12,7 @@ In the second part, we'll cover instead how to improve the testing developer-exp
 
 ## Marble syntax
 
-Marble diagrams are visual representations of an Observable flow to help you understand the flow of values and how an operator works. You see them everywhere in the RxJS documentation and they are very useful to convey the functioning of Observables.
+**Marble diagrams** are visual representations of an Observable flow to help you understand the flow of values and how an operator works. You see them everywhere in the RxJS documentation and they are very useful to convey the functioning of Observables.
 
 ![Marble Diagram of .map operator](/images/testing-rxjs6/map.png)
 
@@ -81,7 +81,7 @@ But where do `helpers` come from? And what is the wrapping `scheduler.run`? Okay
 
 ## TestScheduler
 
-In computing, a scheduler is a software which schedules/organizes a series of activities in a range of time. They are extremely important in different areas of Computer Science, like the process scheduler of the OS.
+In computing, a **scheduler** is a software which schedules/organizes a series of activities in a range of time. They are extremely important in different areas of Computer Science, like the process scheduler of the OS.
 
 In RxJS, a `Scheduler` (the class) is used internally by the Observables to know when to start the execution and emit values. Especially within tests, they can be used to change the "meaning of time", by making the Observables execute synchronously instead of asynchronously, without actually waiting time. We could, for example, decide that 500ms in real-world is just 50m or even 5 ticks of Node event loop.
 
@@ -156,7 +156,7 @@ test('It should retry on error', () => {
 });
 ```
 
-The expected result, in the previous snippet, waits for 6 frames before retrying. The same marble can be written more concisely using the new time progression syntax, by expressing it as `6ms` surrounded by a space to avoid ambiguity with a series of emitted values:
+The expected result, in the previous snippet, waits for 6 frames before retrying. The same marble can be written more concisely using the new **time progression syntax**, by expressing it as `6ms` surrounded by a space to avoid ambiguity with a series of emitted values:
 
 ```typescript
 const expected = '-1-2- 6ms -1-2- 6ms -(1|)';
@@ -201,7 +201,7 @@ When you define your tests using marble syntax, the latter is trasformed into an
 
 ## Marble matcher
 
-A "matcher" is a test runner function used to test values in different ways. Jasmine/Jest have built-in matchers for primitive values, objects, arrays etc. with different visual outputs when the test fails.
+A **"matcher"** is a test runner function used to test values in different ways. Jasmine/Jest have built-in matchers for primitive values, objects, arrays etc. with different visual outputs when the test fails.
 
 We can then define our custom matcher for `TestMessage[]`, which transforms them back into marbles. Fortunately, if you use Jasmine, you're already covered with [jasmine-marbles](https://github.com/synapse-wireless-labs/jasmine-marbles), whereas for other test runners you can use [rxjs-marbles](https://github.com/cartant/rxjs-marbles).
 
