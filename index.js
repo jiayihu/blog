@@ -25,24 +25,24 @@ renderer.link = function(...args) {
 
 renderer.codespan = text => `<code class="purple">${text}</code>`;
 
-const defaultImgRenderer = renderer.image;
 renderer.image = function(href, title, text) {
   return `
     <figure>
-      <a href="${href}" target="_blank">${defaultImgRenderer.call(renderer, href, title, text)}</a>
+      <a href="${href}" target="_blank">
+        <img class="lozad" data-src="${href}" alt="${text}" />
       <figcaption class="f6 i tr mt1" >${text}</figcaption>
     </figure>
   `;
 };
 
 marked.setOptions({
-  renderer,
+  renderer
 });
 
 // Disable caching
 nunjucks.configure({
   autoescape: false,
-  noCache: true,
+  noCache: true
 });
 
 const IS_DEV = process.env.NODE_ENV !== 'production';
@@ -51,7 +51,7 @@ function build(success) {
   metalsmith(__dirname)
     .source('src')
     .metadata({
-      siteurl: 'http://blog.jiayihu.net',
+      siteurl: 'http://blog.jiayihu.net'
     })
     .clean(false)
     .use(ignore(['styles/**/*.css', 'static/**/*', 'static/**/.*', 'js/**/*.js']))
@@ -61,8 +61,8 @@ function build(success) {
         articles: {
           pattern: 'articles/**/*.md',
           sortBy: 'date',
-          reverse: true,
-        },
+          reverse: true
+        }
       })
     )
     .use(
@@ -72,18 +72,18 @@ function build(success) {
           first: 'index.html',
           filter: page => !page.static,
           path: 'page/:num/index.html',
-          layout: 'index.html',
-        },
+          layout: 'index.html'
+        }
       })
     )
     .use(
       md({
-        gfm: true,
+        gfm: true
       })
     )
     .use(
       snippet({
-        maxLength: 300,
+        maxLength: 300
       })
     )
     .use(filename())
@@ -102,25 +102,27 @@ function build(success) {
 
               return {
                 title: `Comments: ${article.title}`,
-                body: `This issue is reserved for comments to [${article.title}](${articleUrl}). Leave a comment below and it will be shown in the blog page.`, // eslint-disable-line
-                labels: ['comments'],
+                body: `This issue is reserved for comments to [${
+                  article.title
+                }](${articleUrl}). Leave a comment below and it will be shown in the blog page.`, // eslint-disable-line
+                labels: ['comments']
               };
             },
             username: 'jiayihu',
             repo: 'blog',
             token: process.env.GITHUB,
-            jsonPath: 'scripts/gh-comments.json',
+            jsonPath: 'scripts/gh-comments.json'
           })
     )
     .use(
       permalinks({
-        pattern: ':title',
+        pattern: ':title'
       })
     )
     .use(
       layouts({
         engine: 'nunjucks',
-        pretty: true,
+        pretty: true
       })
     )
     .destination('public')
