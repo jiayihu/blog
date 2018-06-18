@@ -34,7 +34,7 @@ Beyond improved performance you also gain the following points:
 
 ### Cons
 
-Of course. this system is not suitable for anyone and have some important cons:
+Of course, this system is not suitable for anyone and have some important cons:
 
 - More difficult setup
 - Readers must have a GitHub account in order to comment
@@ -61,7 +61,7 @@ Then you only need to retrieve the JSON from GitHub and render the comments into
 
 ### The script
 
-I based my script on the post [Using GitHub to host blog comments: a working example](http://hydroecology.net/using-github-to-host-blog-comments/), but it comes without dependencies and written modern ES6 Javascript. Remember to transpile it to ES5 using [Babel](https://babeljs.io).
+I based my script on the post [Using GitHub to host blog comments: a working example](http://hydroecology.net/using-github-to-host-blog-comments/), but it comes without dependencies and written in modern ES6 Javascript. Remember to transpile it to ES5 using [Babel](https://babeljs.io).
 
 The complete script can be found on my blog repo at [/src/js/modules/comments.js](https://github.com/jiayihu/blog/blob/master/src/js/modules/comments.js). Note that the strange CSS classes you'll see 
 are from [Tachyons](http://tachyons.io), used to build the UI with Atomic CSS.
