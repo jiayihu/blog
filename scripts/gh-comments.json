@@ -4,5 +4,8 @@
   },
   "articles/github-comments.html": {
     "issueId": 29
+  },
+  "articles/testing-rxjs6.html": {
+    "issueId": 30
   }
 }
