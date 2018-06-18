@@ -77,7 +77,7 @@
           <h1 class="f1 lh-title">Testing Observables in RxJS6</h1>
           <div class="article-content"><p>With the release of RxJS6 there has been a great improvement of Observables testing and this article will guide you in the path of using RxJS marble syntax with the latest testing APIs.<br>In the second part, we&#39;ll cover instead how to improve the testing developer-experience, especially if you&#39;re not using Karma/Jasmine and you write your tests with something else like Jest, in my case, or Mocha/Tape/AVA.</p>
 <h2 id="marble-syntax">Marble syntax</h2>
-<p>Marble diagrams are visual representations of an Observable flow to help you understand the flow of values and how an operator works. You see them everywhere in the RxJS documentation and they are very useful to convey the functioning of Observables.</p>
+<p><strong>Marble diagrams</strong> are visual representations of an Observable flow to help you understand the flow of values and how an operator works. You see them everywhere in the RxJS documentation and they are very useful to convey the functioning of Observables.</p>
 <p>
     <figure>
       <a href="/images/testing-rxjs6/map.png" target="_blank"><img src="/images/testing-rxjs6/map.png" alt="Marble Diagram of .map operator"></a>
@@ -126,7 +126,7 @@
 <p>serves this purpose. <code class="purple">expectObservable</code> takes an Observable as input and checks if the subscription matches the expected stream described by the marble syntax. We pass also a second parameter to <code class="purple">.toBe</code> because alphanumeric characters are interpreted as an emission of strings by default. By giving <code class="purple">{ 1: 1 }</code> we are informing rxjs that the character &#39;1&#39; corresponds to the literal number 1.</p>
 <p>But where do <code class="purple">helpers</code> come from? And what is the wrapping <code class="purple">scheduler.run</code>? Okay, let&#39;s talk about schedulers 😱</p>
 <h2 id="testscheduler">TestScheduler</h2>
-<p>In computing, a scheduler is a software which schedules/organizes a series of activities in a range of time. They are extremely important in different areas of Computer Science, like the process scheduler of the OS.</p>
+<p>In computing, a <strong>scheduler</strong> is a software which schedules/organizes a series of activities in a range of time. They are extremely important in different areas of Computer Science, like the process scheduler of the OS.</p>
 <p>In RxJS, a <code class="purple">Scheduler</code> (the class) is used internally by the Observables to know when to start the execution and emit values. Especially within tests, they can be used to change the &quot;meaning of time&quot;, by making the Observables execute synchronously instead of asynchronously, without actually waiting time. We could, for example, decide that 500ms in real-world is just 50m or even 5 ticks of Node event loop.</p>
 <p>By default, Observables use <code class="purple">AsyncScheduler</code> which is based on <code class="purple">setInterval</code> for timing, but we can replace it with <code class="purple">TestScheduler</code> in our tests. Put simply, the <code class="purple">TestScheduler</code> answers the question:</p>
 <ul>
@@ -188,7 +188,7 @@ describe(&#39;Basic behaviour&#39;, function() {
   });
 });
 </code></pre>
-<p>The expected result, in the previous snippet, waits for 6 frames before retrying. The same marble can be written more concisely using the new time progression syntax, by expressing it as <code class="purple">6ms</code> surrounded by a space to avoid ambiguity with a series of emitted values:</p>
+<p>The expected result, in the previous snippet, waits for 6 frames before retrying. The same marble can be written more concisely using the new <strong>time progression syntax</strong>, by expressing it as <code class="purple">6ms</code> surrounded by a space to avoid ambiguity with a series of emitted values:</p>
 <pre><code class="lang-typescript">const expected = &#39;-1-2- 6ms -1-2- 6ms -(1|)&#39;;
 </code></pre>
 <p>And that&#39;s it! You should be able to finally test Observables in your application! This is just an introduction but we&#39;ve covered a lot of concepts, so have a rest before reading the rest of the article and absolutely give it a try!</p>
@@ -216,7 +216,7 @@ describe(&#39;Basic behaviour&#39;, function() {
 </code></pre>
 <p>When you define your tests using marble syntax, the latter is trasformed into an array of <code class="purple">TestMessage</code> followed by a comparison between the received Observable <code class="purple">TestMessage[]</code> and the expected one. Unfortunately <code class="purple">TestMessage[]</code> is not converted back to marbles, so usually, the test runner diff can be daunting to read.</p>
 <h2 id="marble-matcher">Marble matcher</h2>
-<p>A &quot;matcher&quot; is a test runner function used to test values in different ways. Jasmine/Jest have built-in matchers for primitive values, objects, arrays etc. with different visual outputs when the test fails.</p>
+<p>A <strong>&quot;matcher&quot;</strong> is a test runner function used to test values in different ways. Jasmine/Jest have built-in matchers for primitive values, objects, arrays etc. with different visual outputs when the test fails.</p>
 <p>We can then define our custom matcher for <code class="purple">TestMessage[]</code>, which transforms them back into marbles. Fortunately, if you use Jasmine, you&#39;re already covered with <a class="red dim" href="https://github.com/synapse-wireless-labs/jasmine-marbles">jasmine-marbles</a>, whereas for other test runners you can use <a class="red dim" href="https://github.com/cartant/rxjs-marbles">rxjs-marbles</a>.</p>
 <p>I have defined my own custom matcher a long time ago, when I first published <code class="purple">rx-polling</code> a year ago, but you can obtain a similar result using the former libraries:</p>
 <p>
