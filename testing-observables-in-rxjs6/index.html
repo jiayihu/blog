@@ -88,8 +88,8 @@
 <p>So what about marble syntax? Well, put simply, it&#39;s just an ASCII description of a marble diagram which can be used when writing about Observables.</p>
 <p>The previous marble diagram of <code class="purple">.map</code> could be written as:</p>
 <pre><code>-1 ---2 ---3 ---|
-  .map(x =&gt; x * 10)
--10---20---30---|
+  .map(x =&gt; x * 2)
+-2 ---4 ---6 ---|
 </code></pre><p>Every alphanumeric string is considered as an emitted value and hyphens <code class="purple">&#39;-&#39;</code> are units of time. To be precise: </p>
 <ul>
 <li><code class="purple">&#39; &#39;</code> whitespace: horizontal whitespace is ignored and can be used to help vertically align multiple marble diagrams like we did to align the first stream of values</li>
@@ -133,7 +133,7 @@
 <li>&quot;What a time frame &#39;-&#39; means actually?&quot;</li>
 <li>&quot;1 <strong>virtual</strong> millisecond&quot;.</li>
 </ul>
-<p>Let&#39;s see a more complete version of the previous test and not how everything is imported from <code class="purple">rxjs</code> without further libraries:</p>
+<p>Let&#39;s see a more complete version of the previous test and note how everything is imported from <code class="purple">rxjs</code> without further libraries:</p>
 <pre><code class="lang-typescript">import { Observable, of, timer, throwError, Observer } from &#39;rxjs&#39;;
 import { take, map } from &#39;rxjs/operators&#39;;
 import { TestScheduler } from &#39;rxjs/testing&#39;;
@@ -181,12 +181,15 @@ describe(&#39;Basic behaviour&#39;, function() {
 <pre><code class="lang-typescript">test(&#39;It should retry on error&#39;, () =&gt; {
   scheduler.run(helpers =&gt; {
     const source$ = helpers.cold(&#39;-1-2-#&#39;);
-    const expected = &#39;-1-2- ------ -1-2- ----- -(1|)&#39;;
+    const expected = &#39;-1-2- ------ -1-2- ------ -(1|)&#39;;
     const polling$ = polling(source$, { interval: 6 }).pipe(take(5));
 
     helpers.expectObservable(polling$).toBe(expected);
   });
 });
+</code></pre>
+<p>The expected result, in the previous snippet, waits for 6 frames before retrying. The same marble can be written more concisely using the new time progression syntax, by expressing it as <code class="purple">6ms</code> surrounded by a space to avoid ambiguity with a series of emitted values:</p>
+<pre><code class="lang-typescript">const expected = &#39;-1-2- 6ms -1-2- 6ms -(1|)&#39;;
 </code></pre>
 <p>And that&#39;s it! You should be able to finally test Observables in your application! This is just an introduction but we&#39;ve covered a lot of concepts, so have a rest before reading the rest of the article and absolutely give it a try!</p>
 <p>More information about <code class="purple">TestScheduler</code> and testing can be found in the official doc for <a class="red dim" href="https://github.com/ReactiveX/rxjs/blob/master/doc/marble-testing">Marble testing</a>.</p>
@@ -285,7 +288,7 @@ describe(&#39;Basic behaviour&#39;, function() {
       <path d="M13.632 13.635h-2.37V9.922c0-.886-.018-2.025-1.234-2.025-1.235 0-1.424.964-1.424 1.96v3.778h-2.37V6H8.51V7.04h.03c.318-.6 1.092-1.233 2.247-1.233 2.4 0 2.845 1.58 2.845 3.637v4.188zM3.558 4.955c-.762 0-1.376-.617-1.376-1.377 0-.758.614-1.375 1.376-1.375.76 0 1.376.617 1.376 1.375 0 .76-.617 1.377-1.376 1.377zm1.188 8.68H2.37V6h2.376v7.635zM14.816 0H1.18C.528 0 0 .516 0 1.153v13.694C0 15.484.528 16 1.18 16h13.635c.652 0 1.185-.516 1.185-1.153V1.153C16 .516 15.467 0 14.815 0z" fill-rule="nonzero"/>
     </svg>
   </a>
-  <small class="mt4 f6 db tc">© 2017. All Rights Reserved</small>
+  <small class="mt4 f6 db tc">© 2018. All Rights Reserved</small>
 </footer>
 
 <script src="https://ft-polyfill-service.herokuapp.com/v2/polyfill.min.js?features=default,fetch"></script>
