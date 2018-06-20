@@ -20,7 +20,7 @@ const url = require('url');
 const renderer = new marked.Renderer();
 const defaultLinkRenderer = renderer.link;
 renderer.link = function(...args) {
-  return defaultLinkRenderer.apply(renderer, args).replace('<a', '<a class="red dim"');
+  return defaultLinkRenderer.apply(renderer, args).replace('<a', '<a class="dark-red dim"');
 };
 
 renderer.codespan = text => `<code class="purple">${text}</code>`;

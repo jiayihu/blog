@@ -1,7 +1,11 @@
 @import 'tachyons/tachyons';
 
+/* uncss:ignore start */
+
 @import '_generic';
 
 @import 'partials/_flexbox';
 @import 'partials/_size';
 @import 'partials/_spacing';
+
+/* uncss:ignore end */
