@@ -116,6 +116,7 @@ gulp.task('css:watch', () => {
 
 gulp.task('browserSync', () => {
   return browserSync({
+    browser: 'google chrome',
     server: {
       baseDir: './public'
     }

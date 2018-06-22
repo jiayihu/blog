@@ -89,28 +89,30 @@ function build(success) {
     .use(filename())
     .use(filepath({ absolute: false }))
     .use(
-      githubComments({
-        filter: article => !article.static,
+      IS_DEV
+        ? () => {}
+        : githubComments({
+            filter: article => !article.static,
 
-        // gh-issues-for-comments options
-        idProperty: 'link',
-        getIssue(article) {
-          const formattedTitle = article.title.replace(/\s/g, '-').toLowerCase();
-          const articleUrl = url.resolve('http://blog.jiayihu.net', formattedTitle);
+            // gh-issues-for-comments options
+            idProperty: 'link',
+            getIssue(article) {
+              const formattedTitle = article.title.replace(/\s/g, '-').toLowerCase();
+              const articleUrl = url.resolve('http://blog.jiayihu.net', formattedTitle);
 
-          return {
-            title: `Comments: ${article.title}`,
-            body: `This issue is reserved for comments to [${
-              article.title
-            }](${articleUrl}). Leave a comment below and it will be shown in the blog page.`, // eslint-disable-line
-            labels: ['comments']
-          };
-        },
-        username: 'jiayihu',
-        repo: 'blog',
-        token: process.env.GITHUB,
-        jsonPath: 'scripts/gh-comments.json'
-      })
+              return {
+                title: `Comments: ${article.title}`,
+                body: `This issue is reserved for comments to [${
+                  article.title
+                }](${articleUrl}). Leave a comment below and it will be shown in the blog page.`, // eslint-disable-line
+                labels: ['comments']
+              };
+            },
+            username: 'jiayihu',
+            repo: 'blog',
+            token: process.env.GITHUB,
+            jsonPath: 'scripts/gh-comments.json'
+          })
     )
     .use(
       permalinks({
