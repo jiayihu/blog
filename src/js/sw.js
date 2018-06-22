@@ -1,6 +1,6 @@
 // @ts-check
 
-const CACHE_NAME = 'jiayihu-static-v2';
+const CACHE_NAME = 'jiayihu-static-v3';
 const DATA_CACHE_NAME = 'jiayihu-data-v1';
 const urlsToCache = ['/', '/css/main.css', '/css/prism.css', '/js/main.js', '/js/prism.js'];
 
