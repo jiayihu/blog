@@ -52,7 +52,11 @@ self.addEventListener('fetch', event => {
       })
     );
   } else {
-    // "Cache, falling back to the network" for static file requests
+    /**
+     * "Cache, falling back to the network" for static file requests.
+     * @NOTE: this causes Chrome Network Devtools to show "from ServiceWorker"
+     * even though the resource is actually fetched from server
+     */
     event.respondWith(
       caches.match(request).then(response => {
         return response || fetch(request);
