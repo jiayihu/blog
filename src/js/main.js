@@ -1,6 +1,6 @@
 import lozad from 'lozad';
 import addAnchors from './modules/anchors';
-import renderComments from './modules/comments';
+import requestComments from './modules/comments';
 import addReadingTime from './modules/reading-time';
 
 const isArticle = document.body.classList.contains('page--article');
@@ -13,5 +13,18 @@ if (isArticle && isBrowser) {
 
   addAnchors();
   addReadingTime();
-  renderComments();
+  requestComments();
+}
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js').then(
+      registration => {
+        console.log('[ServiceWorker] registered');
+      },
+      err => {
+        console.log('[ServiceWorker] registration failed: ', err);
+      }
+    );
+  });
 }

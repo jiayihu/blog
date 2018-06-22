@@ -1,3 +1,5 @@
+// @ts-check
+
 import timeago from 'timeago.js';
 import hex2ascii from './hex';
 
@@ -8,8 +10,9 @@ function commentHTML(comment) {
     <li class="comment flex mt3">
       <div class="comment__author mr2 tc">
         <a href="${comment.user.html_url}" class="dib h2--half w2--half">
-          <img src="${comment.user.avatar_url}" alt="${comment.user
-    .login}" class="br2 h2--half w2--half dib" />
+          <img src="${comment.user.avatar_url}" alt="${
+    comment.user.login
+  }" class="br2 h2--half w2--half dib" />
         </a>
       </div>
       <div class="fg1 br2 ba b--moon-gray f6">
@@ -23,9 +26,11 @@ function commentHTML(comment) {
               ${relativeFromNow.format(comment.created_at)}
             </a>
           </span>
-          ${comment.user.login === 'jiayihu'
-            ? '<span class="ba b--moon-gray br2 mla f7 fw7 ph2 pv1">Author</span>'
-            : ''}
+          ${
+            comment.user.login === 'jiayihu'
+              ? '<span class="ba b--moon-gray br2 mla f7 fw7 ph2 pv1">Author</span>'
+              : ''
+          }
         </div>
         <div class="comment__body pa3">${comment.body_html}</div>
       </div>
@@ -62,7 +67,16 @@ function renderContent(content) {
   container.innerHTML = content;
 }
 
-export default function renderComments() {
+function renderComments(comments) {
+  if (!comments.length) {
+    renderContent(noCommentsHTML());
+    return;
+  }
+
+  renderContent(listHTML(comments));
+}
+
+export default function requestComments() {
   if (!window.ISSUE_ID) return renderContent(errorHTML()); // ISSUE_ID is globally injected by article template
 
   // ISSUE_ID is globally injected by article template
@@ -74,24 +88,28 @@ export default function renderComments() {
     headers: {
       Accept: 'application/vnd.github.v3.html+json',
       Authorization: `token ${TOKEN}`,
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
-    mode: 'cors',
+    mode: 'cors'
   })
     .then(response => {
       if (response.ok) return response.json();
       else return Promise.reject(response.statusText);
     })
-    .then(comments => {
-      if (!comments.length) {
-        renderContent(noCommentsHTML());
-        return;
-      }
-
-      renderContent(listHTML(comments));
-    })
+    .then(renderComments)
     .catch(error => {
       console.error(error);
       renderContent(errorHTML());
     });
+
+  if ('caches' in window) {
+    /*
+    * Check if the service worker has already cached this API requesti
+    */
+    caches.match(API_URL).then(response => {
+      if (!response) return;
+
+      response.json().then(renderComments);
+    });
+  }
 }

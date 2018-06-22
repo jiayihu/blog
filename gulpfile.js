@@ -53,6 +53,14 @@ gulp.task('js', () => {
   return buildApp();
 });
 
+gulp.task('pwa', function() {
+  gulp.src('./src/js/sw.js').pipe(gulp.dest('./public/'));
+});
+
+gulp.task('pwa:watch', function() {
+  gulp.watch(['./src/js/sw.js'], ['pwa']);
+});
+
 /**
  * Metalsmith
  */
@@ -123,14 +131,15 @@ gulp.task('static', () => {
 });
 
 gulp.task('default', () => {
-  runSequence('clean', ['static', 'metalsmith', 'css', 'js'], 'browserSync', [
+  runSequence('clean', ['static', 'metalsmith', 'css', 'js', 'pwa'], 'browserSync', [
     'css:watch',
-    'metalsmith:watch'
+    'metalsmith:watch',
+    'pwa:watch'
   ]);
 });
 
 gulp.task('build', () => {
-  runSequence('clean', ['static', 'metalsmith', 'css', 'js'], 'critical');
+  runSequence('clean', ['static', 'metalsmith', 'css', 'js', 'pwa'], 'critical');
 });
 
 function swallowError(error) {
