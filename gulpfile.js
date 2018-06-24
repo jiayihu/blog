@@ -119,7 +119,8 @@ gulp.task('browserSync', () => {
     browser: 'google chrome',
     server: {
       baseDir: './public'
-    }
+    },
+    port: 8000
   });
 });
 

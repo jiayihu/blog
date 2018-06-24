@@ -30,6 +30,7 @@ renderer.image = function(href, title, text) {
     <figure>
       <a href="${href}" target="_blank" rel="noopener noreferrer">
         <img class="lozad" data-src="${href}" alt="${text}" />
+      </a>
       <figcaption class="f6 i tr mt1" >${text}</figcaption>
     </figure>
   `;
