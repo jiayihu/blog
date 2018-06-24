@@ -114,6 +114,8 @@ let worker = workerize(`
 })();
 ```
 
+## Blob URL Worker
+
 The source code of the package is about 70 LOC and for me the most interesting piece is the following:
 
 ```js
@@ -144,6 +146,8 @@ const worker = new Worker(
 );
 ```
 
+## Data URL Worker
+
 The lib creates a Web Worker using a Data URL where the function and `onmessage` callbacks. Try running the following snippet in Chrome console:
 
 ```js
@@ -154,6 +158,8 @@ worker.onmessage = e => console.log(e.data);
 # mitt 🥊
 
 [mitt](https://github.com/developit/mitt) is a tiny event-emitter library, to create APIs like `window.addEventListener('click', fn)`. It's just 200 bytes gzipped, but nevertheless there's always something to learn:
+
+## Bitwise operator >>>
 
 ```js
 // Source: https://github.com/developit/mitt/blob/f38922aa9190c9126c8fdc3306b32bd2c248b77e/src/index.js#L44
