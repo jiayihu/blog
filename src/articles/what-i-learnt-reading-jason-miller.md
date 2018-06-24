@@ -13,9 +13,9 @@ coverColor: \#ffffff
 
 ## Warning ⚠️
 
-The following snippets are not meant to shown as examples of best practises. They are just pieces of code which I found interesting and my explanation could be also different from the original reason thought by Miller.
+The following snippets are not meant to shown as examples of best practises. They are just pieces of code which I found interesting and my explanation could be also different from the original reason, thought by Miller.
 
-Also many snippets are changed a bit from the original source code to convey the same meaning but without all the implementation jargon.
+Also many snippets are changed a bit from the original source code to focus on the meaning.
 
 # Microbundle 📦 
 
@@ -116,7 +116,7 @@ let worker = workerize(`
 The source code of the package is about 70 LOC and for me the most interesting piece is the following:
 
 ```js
-// Source: https://github.com/developit/workerize/blob/master/src/index.js#L25
+// Source: https://github.com/developit/workerize/blob/683631f402443d71484b03d087b37c72e65f2e3d/src/index.js#L25
 let url = URL.createObjectURL(new Blob([code]));
 let worker = new Worker(url, options);
 ```
@@ -126,5 +126,26 @@ Basically, it allows to create a Web Worker without any separate JS file, by pas
 ```js
 const url = URL.createObjectURL(new Blob(['postMessage("Hi from the Worker")']))
 const worker = new Worker(url);
+worker.onmessage = e => console.log(e.data);
+```
+
+# Greenlet 🦎
+
+[greelet](https://github.com/developit/greenlet) is like `workerize` but for single functions. In the previous case we have seen how a Web Worker can be created using just a Blob URL, but actually this package shows that you can achieve the same result also using [Data URL](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs):
+
+```js
+// Source: https://github.com/developit/greenlet/blob/d4d3f0d903ef34df69443f6f86a81d0fa6035c56/greenlet.js#L15
+const worker = new Worker(
+  'data:,$$='+asyncFunction+';onmessage='+(e => {
+    // $$ is the variable for the passed function
+    // ... other `onmessage` callback stuff
+  })
+);
+```
+
+The lib creates a Web Worker using a Data URL where the function and `onmessage` callbacks. Try running the following snippet in Chrome console:
+
+```js
+const worker = new Worker('data:,postMessage("Hi from the Web Worker")');
 worker.onmessage = e => console.log(e.data);
 ```
