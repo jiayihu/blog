@@ -19,11 +19,12 @@ Also many snippets are changed a bit from the original source code to convey the
 
 # Microbundle 📦 
 
+[microbundle](https://github.com/developit/microbundle) is a bundler, like Rollup (which is used under-the-hood), for tiny modules and without configuration.
+
 ## Array.prototype.concat
 
 ```javascript
 // source: https://github.com/developit/microbundle/blob/bf2d068dc646fcce976456359ee9c4689b74bea6/src/index.js#L93
-// `options` is an object
 []
   .concat(
     options.entries && options.entries.length
@@ -90,4 +91,40 @@ It gets an array of unique values by cleverly removing duplicate items, which wi
 
 ```js
 const unique = Array.from(new Set(entries));
+```
+
+# Workerize 🏗️
+
+[workerize](https://github.com/developit/workerize) allows to run code, passed as string, in a Web Worker. Example from the doc:
+
+```js
+let worker = workerize(`
+	export function add(a, b) {
+		// block for half a second to demonstrate asynchronicity
+		let start = Date.now();
+		while (Date.now()-start < 500);
+		return a + b;
+	}
+`);
+
+(async () => {
+	console.log('3 + 9 = ', await worker.add(3, 9));
+	console.log('1 + 2 = ', await worker.add(1, 2));
+})();
+```
+
+The source code of the package is about 70 LOC and for me the most interesting piece is the following:
+
+```js
+// Source: https://github.com/developit/workerize/blob/master/src/index.js#L25
+let url = URL.createObjectURL(new Blob([code]));
+let worker = new Worker(url, options);
+```
+
+Basically, it allows to create a Web Worker without any separate JS file, by passing a String URL which represents a [Blob](https://developer.mozilla.org/en-US/docs/Web/API/Blob), which in turn is a file-like object containing the source code. Try the following snippet in Chrome console to see it working:
+
+```js
+const url = URL.createObjectURL(new Blob(['postMessage("Hi from the Worker")']))
+const worker = new Worker(url);
+worker.onmessage = e => console.log(e.data);
 ```
