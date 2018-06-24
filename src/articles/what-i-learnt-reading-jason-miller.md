@@ -9,6 +9,7 @@ coverColor: \#ffffff
 ---
 
 - Minimal enough to be understandable and not loose yourself in edge cases implementations
+- Miller's code aim to be balanced in terms of performance, readability and brevity
 - Not all the source code is his, but surely from contributors
 
 ## Warning ⚠️
@@ -95,7 +96,7 @@ const unique = Array.from(new Set(entries));
 
 # Workerize 🏗️
 
-[workerize](https://github.com/developit/workerize) allows to run code, passed as string, in a Web Worker. Example from the doc:
+[workerize](https://github.com/developit/workerize) allows to run code, passed as string, in a **Web Worker**. Example from the doc:
 
 ```js
 let worker = workerize(`
@@ -149,3 +150,28 @@ The lib creates a Web Worker using a Data URL where the function and `onmessage`
 const worker = new Worker('data:,postMessage("Hi from the Web Worker")');
 worker.onmessage = e => console.log(e.data);
 ```
+
+# mitt 🥊
+
+[mitt](https://github.com/developit/mitt) is a tiny event-emitter library, to create APIs like `window.addEventListener('click', fn)`. It's just 200 bytes gzipped, but nevertheless there's always something to learn:
+
+```js
+// Source: https://github.com/developit/mitt/blob/f38922aa9190c9126c8fdc3306b32bd2c248b77e/src/index.js#L44
+off(name, handler) {
+  if (handlers[name]) {
+    handlers[name].splice(handlers[name].indexOf(handler) >>> 0, 1);
+  }
+}
+```
+
+The implementation of the `.off` method, which allows to remove an event handler, uses the bitwise operator `>>>`. I never use [bitwise operators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators#Unsigned_right_shift) because they are clever solutions but so difficult to understand and it's not worth it (usually).
+
+`9 >>> 2` shifts 9 (`1001` in binary) of 2 bits, resulting in 2 (`10` in binary).
+
+`all[type].indexOf(handler) >>> 0` then doesn't do anything usually because it shifts, the **positive** index, of 0 bits that is leaving it untouched. The special case is when `.indexOf(handler)` doesn't find the handler and returns `-1`. Due to [how numbers are encoded in JS](http://2ality.com/2012/04/number-encoding.html), `-1 >>> 0` yields a huge number `4294967295`.
+
+Combine this information with the awareness that, from [MDN documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice#Syntax), `splice` won't do anything if called with a value greater than the length of the array.
+
+We can conclude then that the bitwise operator is used to avoid `.splice` removing any item if the handler is not found.
+
+This usage of `>>>` reminds me of another bitwise operator: `~` (NOT operator). It's usually used in boolean expressions, such as in `if (~array.indexOf(item))`. Put simply, given a number `x`, `~x` it yields `-(x + 1)`, so `if(~(-1)) === if (-(0+1)) == if (0) == if (false)`. How to be hated by your colleagues in one character 😄
