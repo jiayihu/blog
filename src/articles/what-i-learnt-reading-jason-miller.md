@@ -180,4 +180,54 @@ Combine this information with the awareness that, from [MDN documentation](https
 
 We can conclude then that the bitwise operator is used to avoid `.splice` removing any item if the handler is not found.
 
-This usage of `>>>` reminds me of another bitwise operator: `~` (NOT operator). It's usually used in boolean expressions, such as in `if (~array.indexOf(item))`. Put simply, given a number `x`, `~x` it yields `-(x + 1)`, so `if(~(-1)) === if (-(0+1)) == if (0) == if (false)`. How to be hated by your colleagues in one character 😄
+This usage of `>>>` reminds me of another bitwise operator: `~` (NOT operator). It's usually used in boolean expressions, such as in:
+
+```js
+if (~array.indexOf(item)) {
+  ...
+}
+```
+
+Put simply, given a number `x`, `~x` it yields `-(x + 1)`, so:
+
+`if(~(-1)) === if (-(0+1)) == if (0) == if (false)`
+
+How to be hated by your colleagues in one character 😄
+
+## Conclusion
+
+Even the greatest can fail sometimes: the following is a wrong implementation of neither `throttle` nor `debounce` and it's taken from [Decko](https://github.com/developit/decko):
+
+```js
+debounce(fn, delay) {
+  return function(...a) {
+    args = a;
+    context = this;
+
+    if (!timer) timer = setTimeout( () => {
+      fn.apply(context, args);
+      args = context = timer = null;
+    }, delay);
+  };
+},
+```
+
+In my opinion, it's wrong because it always calls the function `fn` after `delay` ms, even if there are other calls during the time span, whereas a correct debounce waits for `delay` ms *without any call*.
+
+Suppose we represent 3 calls of the debounced function and with a delay of `4s`:
+
+```
+Wrong debounce:
+--a--b-----c----
+------b--------c // <= b is wrong, should delay 4s from its call, not from call of `a`
+
+Correct debounce:
+--a--b-----c----
+---------b-----c
+```
+
+The reason because it's also an incorrect implementation of `throttle` is left to you, but you can read more about it in [Throttling function calls](https://remysharp.com/2010/07/21/throttling-function-calls). Anyway there's already [an open issue in decko about debounce](https://github.com/developit/decko/issues/9).
+
+This teaches us that it's okay not knowing to implement all this stuff. We all learn by taking mistakes
+
+Maybe next time I'll publish "What I learnt reading Preact source code" :D
