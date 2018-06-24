@@ -194,7 +194,22 @@ Put simply, given a number `x`, `~x` it yields `-(x + 1)`, so:
 
 How to be hated by your colleagues in one character 😄
 
-## Conclusion
+# unfetch 🐶
+
+[unfetch](https://github.com/developit/unfetch) is a 500Bytes polyfill of native [fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API).
+
+## Bitwise again with |
+
+```js
+// Source: https://github.com/developit/unfetch/blob/55560157515dc32b4612daf2653d0300c6ddbe7c/src/index.js#L36
+
+const responseOkay = ((request.status / 100) | 0) == 2; // 200-299
+```
+
+If you liked the previous snippets with bitwise operators, you'll love this one.  
+To control if the response is between 200-299, which means the request was successful, the bitwise operator `|` is used to floor the number and check if it's equal to 2. Apparently this is much faster than usual `status >= 200 && status < 300`: [jsperf test](https://jsperf.com/or-vs-floor/2).
+
+## Decko 💨
 
 Even the greatest can fail sometimes: the following is a wrong implementation of neither `throttle` nor `debounce` and it's taken from [Decko](https://github.com/developit/decko):
 
@@ -229,5 +244,7 @@ Correct debounce:
 The reason because it's also an incorrect implementation of `throttle` is left to you, but you can read more about it in [Throttling function calls](https://remysharp.com/2010/07/21/throttling-function-calls). Anyway there's already [an open issue in decko about debounce](https://github.com/developit/decko/issues/9).
 
 This teaches us that it's okay not knowing to implement all this stuff. We all learn by taking mistakes
+
+## Conclusion
 
 Maybe next time I'll publish "What I learnt reading Preact source code" :D
