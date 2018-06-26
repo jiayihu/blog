@@ -1,0 +1,365 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="google-site-verification" content="6DIBzCM2sFIHFrOECCKoODFkMjWkvkmxMqJD0EFb7xU" />
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/prism.css">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:400,400i,700" rel="stylesheet">
+
+<!-- Favicons -->
+<link rel="apple-touch-icon" sizes="180x180" href="/images/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/icons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/images/icons/favicon-16x16.png">
+<link rel="mask-icon" href="/images/icons/safari-pinned-tab.svg" color="#5bbad5">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Jiayi's Chronicles">
+
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="theme-color" content="#ffffff">
+
+<link rel="manifest" href="/manifest.json">
+
+    <title>What I've learnt reading Jason Miller's source code | Jiayi's Chronicles</title>
+    <!-- Search Engine -->
+<meta name="description" content="A tour of useful JavaScript tricks from his minimal open-source projects">
+<!-- Schema.org for Google -->
+<meta itemprop="name" content="What I've learnt reading Jason Miller's source code">
+<meta itemprop="description" content="A tour of useful JavaScript tricks from his minimal open-source projects">
+<!-- Twitter -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="What I've learnt reading Jason Miller's source code">
+<meta name="twitter:description" content="A tour of useful JavaScript tricks from his minimal open-source projects">
+<meta name="twitter:site" content="@jiayi_ghu">
+<meta name="twitter:image:src" content="http://blog.jiayihu.net/images/jason-miller/cover.jpg">
+<!-- Open Graph general (Facebook, Pinterest & Google+) -->
+<meta name="og:title" content="What I've learnt reading Jason Miller's source code">
+<meta name="og:description" content="A tour of useful JavaScript tricks from his minimal open-source projects">
+<meta name="og:image" content="http://blog.jiayihu.net/images/jason-miller/cover.jpg">
+<meta name="og:url" content="http://blog.jiayihu.net/what-i-ve-learnt-reading-jason-miller-s-source-code">
+<meta name="og:site_name" content="Jiayi's Chronicles">
+<meta name="og:type" content="website">
+
+  </head>
+
+  <body class="page--article bg-black-025 serif">
+    <nav class="db dt-l w-100 border-box pa3 ph5-l">
+  <a class="db dtc-l v-mid mid-gray link underline-hover w-100 w-25-l tc tl-l mb2 mb0-l f3" href="/" title="Home">
+    Jiayi's Chronicles
+  </a>
+  <div class="db dtc-l v-mid w-100 w-75-l tc tr-l">
+    <a class="link underline-hover dark-gray f6 f5-l dib mr3 mr4-l" href="/" title="Home">Home</a>
+    <a class="link underline-hover dark-gray f6 f5-l dib mr3 mr4-l" href="/about" title="About me">About me</a>
+  </div>
+</nav>
+
+
+    <article>
+      <header
+        class="vh-100 dt w-100 tc bg-dark-gray white cover"
+        style="background:url(/images/jason-miller/cover.jpg) no-repeat center, #ffffff;"
+      >
+        <div class="bg-black-50 dtc v-mid">
+          <h1 class="f1 f-headline-l fw1 i white-90 ph3">What I've learnt reading Jason Miller's source code</h1>
+          <div class="ph0 mh0 measure f4 lh-copy center white-80">
+            <p class="fw1">
+              A tour of useful JavaScript tricks from his minimal open-source projects
+            </p>
+            <p class="article-meta f6 ttu tracked fs-normal">Jiayi Hu - June 24th, 2018</p>
+          </div>
+        </div>
+      </header>
+      <section class="article-main f5 pv5 lh-copy ph2 relative">
+        <a
+          href="https://github.com/jiayihu/blog/tree/master/src/articles/jason-miller.md"
+          class="color-inherit f6 no-underline underline-hover glow absolute top-1 right-1"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+            <span class="dib w1">
+                <svg viewBox="0 0 256 250" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid">
+                  <g>
+                    <path d="M128.00106,0 C57.3172926,0 0,57.3066942 0,128.00106 C0,184.555281 36.6761997,232.535542 87.534937,249.460899 C93.9320223,250.645779 96.280588,246.684165 96.280588,243.303333 C96.280588,240.251045 96.1618878,230.167899 96.106777,219.472176 C60.4967585,227.215235 52.9826207,204.369712 52.9826207,204.369712 C47.1599584,189.574598 38.770408,185.640538 38.770408,185.640538 C27.1568785,177.696113 39.6458206,177.859325 39.6458206,177.859325 C52.4993419,178.762293 59.267365,191.04987 59.267365,191.04987 C70.6837675,210.618423 89.2115753,204.961093 96.5158685,201.690482 C97.6647155,193.417512 100.981959,187.77078 104.642583,184.574357 C76.211799,181.33766 46.324819,170.362144 46.324819,121.315702 C46.324819,107.340889 51.3250588,95.9223682 59.5132437,86.9583937 C58.1842268,83.7344152 53.8029229,70.715562 60.7532354,53.0843636 C60.7532354,53.0843636 71.5019501,49.6441813 95.9626412,66.2049595 C106.172967,63.368876 117.123047,61.9465949 128.00106,61.8978432 C138.879073,61.9465949 149.837632,63.368876 160.067033,66.2049595 C184.49805,49.6441813 195.231926,53.0843636 195.231926,53.0843636 C202.199197,70.715562 197.815773,83.7344152 196.486756,86.9583937 C204.694018,95.9223682 209.660343,107.340889 209.660343,121.315702 C209.660343,170.478725 179.716133,181.303747 151.213281,184.472614 C155.80443,188.444828 159.895342,196.234518 159.895342,208.176593 C159.895342,225.303317 159.746968,239.087361 159.746968,243.303333 C159.746968,246.709601 162.05102,250.70089 168.53925,249.443941 C219.370432,232.499507 256,184.536204 256,128.00106 C256,57.3066942 198.691187,0 128.00106,0 Z M47.9405593,182.340212 C47.6586465,182.976105 46.6581745,183.166873 45.7467277,182.730227 C44.8183235,182.312656 44.2968914,181.445722 44.5978808,180.80771 C44.8734344,180.152739 45.876026,179.97045 46.8023103,180.409216 C47.7328342,180.826786 48.2627451,181.702199 47.9405593,182.340212 Z M54.2367892,187.958254 C53.6263318,188.524199 52.4329723,188.261363 51.6232682,187.366874 C50.7860088,186.474504 50.6291553,185.281144 51.2480912,184.70672 C51.8776254,184.140775 53.0349512,184.405731 53.8743302,185.298101 C54.7115892,186.201069 54.8748019,187.38595 54.2367892,187.958254 Z M58.5562413,195.146347 C57.7719732,195.691096 56.4895886,195.180261 55.6968417,194.042013 C54.9125733,192.903764 54.9125733,191.538713 55.713799,190.991845 C56.5086651,190.444977 57.7719732,190.936735 58.5753181,192.066505 C59.3574669,193.22383 59.3574669,194.58888 58.5562413,195.146347 Z M65.8613592,203.471174 C65.1597571,204.244846 63.6654083,204.03712 62.5716717,202.981538 C61.4524999,201.94927 61.1409122,200.484596 61.8446341,199.710926 C62.5547146,198.935137 64.0575422,199.15346 65.1597571,200.200564 C66.2704506,201.230712 66.6095936,202.705984 65.8613592,203.471174 Z M75.3025151,206.281542 C74.9930474,207.284134 73.553809,207.739857 72.1039724,207.313809 C70.6562556,206.875043 69.7087748,205.700761 70.0012857,204.687571 C70.302275,203.678621 71.7478721,203.20382 73.2083069,203.659543 C74.6539041,204.09619 75.6035048,205.261994 75.3025151,206.281542 Z M86.046947,207.473627 C86.0829806,208.529209 84.8535871,209.404622 83.3316829,209.4237 C81.8013,209.457614 80.563428,208.603398 80.5464708,207.564772 C80.5464708,206.498591 81.7483088,205.631657 83.2786917,205.606221 C84.8005962,205.576546 86.046947,206.424403 86.046947,207.473627 Z M96.6021471,207.069023 C96.7844366,208.099171 95.7267341,209.156872 94.215428,209.438785 C92.7295577,209.710099 91.3539086,209.074206 91.1652603,208.052538 C90.9808515,206.996955 92.0576306,205.939253 93.5413813,205.66582 C95.054807,205.402984 96.4092596,206.021919 96.6021471,207.069023 Z" fill="#161614"></path>
+                  </g>
+                </svg>
+            </span>
+            Edit on GitHub
+        </a>
+
+        <div class="center measure-wide">
+          <h1 class="f1 lh-title">What I've learnt reading Jason Miller's source code</h1>
+          <div class="article-content"><p>Jason Miller is the author of <a class="dark-red dim" href="https://github.com/developit/preact">Preact</a> and he delivers a lot of high-quality small packages like Preact itself. I wanted then to read his source code for some time since I&#39;m a fan of minimal implementations myself.</p>
+<p>Reading his repos is very instructive, for they deal with problems of different nature (DOM, polyfill, bundling etc.) and the source code is minimal enough to be easily comprehensible. When you read a package like <a class="dark-red dim" href="https://github.com/facebook/react">React</a> (*) there&#39;s so much code which covers only edge cases, but it frightens you from adventuring in.
+Besides, when you maintain a minimal lightweight implementation of something, your code aims to be balanced in terms of performance, readability and brevity. Not all the real-world use cases are covered, but that&#39;s perfect for learning.</p>
+<p>Before carrying on, I must mention that not all the following code is necessary from Jason Miller, could surely be from some awesome contributor of his repos.</p>
+<h2 id="warning-">Warning ⚠️</h2>
+<p>The following snippets are not meant to be shown as examples of best practices. They are just pieces of code which I found interesting and my explanation could also be different from the original thought by Miller.</p>
+<p>Also, many snippets are changed a bit from the original source code to focus on the meaning.</p>
+<h1 id="microbundle-">Microbundle 📦</h1>
+<p><a class="dark-red dim" href="https://github.com/developit/microbundle">microbundle</a> is a bundler, like Rollup (which is used under-the-hood), for tiny modules and without configuration.</p>
+<h2 id="array-prototype-concat">Array.prototype.concat</h2>
+<p>We start from this first curious snippet of the package:</p>
+<pre><code class="lang-javascript">// source: https://github.com/developit/microbundle/blob/bf2d068dc646fcce976456359ee9c4689b74bea6/src/index.js#L93
+[]
+  .concat(
+    options.entries &amp;&amp; options.entries.length
+      ? options.entries // string[]
+      : options.pkg.source || options.pkg.module, // string
+  )
+  .map(file =&gt; glob(file))
+  .forEach(options.input.push(...file));
+</code></pre>
+<p>Starting an expression with <code class="purple">[].concat()</code> is not very common, but it takes advantages on <code class="purple">Array.prototype.concat</code> which can accept both arrays and single values. I would have written the same code as follows:</p>
+<pre><code class="lang-javascript">const input = options.entries &amp;&amp; options.entries.length
+      ? options.entries
+      : [options.pkg.source || options.pkg.module];
+
+input
+  .map(file =&gt; glob(file))
+  .forEach(options.input.push(...file));
+</code></pre>
+<p>I think it&#39;s more readable but it takes one more variable, which won&#39;t be used anymore and maybe it would make the reader wondering &quot;Where else will it be referenced?&quot;. Also my solution cannot be used as expression, such as in <code class="purple">{ input: expression }</code> whereas you can do <code class="purple">{ input: [].concat(...) }</code>.</p>
+<h2 id="-filter-boolean-">.filter(Boolean)</h2>
+<p>I already knew the trick <code class="purple">array.filter(Boolean)</code> to remove not truthy values, but this is the next level of it. You can use it to <strong>add optional values in an array using a single expression</strong>:</p>
+<pre><code class="lang-js">// Source: https://github.com/developit/microbundle/blob/bf2d068dc646fcce976456359ee9c4689b74bea6/src/index.js#L300
+{
+  plugins: []
+    .concat(
+      &#39;postcss&#39;,
+      useTypescript &amp;&amp; &#39;typescript&#39;,
+      !useTypescript &amp;&amp; &#39;flow&#39;,
+      &#39;nodent&#39;,
+      options.compress !== false &amp;&amp; [&#39;uglify&#39;, &#39;anotherPlugin&#39;]
+    )
+    .filter(Boolean)
+}
+</code></pre>
+<p>If <code class="purple">useTypescript === false</code> and <code class="purple">options.compress !== false</code>, then the result will be</p>
+<pre><code class="lang-js">[]
+  .concat(
+    [&#39;postcss&#39;, false, &#39;flow&#39;, &#39;nodent&#39;, [&#39;uglify&#39;, &#39;anotherPlugin&#39;]]
+  )
+  .filter(Boolean);
+// Returns [&#39;postcss&#39;, &#39;flow&#39;, &#39;nodent&#39;, &#39;uglify&#39;, &#39;anotherPlugin&#39;]
+</code></pre>
+<h2 id="unique-values">Unique values</h2>
+<pre><code class="lang-javascript">// Source: https://github.com/developit/microbundle/blob/bf2d068dc646fcce976456359ee9c4689b74bea6/src/index.js#L117
+
+entries.filter((item, i, arr) =&gt; arr.indexOf(item) === i)
+</code></pre>
+<p>It gets an <strong>array of unique values</strong> by cleverly removing duplicate items, which will have <code class="purple">arr.indexOf(item)</code> returning a smaller index. I usually use another solution based on <a class="dark-red dim" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set">ES6 Set</a>, which stores unique values by definition, but this one from <code class="purple">microbundle</code> is a nice ES5 alternative.</p>
+<pre><code class="lang-js">const unique = Array.from(new Set(entries));
+</code></pre>
+<h1 id="workerize-">Workerize 🏗️</h1>
+<p><a class="dark-red dim" href="https://github.com/developit/workerize">workerize</a> allows to run then code, passed as a string, in a <strong>Web Worker</strong>. Example from the doc:</p>
+<pre><code class="lang-js">let worker = workerize(`
+    export function add(a, b) {
+        let start = Date.now();
+        while (Date.now() - start &lt; 500);
+        return a + b;
+    }
+`);
+
+(async () =&gt; {
+    console.log(&#39;3 + 9 = &#39;, await worker.add(3, 9));
+    console.log(&#39;1 + 2 = &#39;, await worker.add(1, 2));
+})();
+</code></pre>
+<h2 id="blob-url-worker">Blob URL Worker</h2>
+<p>The source code of the package is about 70 LOC and for me the most interesting lines are the following:</p>
+<pre><code class="lang-js">// Source: https://github.com/developit/workerize/blob/683631f402443d71484b03d087b37c72e65f2e3d/src/index.js#L25
+
+const code = `export function add(a, b) { ... }`;
+const url = URL.createObjectURL(new Blob([code]));
+const worker = new Worker(url, options);
+</code></pre>
+<p>Basically, it <strong>allows to create a Web Worker without any separate JS file</strong>, by passing a String URL which represents a <a class="dark-red dim" href="https://developer.mozilla.org/en-US/docs/Web/API/Blob">Blob</a>, which in turn is a file-like object containing the source code. Try the following snippet in Chrome console to see it working:</p>
+<pre><code class="lang-js">const url = URL.createObjectURL(new Blob([&#39;postMessage(&quot;Hi from the Worker&quot;)&#39;]))
+const worker = new Worker(url);
+worker.onmessage = e =&gt; console.log(e.data);
+</code></pre>
+<h1 id="greenlet-">Greenlet 🦎</h1>
+<p><a class="dark-red dim" href="https://github.com/developit/greenlet">greelet</a> is like <code class="purple">workerize</code> but for single functions.</p>
+<h2 id="data-url-worker">Data URL Worker</h2>
+<p>In the previous case, we have seen how a Web Worker can be created using just a Blob URL, but this package shows that you can achieve the same result also using <a class="dark-red dim" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs">Data URL</a>:</p>
+<pre><code class="lang-js">// Source: https://github.com/developit/greenlet/blob/d4d3f0d903ef34df69443f6f86a81d0fa6035c56/greenlet.js#L15
+const worker = new Worker(
+  &#39;data:,$$=&#39;+asyncFunction+&#39;;onmessage=&#39;+(e =&gt; {
+    // $$ is a global variable storing the function to &quot;workerize&quot;
+    // ... other `onmessage` callback stuff
+  })
+);
+</code></pre>
+<p>The lib cleverly <strong>creates a Web Worker using just Data URL</strong> where the function and <code class="purple">onmessage</code> callback are stringified. Try running the following snippet in Chrome console:</p>
+<pre><code class="lang-js">const worker = new Worker(&#39;data:,postMessage(&quot;Hi from the Web Worker&quot;)&#39;);
+worker.onmessage = e =&gt; console.log(e.data);
+</code></pre>
+<h1 id="mitt-">mitt 🥊</h1>
+<p><a class="dark-red dim" href="https://github.com/developit/mitt">mitt</a> is a tiny event-emitter library, to create event subscription like <code class="purple">window.addEventListener(&#39;click&#39;, fn)</code>. It&#39;s just 200 bytes gzipped, but nevertheless there&#39;s always something to learn:</p>
+<h2 id="bitwise-operator-">Bitwise operator &#39;&gt;&gt;&gt;&#39;</h2>
+<pre><code class="lang-js">// Source: https://github.com/developit/mitt/blob/f38922aa9190c9126c8fdc3306b32bd2c248b77e/src/index.js#L44
+off(name, handler) {
+  if (handlers[name]) {
+    handlers[name].splice(handlers[name].indexOf(handler) &gt;&gt;&gt; 0, 1);
+  }
+}
+</code></pre>
+<p>The implementation of the <code class="purple">.off</code> method, which allows to remove an event handler, uses the bitwise operator <code class="purple">&gt;&gt;&gt;</code>. I never use <a class="dark-red dim" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators#Unsigned_right_shift">bitwise operators</a> because they are clever solutions but so difficult to understand and it&#39;s not worth it (usually).</p>
+<p><code class="purple">9 &gt;&gt;&gt; 2</code> shifts 9 (<code class="purple">1001</code> in binary) of 2 bits to the right, resulting in 2 (<code class="purple">10</code> in binary).</p>
+<p><code class="purple">all[type].indexOf(handler) &gt;&gt;&gt; 0</code> then doesn&#39;t do anything usually because it shifts, the <strong>positive</strong> index, of 0 bits that is leaving it untouched. But when <code class="purple">.indexOf(handler)</code> doesn&#39;t find the handler, it returns <code class="purple">-1</code> and <code class="purple">-1 &gt;&gt;&gt; 0</code> yields a huge number <code class="purple">4294967295</code>. This is caused by the <a class="dark-red dim" href="http://2ality.com/2012/04/number-encoding.html">standard used by JS to encode numbers</a>.</p>
+<p>Combine this information with the awareness that, from <a class="dark-red dim" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice#Syntax">MDN documentation</a>, <code class="purple">splice</code> won&#39;t do anything if called with a value greater than the length of the array.</p>
+<p>We can conclude then that the bitwise operator is used to avoid <code class="purple">.splice</code> removing any item if the handler is not found. All without first checking if the item is present.</p>
+<p>However this usage of <code class="purple">&gt;&gt;&gt;</code> reminds me of another bitwise operator: <code class="purple">~</code> (NOT operator). It&#39;s usually used in boolean expressions, such as in:</p>
+<pre><code class="lang-js">if (~array.indexOf(item)) {
+  ...
+}
+</code></pre>
+<p>Put simply, given a number <code class="purple">x</code>, <code class="purple">~x</code> it yields <code class="purple">-(x + 1)</code>, so when <code class="purple">.indexOf</code> returns <code class="purple">-1</code>:</p>
+<p><code class="purple">if(~(-1)) === if (-(-1+1)) == if (0) == if (false)</code></p>
+<p>How to be hated by your colleagues in one character 😄</p>
+<h1 id="unfetch-">unfetch 🐶</h1>
+<p><a class="dark-red dim" href="https://github.com/developit/unfetch">unfetch</a> is a 500Bytes polyfill of native <a class="dark-red dim" href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API">fetch API</a>.</p>
+<h2 id="bitwise-again-with-operator">Bitwise again with &#39;|&#39; operator</h2>
+<pre><code class="lang-js">// Source: https://github.com/developit/unfetch/blob/55560157515dc32b4612daf2653d0300c6ddbe7c/src/index.js#L36
+
+const responseOkay = ((request.status / 100) | 0) == 2; // 200-299
+</code></pre>
+<p>If you liked the previous snippets with bitwise operators, you&#39;ll love this one.<br>To control if the network response status is between 200-299, which means the request was successful, the bitwise operator <code class="purple">|</code> is used to floor the number and check if it&#39;s equal to 2. Apparently this is much faster than usual <code class="purple">status &gt;= 200 &amp;&amp; status &lt; 300</code> according to this <a class="dark-red dim" href="https://jsperf.com/or-vs-floor/2">jsperf test</a>.</p>
+<h2 id="decko-">Decko 💨</h2>
+<p>It happens even to the best of us: the following is a wrong implementation of neither <code class="purple">throttle</code> nor <code class="purple">debounce</code> and it&#39;s taken from <a class="dark-red dim" href="https://github.com/developit/decko">Decko</a>, a lib for 3 very useful decorators:</p>
+<pre><code class="lang-js">function debounce(fn, delay) {
+  return function(...a) {
+    args = a;
+    context = this;
+
+    if (!timer) timer = setTimeout( () =&gt; {
+      fn.apply(context, args);
+      args = context = timer = null;
+    }, delay);
+  };
+}
+</code></pre>
+<p>In my opinion, it&#39;s wrong because it always calls the function <code class="purple">fn</code> after <code class="purple">delay</code> ms, even if there are other calls during the time span, whereas a correct debounce waits for <code class="purple">delay</code> ms <em>without any call</em>.</p>
+<p>Suppose we represent 1ms as <code class="purple">-</code> (hyphen) and 3 calls of the debounced function with a delay of <code class="purple">4s</code>:</p>
+<pre><code>Debounce from Decko:
+--a--b-----c----
+------b--------c // &lt;= b is wrong, should delay 4s from its call, not from the call of `a`
+
+Correct debounce:
+--a--b-----c----
+---------b-----c
+</code></pre><p>The reason because it&#39;s also an incorrect implementation of <code class="purple">throttle</code> is left to you, but you can read more about it in <a class="dark-red dim" href="https://remysharp.com/2010/07/21/throttling-function-calls">Throttling function calls</a>. Anyway, there&#39;s already <a class="dark-red dim" href="https://github.com/developit/decko/issues/9">an open issue in decko about debounce</a>.</p>
+<p>This teaches us that it&#39;s okay not knowing to implement perfectly all this stuff and still be great. We all learn by making mistakes and it takes time.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>We have seen a lot of interesting tricks, some questionable, but knowledge is always useful. I left <code class="purple">Preact</code> out this article because it&#39;s already quite long, but maybe next time I&#39;ll publish <em>&quot;What I&#39;ve learnt reading Preact source code&quot;</em> 😄</p>
+<p>In the meanwhile, I suggest you do the same with the packages mentioned in the article and comment on any other trick you discovered!</p>
+<hr>
+<p>(*): nevertheless the React team tries a lot to help you to get started on their source code</p>
+</div>
+        </div>
+      </section>
+    </article>
+
+    <div class="comments measure-wide center ph2 ph0-l">
+  <script>var ISSUE_ID = '31';</script>
+
+  <h3>Comments</h3>
+
+  
+    <div class="br2 ba b--lightest-blue bg-washed-blue f6 mb5">
+      <div class="flex items-center">
+        <div class="fg1 pa3">
+          <div>
+            <p class="black-70 measure lh-copy mv0">
+              This blog is using GitHub Issues as comments. You can post by replying to issue
+              <a href="https://github.com/jiayihu/blog/issues/31#new_comment_field"  class="link black f5 underline-hover" target="_blank" rel="noopener noreferrer">
+                #31
+              </a>
+            </p>
+          </div>
+        </div>
+        <div class="w5 pa3">
+          <a
+            href="https://github.com/jiayihu/blog/issues/31#new_comment_field"
+            class="no-underline f6 tc db w-100 pv3 bg-animate bg-blue hover-bg-dark-blue white br2"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Post a comment
+          </a>
+        </div>
+      </div>
+    </div>
+  
+
+  <div class="comments-content"></div>
+
+  <!-- HTML put to avoid uncss removing the CSS classes needed by async comments -->
+  <ul class="list pl0 dn">
+    <li class="comment flex mt3">
+      <div class="comment__author mr2 tc">
+        <a href="https://github.com/jiayihu" class="dib h2--half w2--half">
+          <img src="https://avatars1.githubusercontent.com/u/10067273?v=4" alt="jiayihu" class="br2 h2--half w2--half dib">
+        </a>
+      </div>
+      <div class="fg1 br2 ba b--moon-gray f6">
+        <div class="comment__header bb b--moon-gray bg-black-05 flex items-center silver ph3 pv2">
+          <span>
+            <a href="https://github.com/jiayihu" class="link underline-hover near-black">
+              jiayihu
+            </a>
+            commented
+            <a href="https://github.com/jiayihu/blog/issues/2#issuecomment-394303150" class="link underline-hover silver">
+              2 weeks ago
+            </a>
+          </span>
+          <span class="ba b--moon-gray br2 mla f7 fw7 ph2 pv1">Author</span>
+        </div>
+        <div class="comment__body pa3"></div>
+    </li>
+  </ul>
+</div>
+
+
+    <footer class="pv4 ph3 ph5-ns tc mt4">
+  <a class="link dim gray dib h2 w2 br-100 mr3 " href="https://twitter.com/jiayi_ghu" title="">
+    <svg data-icon="twitter" viewBox="0 0 32 32" style="fill:currentcolor">
+      <title>twitter icon</title>
+      <path d="M2 4 C6 8 10 12 15 11 A6 6 0 0 1 22 4 A6 6 0 0 1 26 6 A8 8 0 0 0 31 4 A8 8 0 0 1 28 8 A8 8 0 0 0 32 7 A8 8 0 0 1 28 11 A18 18 0 0 1 10 30 A18 18 0 0 1 0 27 A12 12 0 0 0 8 24 A8 8 0 0 1 3 20 A8 8 0 0 0 6 19.5 A8 8 0 0 1 0 12 A8 8 0 0 0 3 13 A8 8 0 0 1 2 4"></path>
+    </svg>
+  </a>
+  <a class="link dim gray dib br-100 h2 w2 mr3 " href="https://github.com/jiayihu" title="">
+    <svg data-icon="github" viewBox="0 0 32 32" style="fill:currentcolor">
+      <title>github icon</title>
+      <path d="M0 18 C0 12 3 10 3 9 C2.5 7 2.5 4 3 3 C6 3 9 5 10 6 C12 5 14 5 16 5 C18 5 20 5 22 6 C23 5 26 3 29 3 C29.5 4 29.5 7 29 9 C29 10 32 12 32 18 C32 25 30 30 16 30 C2 30 0 25 0 18 M3 20 C3 24 4 28 16 28 C28 28 29 24 29 20 C29 16 28 14 16 14 C4 14 3 16 3 20 M8 21 A1.5 2.5 0 0 0 13 21 A1.5 2.5 0 0 0 8 21 M24 21 A1.5 2.5 0 0 0 19 21 A1.5 2.5 0 0 0 24 21 z"></path>
+    </svg>
+  </a>
+  <a class="link dim gray dib br-100 h2 w2 mr3 " href="https://www.linkedin.com/in/jiayi-hu/" title="LinkedIn">
+    <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414">
+      <title>LinkedIn icon</title>
+      <path d="M13.632 13.635h-2.37V9.922c0-.886-.018-2.025-1.234-2.025-1.235 0-1.424.964-1.424 1.96v3.778h-2.37V6H8.51V7.04h.03c.318-.6 1.092-1.233 2.247-1.233 2.4 0 2.845 1.58 2.845 3.637v4.188zM3.558 4.955c-.762 0-1.376-.617-1.376-1.377 0-.758.614-1.375 1.376-1.375.76 0 1.376.617 1.376 1.375 0 .76-.617 1.377-1.376 1.377zm1.188 8.68H2.37V6h2.376v7.635zM14.816 0H1.18C.528 0 0 .516 0 1.153v13.694C0 15.484.528 16 1.18 16h13.635c.652 0 1.185-.516 1.185-1.153V1.153C16 .516 15.467 0 14.815 0z" fill-rule="nonzero"/>
+    </svg>
+  </a>
+  <small class="mt4 f6 db tc">© 2018. All Rights Reserved</small>
+</footer>
+
+<script src="https://ft-polyfill-service.herokuapp.com/v2/polyfill.min.js?features=default,fetch"></script>
+<script src="/js/main.js"></script>
+<script src="/js/prism.js"></script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-103053006-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+  </body>
+</html>
