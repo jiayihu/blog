@@ -10,5 +10,8 @@
   },
   "articles/jason-miller.html": {
     "issueId": 31
+  },
+  "articles/css-resets-in-shadow-dom.html": {
+    "issueId": 32
   }
 }
