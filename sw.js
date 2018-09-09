@@ -1,7 +1,7 @@
 // @ts-check
 
-const CACHE_NAME = 'jiayihu-static-v6';
-const DATA_CACHE_NAME = 'jiayihu-data-v6';
+const CACHE_NAME = 'jiayihu-static-v7';
+const DATA_CACHE_NAME = 'jiayihu-data-v7';
 const urlsToCache = ['/', '/css/main.css', '/css/prism.css', '/js/main.js', '/js/prism.js'];
 
 self.addEventListener('install', event => {
