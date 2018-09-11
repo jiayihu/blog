@@ -30,23 +30,23 @@
 
 <link rel="manifest" href="/manifest.json">
 
-    <title>CSS resets in Shadow DOM | Jiayi's Chronicles</title>
+    <title>CSS Custom Properties performance in 2018 | Jiayi's Chronicles</title>
     <!-- Search Engine -->
-<meta name="description" content="How to apply reset.css or normalize.css with Web Components encapsulated in Shadow DOM">
+<meta name="description" content="How are CSS Custom Properties performing in 2018?">
 <!-- Schema.org for Google -->
-<meta itemprop="name" content="CSS resets in Shadow DOM">
-<meta itemprop="description" content="How to apply reset.css or normalize.css with Web Components encapsulated in Shadow DOM">
+<meta itemprop="name" content="CSS Custom Properties performance in 2018">
+<meta itemprop="description" content="How are CSS Custom Properties performing in 2018?">
 <!-- Twitter -->
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CSS resets in Shadow DOM">
-<meta name="twitter:description" content="How to apply reset.css or normalize.css with Web Components encapsulated in Shadow DOM">
+<meta name="twitter:title" content="CSS Custom Properties performance in 2018">
+<meta name="twitter:description" content="How are CSS Custom Properties performing in 2018?">
 <meta name="twitter:site" content="@jiayi_ghu">
-<meta name="twitter:image:src" content="http://blog.jiayihu.net/images/css-reset-shadow-dom/cover.jpg">
+<meta name="twitter:image:src" content="http://blog.jiayihu.net/images/css-custom-properties-performance-2018/cover.jpg">
 <!-- Open Graph general (Facebook, Pinterest & Google+) -->
-<meta name="og:title" content="CSS resets in Shadow DOM">
-<meta name="og:description" content="How to apply reset.css or normalize.css with Web Components encapsulated in Shadow DOM">
-<meta name="og:image" content="http://blog.jiayihu.net/images/css-reset-shadow-dom/cover.jpg">
-<meta name="og:url" content="http://blog.jiayihu.net/css-resets-in-shadow-dom">
+<meta name="og:title" content="CSS Custom Properties performance in 2018">
+<meta name="og:description" content="How are CSS Custom Properties performing in 2018?">
+<meta name="og:image" content="http://blog.jiayihu.net/images/css-custom-properties-performance-2018/cover.jpg">
+<meta name="og:url" content="http://blog.jiayihu.net/css-custom-properties-performance-in-2018">
 <meta name="og:site_name" content="Jiayi's Chronicles">
 <meta name="og:type" content="website">
 
@@ -65,19 +65,19 @@
 
 
     <article>
-      <header class="vh-100 dt w-100 tc bg-dark-gray white cover" style="background:url(/images/css-reset-shadow-dom/cover.jpg) no-repeat center, #AAA496;">
+      <header class="vh-100 dt w-100 tc bg-dark-gray white cover" style="background:url(/images/css-custom-properties-performance-2018/cover.jpg) no-repeat center, #AAA496;">
         <div class="bg-black-30 dtc v-mid">
-          <h1 class="f1 f-headline-l fw1 i white-90 ph3">CSS resets in Shadow DOM</h1>
+          <h1 class="f1 f-headline-l fw1 i white-90 ph3">CSS Custom Properties performance in 2018</h1>
           <div class="ph0 mh0 measure f4 lh-copy center">
             <p class="fw1">
-              How to apply reset.css or normalize.css with Web Components encapsulated in Shadow DOM
+              How are CSS Custom Properties performing in 2018?
             </p>
-            <p class="article-meta f6 ttu tracked fs-normal">Jiayi Hu - Sep 5th 2018</p>
+            <p class="article-meta f6 ttu tracked fs-normal">Jiayi Hu - Sep 11th 2018</p>
           </div>
         </div>
       </header>
       <section class="article-main f5 pv5 lh-copy ph2 relative">
-        <a href="https://github.com/jiayihu/blog/tree/master/src/articles/css-resets-in-shadow-dom.md" class="color-inherit f6 no-underline underline-hover glow absolute top-1 right-1" target="_blank" rel="noopener noreferrer">
+        <a href="https://github.com/jiayihu/blog/tree/master/src/articles/css-custom-properties-performance-2018.md" class="color-inherit f6 no-underline underline-hover glow absolute top-1 right-1" target="_blank" rel="noopener noreferrer">
             <span class="dib w1">
                 <svg viewbox="0 0 256 250" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveaspectratio="xMidYMid">
                   <g>
@@ -89,152 +89,159 @@
         </a>
 
         <div class="center measure-wide">
-          <h1 class="f1 lh-title">CSS resets in Shadow DOM</h1>
-          <div class="article-content"><p>Now that also <a class="dark-red dim" href="https://blog.nightly.mozilla.org/2018/09/06/developer-tools-support-for-web-components-in-firefox-63/">Firefox 63 is supporting <strong>Web Components</strong></a>, they are definitely the new shiny technology in the front-end which allow creating reusable Custom Elements using standard JavaScript APIs. With <strong>Shadow DOM</strong>, they are even well encapsulated, but this raises some questions like how to reset the CSS within the Shadow DOM.</p>
+          <h1 class="f1 lh-title">CSS Custom Properties performance in 2018</h1>
+          <div class="article-content"><p><strong>CSS Custom Properties</strong>, aka <strong>CSS variables</strong>, have been available in stable Firefox since 2014 and Chrome since 2016. Despite its availability, its usage has not spread yet, and performance could be one of the reasons.</p>
 <aside class="notice">
-You can read more about Web Components on <a class="dark-red dim" href="https://developer.mozilla.org/en-US/docs/Web/Web_Components">MDN</a>.
+You can read about what are Custom Properties on <a class="dark-red dim" href="https://developer.mozilla.org/en-US/docs/Web/CSS/--*">MDN</a>.
 </aside>
 
-<p>When building Web Components, Shadow DOM allows encapsulation of what the component renders. As the name suggests, Shadow DOM attaches a separate hidden DOM tree to your element, allowing you to keep the internal DOM and the styles private. For the CSS, this means that any style outside the element has no impact within the Shadow DOM and vice-versa any style defined in the latter doesn&#39;t affect elements out of it.</p>
-<p>Let&#39;s define a simple Custom Elements for our special paragraph component:</p>
-<pre><code class="lang-js">const template = document.createElement(&#39;template&#39;)
-template.innerHTML = `
-  &lt;style&gt;
-    p {
-      color: white;
-      background-color: #666;
-      padding: 5px;
-    }
-  &lt;/style&gt;
-  &lt;p&gt;My paragraph&lt;/p&gt;
-`
+<p>In particular, custom properties are like <code class="purple">color</code> or <code class="purple">font-size</code>, and they inherited by children elements. Besides, it&#39;s ubiquitous to set them in the <em>root</em> as follows:</p>
+<pre><code class="lang-css">:root { --color: red; }
 
-class MyParagraph extends HTMLElement {
-    constructor() {
-      super();
-      const template = document.getElementById(&#39;my-paragraph&#39;);
-
-      this.attachShadow({mode: &#39;open&#39;})
-        .appendChild(template.content.cloneNode(true));
-  }
-}
-
-customElements.define(&#39;my-paragraph&#39;, MyParagraph)
-</code></pre>
-<p>It&#39;s possible then to use it as <code class="purple">&lt;my-paragraph&gt;&lt;/my-paragraph&gt;</code>, and it renders a paragraph with white text, grey background and 5px padding. You can <a class="dark-red dim" href="https://codepen.io/jiayihu/pen/RYxVrr?editors=1010">see it live on Codepen</a> using the latest Chrome, Safari or Firefox. <a class="dark-red dim" href="https://caniuse.com/#feat=custom-elementsv1">Edge is the only one missing Web Components</a> yet.</p>
-<p>Now, if we define the following global CSS declaration, we can notice that it doesn&#39;t have an impact on our custom paragraph although a <code class="purple">&lt;p&gt;</code> element is used within it.</p>
-<pre><code class="lang-css">p {
-  text-transform: uppercase;
+button {
+  color: var(--color);
 }
 </code></pre>
-<p>Likewise, <code class="purple">MyParagraph</code> styles don&#39;t have effects on the outer <code class="purple">&lt;p&gt;Usual paragraph&lt;/p&gt;</code> declared in the HTML.</p>
-<p>Okay that it&#39;s clear what Shadow DOM means for styles, let&#39;s proceed with the main topic of the article.</p>
-<h2 id="how-to-reset-the-css-in-web-components">How to reset the CSS in Web Components</h2>
-<p>Since Shadow DOM is separated from the rest of the document, this means that your Custom Elements won&#39;t be able to be styled by your global CSS reset like <a class="dark-red dim" href="https://meyerweb.com/eric/tools/css/reset/">reset.css</a> or <a class="dark-red dim" href="https://necolas.github.io/normalize.css/">normalize.css</a>. By default, without any style from yours, they use the User Agent stylesheet defined by the browser along with all the inconsistencies between browsers.</p>
-<p>With the deprecation of <code class="purple">/deep/</code> and <code class="purple">&gt;&gt;&gt;</code> CSS selectors, it&#39;s impossible for any stylesheet to customize the style within a Shadow DOM even if the purpose is to reset it.</p>
-<p>The only way, as far as I know, is to import the CSS reset within every your Web Component, for instance <code class="purple">@import &#39;normalize.css&#39;;</code> as Sass or PostCSS. The problem is that this duplicates much code. <code class="purple">normalize.css</code> is almost 6KB uncompressed, which means that if you have 100 components, you  deliver <code class="purple">600KB</code> of duplicated code.</p>
-<p>The philosophy of Web Components is to build isolated components which can be used anywhere without the need of other libraries and, for this reason, they must share nothing between each other and they must contain all the needed code to work alone.</p>
-<p>However, this means also that your single Custom Element doesn&#39;t need the whole reset CSS. It can import only the parts which affect its Shadow DOM.</p>
-<p>Taking <a class="dark-red dim" href="https://necolas.github.io/normalize.css/">normalize.css</a> as example, we are able to divide it into tiny pieces like the following:</p>
-<pre><code>normalize
-   ├── document.css
-   ├── embedded.css
-   ├── forms.css
-   ├── grouping.css
-   ├── interactive.css
-   ├── misc.css
-   ├── sections.css
-   └── text-level.css
-</code></pre><pre><code class="lang-css">/* Embedded content
-   ========================================================================== */
-
-/**
- * Remove the border on images inside links in IE 10.
- */
-
-img {
-  border-style: none;
+<p>This CSS defines a <code class="purple">--color</code> custom property to the document root, which is the <code class="purple">html</code> element, and it will be inherited by all its nested children  allowing any <code class="purple">button</code> style to use it as variable.</p>
+<p>Due to the impact of modifying a root custom property, there are valid performance issues to be kept in mind. Lisi Linhart wrote a detailed article about <a class="dark-red dim" href="https://lisilinhart.info/">CSS custom variables performance</a> in July 2017, so let&#39;s see if things have changed meanwhile.</p>
+<h2 id="style-recalculation">Style recalculation</h2>
+<pre><code class="lang-html">&lt;div class=&quot;container&quot;&gt;
+  &lt;span class=&quot;el&quot;&gt;&lt;/span&gt;
+... 25000 more elements
+&lt;/div&gt;
+</code></pre>
+<pre><code class="lang-css">.el {
+  background: var(--bg, orange);
 }
 </code></pre>
-<pre><code class="lang-css">/* Forms
-   ========================================================================== */
-
-/**
- * 1. Change the font styles in all browsers.
- * 2. Remove the margin in Firefox and Safari.
- */
-
-button,
-input,
-optgroup,
-select,
-textarea {
-  font-family: inherit; /* 1 */
-  font-size: 100%; /* 1 */
-  line-height: 1.15; /* 1 */
-  margin: 0; /* 2 */
-}
-
-/**
-  * Show the overflow in IE.
-  * 1. Show the overflow in Edge.
-  */
-
-button,
-input {
-  /* 1 */
-  overflow: visible;
-}
-
-/** ... other form resets */
+<p>Given a <code class="purple">container</code> of 25000 <code class="purple">span</code> nodes, the previous benchmark will set a <code class="purple">--bg</code> property on the container and then on a single child. With my current laptop, a <em>2018 MacBook Pro 15&quot; 2,2 GHz Intel Core i7</em>, I get a far worse result: <strong>644ms (now) compared to 76ms (previous)</strong>.</p>
+<p>76ms seems to be too good though, and maybe it was an oversite by Lisi Linhart. <a class="dark-red dim" href="https://codepen.io/stowball/pen/ygmLrQ">Another benchmark by Matt Stow</a> in 2017 returned a rendering time of 51ms for 1k items, whereas I get around 66ms for the same elements. Therefore I doubt it was possible to achieve 76ms with 25k spans.</p>
+<p>Setting a custom property only on a single child hasn&#39;t changed: <strong>1.4ms (now) compared to 1.6s (previous)</strong>.</p>
+<p>Okaym so it&#39;s still clear that we must be careful with container custom properties because it affects children nodes and recalculation becomes expensive.</p>
+<p>However, this information doesn&#39;t help with deciding whether to use them or not because other solutions which require children to change their styles are also not cheap. Let&#39;s, for instance, compare it with inline styles, which are one of the strategies used in React for dynamic styling.</p>
+<p>
+    <figure>
+      <a href="/images/css-custom-properties-performance-2018/inline-vs-variables.png" target="_blank" rel="noopener noreferrer">
+        <img class="lozad" data-src="/images/css-custom-properties-performance-2018/inline-vs-variables.png" alt="Custom properties vs inline styles">
+      </a>
+      <figcaption class="f6 i tr mt1">Custom properties vs inline styles</figcaption>
+    </figure>
+  </p>
+<p><a class="dark-red dim" href="https://codepen.io/jiayihu/pen/BOrLea?editors=0111">Try it yourself on Codepen</a>, forked from the one by Lisi Linhart.</p>
+<p>Results show how inline styles are actually slower than setting a custom property on the parent. You might then consider using CSS variables if you are currently relying on inline styles for dynamic styling.</p>
+<h2 id="using-calc-">Using calc()</h2>
+<p>The next case she tested was using CSS <code class="purple">calc()</code> with different variations of the CSS variable with/without unit.</p>
+<pre><code class="lang-js">el.style = &quot;transform: translateY(calc(var(--translation) * 1px))&quot;;
+el.style = &quot;transform: translateY(var(--translationPx))&quot;;
+el.style = &quot;transform: translateY(100px))&quot;;
+el.style = &quot;transform: translateY(calc(var(--translation) * 1%))&quot;;
+el.style = &quot;transform: translateY(var(--translationPercent))&quot;;
+el.style = &quot;transform: translateY(100%))&quot;;
 </code></pre>
-<pre><code class="lang-css">/* Sections
-   ========================================================================== */
-
-/**
- * Correct the font size and margin on `h1` elements within `section` and
- * `article` contexts in Chrome, Firefox, and Safari.
- */
-
-h1 {
-  font-size: 2em;
-  margin: 0.67em 0;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin: 0;
-  padding: 0;
-  -webkit-font-smoothing: antialiased;
-  -moz-font-smoothing: antialiased;
-  -o-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+<p><a class="dark-red dim" href="https://jsperf.com/css-variables-with-without-calc">Try it yourself on jsperf.com</a></p>
+<p>The previous result, by Lisi Linhart:</p>
+<p>
+    <figure>
+      <a href="/images/css-custom-properties-performance-2018/lisi-calc.png" target="_blank" rel="noopener noreferrer">
+        <img class="lozad" data-src="/images/css-custom-properties-performance-2018/lisi-calc.png" alt="Previous benchmark on calc() with CSS variables">
+      </a>
+      <figcaption class="f6 i tr mt1">Previous benchmark on calc() with CSS variables</figcaption>
+    </figure>
+  </p>
+<p>Current result, on my machine:</p>
+<p>
+    <figure>
+      <a href="/images/css-custom-properties-performance-2018/calc-benchmark.png" target="_blank" rel="noopener noreferrer">
+        <img class="lozad" data-src="/images/css-custom-properties-performance-2018/calc-benchmark.png" alt="Current benchmark on calc() with CSS variables">
+      </a>
+      <figcaption class="f6 i tr mt1">Current benchmark on calc() with CSS variables</figcaption>
+    </figure>
+  </p>
+<p>The results seem to be consistent with the previous ones:</p>
+<ol>
+<li>As before, using static values like <code class="purple">100px</code> is the fastest option</li>
+<li>Setting a CSS variable with unit like <code class="purple">--translationPx: 100px</code> is slower</li>
+<li>Unitless CSS variables like <code class="purple">--translation: 100</code> is the slowest alternative</li>
+</ol>
+<p>Performance appears to be same as before, but here&#39;s the oddity: if you try a similar test with 10k elements <a class="dark-red dim" href="https://codepen.io/lisilinhart/pen/weExoJ?editors=0111">on Codepen</a>, it will give completely different results.</p>
+<p>
+    <figure>
+      <a href="/images/css-custom-properties-performance-2018/calc-benchmark-codepen.png" target="_blank" rel="noopener noreferrer">
+        <img class="lozad" data-src="/images/css-custom-properties-performance-2018/calc-benchmark-codepen.png" alt="Custom properties calc performance on Codepen">
+      </a>
+      <figcaption class="f6 i tr mt1">Custom properties calc performance on Codepen</figcaption>
+    </figure>
+  </p>
+<p>The several ways of using <code class="purple">calc</code> with CSS variables don&#39;t have any actual performance difference! Why are the metrics contrasting on jsperf.org and Codepen?</p>
+<p>The reason is that the jsperf test applies the CSS variable to each single node</p>
+<pre><code class="lang-js">for (var i = 0; i &lt; testNodes.length; i++) {
+  testNodes[i].style = &quot;...&quot;
 }
 </code></pre>
-<p>So then Web Components can import only the single pieces they require. I use <a class="dark-red dim" href="https://github.com/postcss/postcss-import">postcss-import</a>, but you can apply the same technique in Sass or Less.</p>
-<pre><code class="lang-css">@import &#39;normalize/embedded.css&#39;;
-@import &#39;normalize/sections.css&#39;;
-
-h1 {
-  color: rebeccapurple;
+<p>whereas the Codepen benchmark sets the property on the container element</p>
+<pre><code class="lang-js">container.style = &quot;--translation: var(--yPercent);&quot;
+</code></pre>
+<p>So how <code class="purple">calc()</code> is used doesn&#39;t make a difference if it&#39;s set once in a parent container, otherwise you must be careful to repeat the operation on a large number of nodes. In the latter case, using variables with units is preferable.</p>
+<h2 id="setting-css-variables-with-js">Setting CSS Variables with JS</h2>
+<p>Last test from Lisi Linhart: setting the custom property with JS in distinct ways.</p>
+<pre><code class="lang-js">testNodes[i].style.setProperty(&#39;--color&#39;, &#39;green&#39;);
+testNodes[i].style = &quot;--color: green&quot;;
+testNodes[i].style = &quot;color: green&quot;;
+testNodes[i].style.setProperty(&#39;color&#39;, &#39;green&#39;);
+</code></pre>
+<p>
+    <figure>
+      <a href="/images/css-custom-properties-performance-2018/custom-properties-js.png" target="_blank" rel="noopener noreferrer">
+        <img class="lozad" data-src="/images/css-custom-properties-performance-2018/custom-properties-js.png" alt="My results for Custom Properties in JS">
+      </a>
+      <figcaption class="f6 i tr mt1">My results for Custom Properties in JS</figcaption>
+    </figure>
+  </p>
+<p>We can conclude that <code class="purple">el.setProperty(&#39;color&#39;, &#39;green&#39;)</code> is still the fastest option, but surprisingly <code class="purple">el.setProperty(&#39;--color&#39;, &#39;green&#39;)</code> is faster than <code class="purple">el.style = &quot;color: green&quot;</code>, which means that <code class="purple">setProperty</code> is always more performant than inline styles, even when setting a custom property versus an inline hard-coded value.</p>
+<p>So now we have ended the benchmarks done by Lisi Linhart, but we have one more from me.</p>
+<h2 id="css-variables-start-up-performance">CSS variables start-up performance</h2>
+<p>Since you cannot escape the time of the initial render, even if you never modify any custom property, let&#39;s see how Chrome performs with loading a page of 25k items with and without custom properties:</p>
+<pre><code class="lang-css">/* With Custom Properties */
+:root {
+  --bg: orange;
 }
 
-/** Other component styles */
+.el {
+  background: var(--bg);
+}
 </code></pre>
-<p>This strategy is not optimal because there is still duplication, but at least it&#39;s minimal. It&#39;s a good compromise of isolation and duplication: you get independent Web Components with minimal inevitable CSS duplication.</p>
-<hr>
-<p>What do you think of this strategy? For the time being it&#39;s the best one I know, and the tip was given by a friend of mine <a class="dark-red dim" href="https://github.com/MaxArt2501">@MaxArt2501</a>. If you come up with a better strategy, let me know in the comments.</p>
+<pre><code class="lang-css">/* Without Custom Properties */
+.el {
+  background: orange;
+}
+</code></pre>
+<p>
+    <figure>
+      <a href="/images/css-custom-properties-performance-2018/start-up-static-css.png" target="_blank" rel="noopener noreferrer">
+        <img class="lozad" data-src="/images/css-custom-properties-performance-2018/start-up-static-css.png" alt="Static CSS initial render">
+      </a>
+      <figcaption class="f6 i tr mt1">Static CSS initial render</figcaption>
+    </figure>
+  </p>
+<p>
+    <figure>
+      <a href="/images/css-custom-properties-performance-2018/start-up-CSS-variable.png" target="_blank" rel="noopener noreferrer">
+        <img class="lozad" data-src="/images/css-custom-properties-performance-2018/start-up-CSS-variable.png" alt="Custom properties initial render">
+      </a>
+      <figcaption class="f6 i tr mt1">Custom properties initial render</figcaption>
+    </figure>
+  </p>
+<p>The initial render with CSS variables is noticeable slower: 416ms vs 159ms. It&#39;s not that bad though, but still to be kept in mind when using Custom Properties in a large application.</p>
+<h2 id="conclusions">Conclusions</h2>
+<p>Compared to 2017, there have been some improvements with CSS Custom Properties performances. Besides, I definitely believe the time is mature to start using them in production, as more and more modern features like <a class="dark-red dim" href="https://developers.google.com/web/updates/2018/01/paintapi#parameterizing_your_worklet">CSS Paint API</a> will rely on them.</p>
+<p>Nevertheless, we still have to be careful with their scope, by limiting usage of root properties, and we must not forget to measure the initial render timing.</p>
 </div>
         </div>
       </section>
     </article>
 
     <div class="comments measure-wide center ph2 ph0-l">
-  <script>var ISSUE_ID = '32';</script>
+  <script>var ISSUE_ID = '33';</script>
 
   <h3>Comments</h3>
 
@@ -245,14 +252,14 @@ h1 {
           <div>
             <p class="black-70 measure lh-copy mv0">
               This blog is using GitHub Issues as comments. You can post by replying to issue
-              <a href="https://github.com/jiayihu/blog/issues/32#new_comment_field" class="link black f5 underline-hover" target="_blank" rel="noopener noreferrer">
-                #32
+              <a href="https://github.com/jiayihu/blog/issues/33#new_comment_field" class="link black f5 underline-hover" target="_blank" rel="noopener noreferrer">
+                #33
               </a>
             </p>
           </div>
         </div>
         <div class="w5 pa3">
-          <a href="https://github.com/jiayihu/blog/issues/32#new_comment_field" class="no-underline f6 tc db w-100 pv3 bg-animate bg-blue hover-bg-dark-blue white br2" target="_blank" rel="noopener noreferrer">
+          <a href="https://github.com/jiayihu/blog/issues/33#new_comment_field" class="no-underline f6 tc db w-100 pv3 bg-animate bg-blue hover-bg-dark-blue white br2" target="_blank" rel="noopener noreferrer">
             Post a comment
           </a>
         </div>
