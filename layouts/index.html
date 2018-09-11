@@ -20,7 +20,7 @@
         <article class="mw7 center">
             <header>
               <h2 class="f3 mb1">
-                <a href="{{ '/' + article.path }}" class="link underline-hover">{{ article.title }}</a>
+                <a href="{{ '/' + article.path + '/' }}" class="link underline-hover">{{ article.title }}</a>
               </h2>
               <p class="mb3 f6">{{ article.date }}</p>
             </header>
@@ -30,12 +30,12 @@
       {% endfor %}
     </ul>
 
-    <nav>
+    <nav class="tc">
       {% if pagination.previous %}
-        <a href="{{ '/' + pagination.previous.path }}">| Newer</a>
+        <a href="{{ '/' + pagination.previous.path }}">← Newer</a>
       {% endif %}
       {% if pagination.next %}
-        <a href="{{ '/' + pagination.next.path }}">| Older</a>
+        <a href="{{ '/' + pagination.next.path }}">→ Older</a>
       {% endif %}
     </nav>
 

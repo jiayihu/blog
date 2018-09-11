@@ -1,7 +1,7 @@
 ---
 title: Using and automating GitHub issues as blog comments
 subtitle: Practical guide in pure Javascript to replace Disqus blog comments using automated GitHub issues
-date: July 27th, 2017
+date: 2017-07-27
 layout: article.html
 cover: /images/github-comments/cover.jpg
 coverColor: \#737373

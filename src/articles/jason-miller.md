@@ -1,7 +1,7 @@
 ---
 title: What I've learnt reading Jason Miller's source code
 subtitle: A tour of useful JavaScript tricks from his minimal open-source projects
-date: June 24th, 2018
+date: 2018-06-24
 layout: article.html
 cover: /images/jason-miller/cover.jpg
 coverColor: \#ffffff

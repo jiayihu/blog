@@ -1,7 +1,7 @@
 ---
 title: Angular AOT compilation with Webpack
 subtitle: Set up AOT compilation in Webpack to avoid runtime compilation, reduce bundle size and improve application start
-date: July 22nd, 2017
+date: 2017-07-22
 layout: article.html
 cover: /images/angular-aot/cover.jpg
 coverColor: \#737373

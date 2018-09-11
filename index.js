@@ -12,6 +12,7 @@ const md = require('metalsmith-markdown');
 const pagination = require('metalsmith-pagination');
 const permalinks = require('metalsmith-permalinks');
 const snippet = require('metalsmith-snippet');
+const dateFormatter = require('metalsmith-date-formatter');
 
 const nunjucks = require('nunjucks');
 const marked = require('marked');
@@ -35,6 +36,8 @@ renderer.image = function(href, title, text) {
     </figure>
   `;
 };
+
+/** @TODO: aside renderer for related articles  */
 
 marked.setOptions({
   renderer
@@ -78,6 +81,11 @@ function build(success) {
       })
     )
     .use(
+      dateFormatter({
+        dates: [{ key: 'date', format: 'MMM Do YYYY' }]
+      })
+    )
+    .use(
       md({
         gfm: true
       })
@@ -99,7 +107,7 @@ function build(success) {
             idProperty: 'link',
             getIssue(article) {
               const formattedTitle = article.title.replace(/\s/g, '-').toLowerCase();
-              const articleUrl = url.resolve('http://blog.jiayihu.net', formattedTitle);
+              const articleUrl = `${url.resolve('http://blog.jiayihu.net', formattedTitle)}/`;
 
               return {
                 title: `Comments: ${article.title}`,

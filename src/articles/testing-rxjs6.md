@@ -1,7 +1,7 @@
 ---
 title: Testing Observables in RxJS6
 subtitle: Introduction to RxJS marble testing, TestScheduler and how to improve Observable testing experience
-date: June 18th, 2018
+date: 2018-06-18
 layout: article.html
 cover: /images/testing-rxjs6/cover.jpg
 coverColor: \#ffffff

@@ -1,7 +1,7 @@
 ---
 title: CSS resets in Shadow DOM
 subtitle: How to apply reset.css or normalize.css with Web Components encapsulated in Shadow DOM 
-date: Sep 5th, 2018
+date: 2018-09-05
 layout: article.html
 cover: /images/css-reset-shadow-dom/cover.jpg
 coverColor: \#AAA496
