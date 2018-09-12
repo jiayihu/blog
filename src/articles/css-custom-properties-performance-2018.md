@@ -5,7 +5,6 @@ date: 2018-09-11
 layout: article.html
 cover: /images/css-custom-properties-performance-2018/cover.jpg
 coverColor: \#AAA496
-overlayAlpha: 30
 ---
 
 **CSS Custom Properties**, aka **CSS variables**, have been available in stable Firefox since 2014 and Chrome since 2016. Despite its availability, its usage has not spread yet, and performance could be one of the reasons.
@@ -49,7 +48,7 @@ Given a `container` of 25000 `span` nodes, the previous benchmark will set a `--
 
 Setting a custom property only on a single child hasn't changed: **1.4ms (now) compared to 1.6s (previous)**.
 
-Okaym so it's still clear that we must be careful with container custom properties because it affects children nodes and recalculation becomes expensive.
+Okay, so it's still clear that we must be careful with container custom properties because it affects children nodes and recalculation becomes expensive.
 
 However, this information doesn't help with deciding whether to use them or not because other solutions which require children to change their styles are also not cheap. Let's, for instance, compare it with inline styles, which are one of the strategies used in React for dynamic styling.
 
@@ -88,7 +87,7 @@ The results seem to be consistent with the previous ones:
 2. Setting a CSS variable with unit like `--translationPx: 100px` is slower
 3. Unitless CSS variables like `--translation: 100` is the slowest alternative
 
-Performance appears to be same as before, but here's the oddity: if you try a similar test with 10k elements [on Codepen](https://codepen.io/lisilinhart/pen/weExoJ?editors=0111), it will give completely different results.
+Performance appears to be almost the same as before, but here's the oddity: if you try a similar test with 10k elements [on Codepen](https://codepen.io/lisilinhart/pen/weExoJ?editors=0111), it will give completely different results.
 
 ![Custom properties calc performance on Codepen](/images/css-custom-properties-performance-2018/calc-benchmark-codepen.png)
 
@@ -102,7 +101,7 @@ for (var i = 0; i < testNodes.length; i++) {
 }
 ```
 
-whereas the Codepen benchmark sets the property on the container element
+whereas the Codepen benchmark sets the property on the container element and the calculation is needed only once
 
 ```js
 container.style = "--translation: var(--yPercent);" 
@@ -154,6 +153,8 @@ Since you cannot escape the time of the initial render, even if you never modify
 ![Custom properties initial render](/images/css-custom-properties-performance-2018/start-up-CSS-variable.png)
 
 The initial render with CSS variables is noticeable slower: 416ms vs 159ms. It's not that bad though, but still to be kept in mind when using Custom Properties in a large application.
+
+You might prefer to avoid shipping custom properties if you don't need to change them at runtime. [postcss-custom-properties](https://github.com/postcss/postcss-custom-properties#preserve) supports the option `preserve: false` to remove custom properties in compilation.
 
 ## Conclusions
 
