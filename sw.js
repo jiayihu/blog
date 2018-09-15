@@ -1,14 +1,12 @@
 // @ts-check
 
-const CACHE_NAME = 'jiayihu-static-v1';
-const DATA_CACHE_NAME = 'jiayihu-data-v1';
+const CACHE_NAME = 'jiayihu-static-v10';
+const DATA_CACHE_NAME = 'jiayihu-data-v10';
 const urlsToCache = ['/', '/css/main.css', '/css/prism.css', '/js/main.js', '/js/prism.js'];
 
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
-      console.log('[ServiceWorker] Opened cache');
-
       // Atomic operation, if any file fails the entire cache operation fails
       return cache.addAll(urlsToCache);
     })
@@ -31,7 +29,8 @@ self.addEventListener('activate', event => {
     })
   );
 
-  return self.clients.claim();
+  self.skipWaiting();
+  self.clients.claim();
 });
 
 /**
