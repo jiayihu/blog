@@ -5,18 +5,17 @@
     {% include "layouts/partials/_social.html" %}
   </head>
 
-  <body class="page--article bg-black-025 serif">
+  <body class="page--article dark-grey lh-copy sans-serif">
     {% include "layouts/partials/_nav.html" %}
 
     <article>
       <header
-        class="vh-100 dt w-100 tc bg-dark-gray white cover"
-        style="background:url({{ cover }}) no-repeat center, {{ coverColor | replace("\\", "") }};"
+        class="vh-75 dt w-100 tc bg-washed-yellow cover"
       >
-        <div class="bg-black-{{ overlayAlpha if overlayAlpha else "50"  }} dtc v-mid">
-          <h1 class="f1 f-headline-l fw1 i white-90 ph3">{{ title }}</h1>
+        <div class="dark-gold dtc serif v-mid">
+          <h1 class="f1 f-headline-l i lh-title ph3">{{ title }}</h1>
           <div class="ph0 mh0 measure f4 lh-copy center">
-            <p class="fw1">
+            <p class="">
               {{ subtitle }}
             </p>
             <p class="article-meta f6 ttu tracked fs-normal">Jiayi Hu - {{ date }}</p>
@@ -41,7 +40,6 @@
         </a>
 
         <div class="center measure-wide">
-          <h1 class="f1 lh-title">{{ title }}</h1>
           <div class="article-content">{{ contents }}</div>
         </div>
       </section>

@@ -5,27 +5,28 @@
     <title>Jiayi's Chronicles</title>
   </head>
 
-  <body class="serif bg-black-025">
+  <body class="dark-grey lh-copy sans-serif">
     {% include "layouts/partials/_nav.html" %}
 
-    <blockquote class="i measure-narrow center mt5">
-      <p class="lh-copy lh-title-ns">
-          Chronicles of a young developer's journey
+    <blockquote class="i measure-wide center mt5">
+      <p class="dark-gray f2 lh-copy lh-title-ns tc">
+          Chronicles of a young developer
       </p>
     </blockquote>
 
     <ul class="list pl0">
       {% for article in pagination.files %}
-      <li class="pa3 pa4-ns">
-        <article class="mw7 center">
-            <header>
-              <h2 class="f3 mb1">
-                <a href="{{ '/' + article.path + '/' }}" class="link underline-hover">{{ article.title }}</a>
-              </h2>
-              <p class="mb3 f6">{{ article.date }}</p>
-            </header>
-            <section class="lh-copy">{{ article.snippet }}</section>
-          </article>
+      <li>
+        <article class="center mw7 ph3 pv5 pv5-ns">
+          <header>
+            <h2 class="f3 lh-title mb1 mt0">
+              <a href="{{ '/' + article.path + '/' }}" class="link underline-hover">{{ article.title }}</a>
+            </h2>
+            <p class="mb3 f6">{{ article.date }}</p>
+          </header>
+          <section class="lh-copy">{{ article.snippet }}</section>
+        </article>
+        <span class="b--moon-gray bt db mha w3"></span>
       </li>
       {% endfor %}
     </ul>

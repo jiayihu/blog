@@ -6,6 +6,9 @@
 
 @import 'partials/_flexbox';
 @import 'partials/_size';
+@import 'partials/_skins';
 @import 'partials/_spacing';
+
+@import 'partials/_colors';
 
 /* uncss:ignore end */

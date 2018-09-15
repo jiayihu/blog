@@ -19,9 +19,10 @@ const marked = require('marked');
 const url = require('url');
 
 const renderer = new marked.Renderer();
+
 const defaultLinkRenderer = renderer.link;
 renderer.link = function(...args) {
-  return defaultLinkRenderer.apply(renderer, args).replace('<a', '<a class="dark-red dim"');
+  return defaultLinkRenderer.apply(renderer, args).replace('<a', '<a class="dark-green dim"');
 };
 
 renderer.codespan = text => `<code class="purple">${text}</code>`;
@@ -72,7 +73,7 @@ function build(success) {
     .use(
       pagination({
         'collections.articles': {
-          perPage: 5,
+          perPage: 15,
           first: 'index.html',
           filter: page => !page.static,
           path: 'page/:num/index.html',

@@ -10,15 +10,17 @@ function commentHTML(comment) {
     <li class="comment flex mt3">
       <div class="comment__author mr2 tc">
         <a href="${comment.user.html_url}" class="dib h2--half w2--half">
-          <img src="${comment.user.avatar_url}" alt="${
-    comment.user.login
-  }" class="br2 h2--half w2--half dib" />
+          <img
+            src="${comment.user.avatar_url}"
+            alt="${comment.user.login}"
+            class="br2 h2--half w2--half dib"
+          />
         </a>
       </div>
       <div class="fg1 br2 ba b--moon-gray f6">
-        <div class="comment__header bb b--moon-gray bg-black-05 flex items-center silver ph3 pv2">
+        <div class="comment__header bb b--moon-gray flex items-center silver ph3 pv2">
           <span>
-            <a href="${comment.user.html_url}" class="link underline-hover near-black">
+            <a href="${comment.user.html_url}" class="fw7 link mid-gray underline-hover">
               ${comment.user.login}
             </a>
             commented
@@ -32,7 +34,7 @@ function commentHTML(comment) {
               : ''
           }
         </div>
-        <div class="comment__body pa3">${comment.body_html}</div>
+        <div class="comment__body ph3">${comment.body_html}</div>
       </div>
     </li>
   `;
