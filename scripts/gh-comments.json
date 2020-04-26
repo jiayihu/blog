@@ -16,5 +16,8 @@
   },
   "articles/css-custom-properties-performance-2018.html": {
     "issueId": 33
+  },
+  "articles/io-ts-for-express-validation.html": {
+    "issueId": 34
   }
 }
