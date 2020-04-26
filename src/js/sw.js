@@ -1,7 +1,7 @@
 // @ts-check
 
-const CACHE_NAME = 'jiayihu-static-v10';
-const DATA_CACHE_NAME = 'jiayihu-data-v10';
+const CACHE_NAME = 'jiayihu-static-v11';
+const DATA_CACHE_NAME = 'jiayihu-data-v11';
 const urlsToCache = ['/', '/css/main.css', '/css/prism.css', '/js/main.js', '/js/prism.js'];
 
 self.addEventListener('install', event => {
@@ -9,7 +9,7 @@ self.addEventListener('install', event => {
     caches.open(CACHE_NAME).then(cache => {
       // Atomic operation, if any file fails the entire cache operation fails
       return cache.addAll(urlsToCache);
-    })
+    }),
   );
 });
 
@@ -24,9 +24,9 @@ self.addEventListener('activate', event => {
             console.log('[ServiceWorker] Removing old cache', key);
             return caches.delete(key);
           }
-        })
+        }),
       );
-    })
+    }),
   );
 
   self.skipWaiting();
@@ -48,7 +48,7 @@ self.addEventListener('fetch', event => {
           cache.put(request.url, response.clone());
           return response;
         });
-      })
+      }),
     );
   } else {
     /**
@@ -59,7 +59,7 @@ self.addEventListener('fetch', event => {
     event.respondWith(
       caches.match(request).then(response => {
         return response || fetch(request);
-      })
+      }),
     );
   }
 });

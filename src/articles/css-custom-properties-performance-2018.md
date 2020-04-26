@@ -13,7 +13,7 @@ coverColor: \#AAA496
 You can read about what are Custom Properties on [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/--*).
 </aside>
 
-In particular, custom properties are like `color` or `font-size`, and they inherited by children elements. Besides, it's ubiquitous to set them in the *root* as follows:
+In particular, custom properties are like `color` or `font-size`, and they are inherited by children elements. Besides, it's ubiquitous to set them in the *root* as follows:
 
 ```css
 :root { --color: red; }
@@ -42,21 +42,21 @@ Due to the impact of modifying a root custom property, there are valid performan
 }
 ```
 
-Given a `container` of 25000 `span` nodes, the previous benchmark will set a `--bg` property on the container and then on a single child. With my current laptop, a *2018 MacBook Pro 15" 2,2 GHz Intel Core i7*, I get a far worse result: **644ms (now) compared to 76ms (previous)**.
+Given a `container` of 25000 `span` nodes, the benchmark will set a `--bg` property on the container and then use it for each child. With my current laptop, a *2018 MacBook Pro 15" 2,2 GHz Intel Core i7*, I get a far worse result: **644ms (now) compared to 76ms (previous)**.
 
 76ms seems to be too good though, and maybe it was an oversite by Lisi Linhart. [Another benchmark by Matt Stow](https://codepen.io/stowball/pen/ygmLrQ) in 2017 returned a rendering time of 51ms for 1k items, whereas I get around 66ms for the same elements. Therefore I doubt it was possible to achieve 76ms with 25k spans.
 
-Setting a custom property only on a single child hasn't changed: **1.4ms (now) compared to 1.6s (previous)**.
+Setting a custom property only on a single child hasn't changed instead: **1.4ms (now) compared to 1.6ms (previous)**.
 
-Okay, so it's still clear that we must be careful with container custom properties because it affects children nodes and recalculation becomes expensive.
+So it's still clear that we must be careful with container custom properties because it affects children nodes and recalculation becomes expensive. If you use Custom Properties throughout your application and by defining them at the root element, you'll incur significant performance issues.
 
-However, this information doesn't help with deciding whether to use them or not because other solutions which require children to change their styles are also not cheap. Let's, for instance, compare it with inline styles, which are one of the strategies used in React for dynamic styling.
+However, this information alone doesn't help with deciding whether to use them or not because other solutions which require children to change their styles are also not cheap. Let's, for instance, compare it with inline styles, which is one of the strategies used in React for dynamic styling.
 
 ![Custom properties vs inline styles](/images/css-custom-properties-performance-2018/inline-vs-variables.png)
 
 [Try it yourself on Codepen](https://codepen.io/jiayihu/pen/BOrLea?editors=0111), forked from the one by Lisi Linhart.
 
-Results show how inline styles are actually slower than setting a custom property on the parent. You might then consider using CSS variables if you are currently relying on inline styles for dynamic styling.
+Results show how inline styles are actually slower than setting a custom property on the parent. You might therefore consider using CSS variables if you are currently relying on inline styles for dynamic styling.
 
 ## Using calc()
 
@@ -107,7 +107,7 @@ whereas the Codepen benchmark sets the property on the container element and the
 container.style = "--translation: var(--yPercent);" 
 ```
 
-So how `calc()` is used doesn't make a difference if it's set once in a parent container, otherwise you must be careful to repeat the operation on a large number of nodes. In the latter case, using variables with units is preferable.
+So how `calc()` is used doesn't make a difference if it's set once in a parent container, otherwise you must be careful to repeat the operation on a large number of nodes. In both cases, using variables with units is preferable.
 
 ## Setting CSS Variables with JS
 
@@ -122,7 +122,7 @@ testNodes[i].style.setProperty('color', 'green');
 
 ![My results for Custom Properties in JS](/images/css-custom-properties-performance-2018/custom-properties-js.png)
 
-We can conclude that `el.setProperty('color', 'green')` is still the fastest option, but surprisingly `el.setProperty('--color', 'green')` is faster than `el.style = "color: green"`, which means that `setProperty` is always more performant than inline styles, even when setting a custom property versus an inline hard-coded value.
+We can conclude that `el.setProperty('color', 'green')` is still the fastest option, but surprisingly `el.setProperty('--color', 'green')` is faster than `el.style = "color: green"`, which means that `setProperty` is always more performant than inline styles, even when setting a custom property versus an inline hard-coded value. The reason could be that setting inline styles requires parsing the CSS.
 
 So now we have ended the benchmarks done by Lisi Linhart, but we have one more from me.
 
@@ -158,6 +158,6 @@ You might prefer to avoid shipping custom properties if you don't need to change
 
 ## Conclusions
 
-Compared to 2017, there have been some improvements with CSS Custom Properties performances. Besides, I definitely believe the time is mature to start using them in production, as more and more modern features like [CSS Paint API](https://developers.google.com/web/updates/2018/01/paintapi#parameterizing_your_worklet) will rely on them.
+Compared to 2017, there have been some minor improvements with CSS Custom Properties performances. I definitely believe the time is mature to start using them in production, as more and more modern features like [CSS Paint API](https://developers.google.com/web/updates/2018/01/paintapi#parameterizing_your_worklet) will rely on them.
 
 Nevertheless, we still have to be careful with their scope, by limiting usage of root properties, and we must not forget to measure the initial render timing.
