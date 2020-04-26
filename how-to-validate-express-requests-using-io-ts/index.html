@@ -23,23 +23,23 @@
 
 <link rel="manifest" href="/manifest.json">
 
-    <title>CSS resets in Shadow DOM | Jiayi's Chronicles</title>
+    <title>How to validate Express requests using io-ts | Jiayi's Chronicles</title>
     <!-- Search Engine -->
-<meta name="description" content="How to apply reset.css or normalize.css with Web Components encapsulated in Shadow DOM">
+<meta name="description" content="Combine io-ts runtime type system with Express request validation">
 <!-- Schema.org for Google -->
-<meta itemprop="name" content="CSS resets in Shadow DOM">
-<meta itemprop="description" content="How to apply reset.css or normalize.css with Web Components encapsulated in Shadow DOM">
+<meta itemprop="name" content="How to validate Express requests using io-ts">
+<meta itemprop="description" content="Combine io-ts runtime type system with Express request validation">
 <!-- Twitter -->
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CSS resets in Shadow DOM">
-<meta name="twitter:description" content="How to apply reset.css or normalize.css with Web Components encapsulated in Shadow DOM">
+<meta name="twitter:title" content="How to validate Express requests using io-ts">
+<meta name="twitter:description" content="Combine io-ts runtime type system with Express request validation">
 <meta name="twitter:site" content="@jiayi_ghu">
-<meta name="twitter:image:src" content="http://blog.jiayihu.net/images/css-reset-shadow-dom/cover.jpg">
+<meta name="twitter:image:src" content="http://blog.jiayihu.net/images/css-custom-properties-performance-2018/cover.jpg">
 <!-- Open Graph general (Facebook, Pinterest & Google+) -->
-<meta name="og:title" content="CSS resets in Shadow DOM">
-<meta name="og:description" content="How to apply reset.css or normalize.css with Web Components encapsulated in Shadow DOM">
-<meta name="og:image" content="http://blog.jiayihu.net/images/css-reset-shadow-dom/cover.jpg">
-<meta name="og:url" content="http://blog.jiayihu.net/css-resets-in-shadow-dom">
+<meta name="og:title" content="How to validate Express requests using io-ts">
+<meta name="og:description" content="Combine io-ts runtime type system with Express request validation">
+<meta name="og:image" content="http://blog.jiayihu.net/images/css-custom-properties-performance-2018/cover.jpg">
+<meta name="og:url" content="http://blog.jiayihu.net/how-to-validate-express-requests-using-io-ts">
 <meta name="og:site_name" content="Jiayi's Chronicles">
 <meta name="og:type" content="website">
 
@@ -62,18 +62,18 @@
         class="vh-75 dt w-100 tc bg-washed-yellow cover"
       >
         <div class="dark-gold dtc serif v-mid">
-          <h1 class="f1 f-headline-l i lh-title ph3">CSS resets in Shadow DOM</h1>
+          <h1 class="f1 f-headline-l i lh-title ph3">How to validate Express requests using io-ts</h1>
           <div class="ph0 mh0 measure f4 lh-copy center">
             <p class="">
-              How to apply reset.css or normalize.css with Web Components encapsulated in Shadow DOM
+              Combine io-ts runtime type system with Express request validation
             </p>
-            <p class="article-meta f6 ttu tracked fs-normal">Jiayi Hu - Sep 5th 2018</p>
+            <p class="article-meta f6 ttu tracked fs-normal">Jiayi Hu - Apr 26th 2020</p>
           </div>
         </div>
       </header>
       <section class="article-main f5 pv5 lh-copy ph2 relative">
         <a
-          href="https://github.com/jiayihu/blog/tree/master/src/articles/css-resets-in-shadow-dom.md"
+          href="https://github.com/jiayihu/blog/tree/master/src/articles/io-ts-for-express-validation.md"
           class="color-inherit f6 no-underline underline-hover glow absolute top-1 right-1"
           target="_blank"
           rel="noopener noreferrer"
@@ -89,153 +89,114 @@
         </a>
 
         <div class="center measure-wide">
-          <div class="article-content"><p>Now that also <a class="dark-green dim" href="https://blog.nightly.mozilla.org/2018/09/06/developer-tools-support-for-web-components-in-firefox-63/">Firefox 63 is supporting <strong>Web Components</strong></a>, they are definitely the new shiny technology in the front-end which allow creating reusable Custom Elements using standard JavaScript APIs. With <strong>Shadow DOM</strong>, they are even well encapsulated, but this raises some questions like how to reset the CSS within the Shadow DOM.</p>
-<aside class="notice">
-You can read more about Web Components on <a class="dark-green dim" href="https://developer.mozilla.org/en-US/docs/Web/Web_Components">MDN</a>.
-</aside>
+          <div class="article-content"><p><a class="dark-green dim" href="https://github.com/gcanti/io-ts">Io-ts</a> is runtime type system which provides safe encoding and decoding, but if you landed on this page you probably already have a slight idea of what it is. As a matter of fact, I wrote this article to remind a future version of myself about how to use the library to validate the requests coming from a REST API endpoint in <a class="dark-green dim" href="https://expressjs.com/">Express.js</a>. Let&#39;s go straight to it then.</p>
+<h2 id="decoder">Decoder</h2>
+<p>The first code we need to write is the <a class="dark-green dim" href="https://github.com/gcanti/io-ts/blob/master/Decoder.md">Decoder</a>, which will take unknown input we need to check. A <code class="purple">Decoder</code> is a runtime representation of a static type and, indeed, one of the benefits of using <code class="purple">io-ts</code> compared to popular alternatives like <a class="dark-green dim" href="https://express-validator.github.io/docs/">express-validator</a> is the strong TypeScript typing we have for free.</p>
+<p>Suppose we have an Express application having API endpoints for <a class="dark-green dim" href="https://animal-crossing.com/">Animal Crossing</a>, just as an example since it&#39;s my current obsession. Let&#39;s start with the <code class="purple">Decoder</code> of an island:</p>
+<pre><code class="lang-typescript">import * as D from &#39;io-ts/lib/Decoder&#39;;
 
-<p>When building Web Components, Shadow DOM allows encapsulation of what the component renders. As the name suggests, Shadow DOM attaches a separate hidden DOM tree to your element, allowing you to keep the internal DOM and the styles private. For the CSS, this means that any style outside the element has no impact within the Shadow DOM and vice-versa any style defined in the latter doesn&#39;t affect elements out of it.</p>
-<p>Let&#39;s define a simple Custom Elements for our special paragraph component:</p>
-<pre><code class="lang-js">const template = document.createElement(&#39;template&#39;)
-template.innerHTML = `
-  &lt;style&gt;
-    p {
-      color: white;
-      background-color: #666;
-      padding: 5px;
+export const IslandDec = D.type({
+  fruit: D.literal(&#39;apple&#39;, &#39;cherry&#39;, &#39;orange&#39;, &#39;peach&#39;, &#39;pear&#39;),
+  hemisphere: D.literal(&#39;north&#39;, &#39;south&#39;),
+  villager: D.literal(&#39;daisy&#39;, &#39;celeste&#39;, &#39;neither&#39;),
+});
+
+/*
+type Island = {
+    fruit: &quot;apple&quot; | &quot;cherry&quot; | &quot;orange&quot; | &quot;peach&quot; | &quot;pear&quot;;
+    hemisphere: &quot;north&quot; | &quot;south&quot;;
+    villager: &quot;daisy&quot; | &quot;celeste&quot; | &quot;neither&quot;;
+}
+*/
+export type Island = D.TypeOf&lt;typeof IslandDec&gt;;
+</code></pre>
+<p>As you can see, by using <code class="purple">io-ts</code> we have been able to both define the <code class="purple">Decoder</code> and extract the static type using the <code class="purple">TypeOf</code> operator, without declaring the type ourselves. <code class="purple">io-ts</code> comes with built-in decoders for primitive types, whereas <code class="purple">D.type</code> allows to define an object with required fields.</p>
+<p>By using the method <code class="purple">.decode</code> we can check the validity of an object.</p>
+<pre><code class="lang-typescript">IslandDec.decode({
+  fruit: &#39;apples&#39;,
+  hemisphere: &#39;north&#39;,
+  villager: &#39;neither&#39;
+})
+</code></pre>
+<p>Did you even notice where is the error? Surely, the <code class="purple">Decoder</code> was able to strictly check the input.</p>
+<pre><code class="lang-typescript">{
+  value: &#39;required property &quot;fruit&quot;&#39;,
+  forest: [
+    {
+      value:
+        &#39;cannot decode &quot;apples&quot;, should be &quot;apple&quot; | &quot;cherry&quot; | &quot;orange&quot; | &quot;peach&quot; | &quot;pear&quot;&#39;,
+      forest: []
     }
-  &lt;/style&gt;
-  &lt;p&gt;My paragraph&lt;/p&gt;
-`
-
-class MyParagraph extends HTMLElement {
-    constructor() {
-      super();
-      const template = document.getElementById(&#39;my-paragraph&#39;);
-
-      this.attachShadow({mode: &#39;open&#39;})
-        .appendChild(template.content.cloneNode(true));
-  }
-}
-
-customElements.define(&#39;my-paragraph&#39;, MyParagraph)
-</code></pre>
-<p>It&#39;s possible then to use it as <code class="purple">&lt;my-paragraph&gt;&lt;/my-paragraph&gt;</code>, and it renders a paragraph with white text, grey background and 5px padding. You can <a class="dark-green dim" href="https://codepen.io/jiayihu/pen/RYxVrr?editors=1010">see it live on Codepen</a> using the latest Chrome, Safari or Firefox. <a class="dark-green dim" href="https://caniuse.com/#feat=custom-elementsv1">Edge is the only one missing Web Components</a> yet.</p>
-<p>Now, if we define the following global CSS declaration, we can notice that it doesn&#39;t have an impact on our custom paragraph although a <code class="purple">&lt;p&gt;</code> element is used within it.</p>
-<pre><code class="lang-css">p {
-  text-transform: uppercase;
+  ]
 }
 </code></pre>
-<p>Likewise, <code class="purple">MyParagraph</code> styles don&#39;t have effects on the outer <code class="purple">&lt;p&gt;Usual paragraph&lt;/p&gt;</code> declared in the HTML.</p>
-<p>Okay that it&#39;s clear what Shadow DOM means for styles, let&#39;s proceed with the main topic of the article.</p>
-<h2 id="how-to-reset-the-css-in-web-components">How to reset the CSS in Web Components</h2>
-<p>Since Shadow DOM is separated from the rest of the document, this means that your Custom Elements won&#39;t be able to be styled by your global CSS reset like <a class="dark-green dim" href="https://meyerweb.com/eric/tools/css/reset/">reset.css</a> or <a class="dark-green dim" href="https://necolas.github.io/normalize.css/">normalize.css</a>. By default, without any style from yours, they use the User Agent stylesheet defined by the browser along with all the inconsistencies between browsers.</p>
-<p>With the deprecation of <code class="purple">/deep/</code> and <code class="purple">&gt;&gt;&gt;</code> CSS selectors, it&#39;s impossible for any stylesheet to customize the style within a Shadow DOM even if the purpose is to reset it.</p>
-<p>The only way, as far as I know, is to import the CSS reset within every your Web Component, for instance <code class="purple">@import &#39;normalize.css&#39;;</code> as Sass or PostCSS. The problem is that this duplicates much code. <code class="purple">normalize.css</code> is almost 6KB uncompressed, which means that if you have 100 components, you  deliver <code class="purple">600KB</code> of duplicated code.</p>
-<p>The philosophy of Web Components is to build isolated components which can be used anywhere without the need of other libraries and, for this reason, they must share nothing between each other and they must contain all the needed code to work alone.</p>
-<p>However, this means also that your single Custom Element doesn&#39;t need the whole reset CSS. It can import only the parts which affect its Shadow DOM.</p>
-<p>Taking <a class="dark-green dim" href="https://necolas.github.io/normalize.css/">normalize.css</a> as example, we are able to divide it into tiny pieces like the following:</p>
-<pre><code>normalize
-   ├── document.css
-   ├── embedded.css
-   ├── forms.css
-   ├── grouping.css
-   ├── interactive.css
-   ├── misc.css
-   ├── sections.css
-   └── text-level.css
-</code></pre><pre><code class="lang-css">/* Embedded content
-   ========================================================================== */
+<h2 id="express-validator">Express validator</h2>
+<p>We can now leverage our <code class="purple">Decoder</code> to use it as a <a class="dark-green dim" href="https://expressjs.com/en/guide/using-middleware.html">Express middleware</a> to validate the request body of an API endpoint. We can write an utility to easily use <code class="purple">Decoders</code> as request validators.</p>
+<pre><code class="lang-typescript">import { RequestHandler } from &#39;express&#39;;
+import { Decoder } from &#39;io-ts/lib/Decoder&#39;;
+import { pipe } from &#39;fp-ts/lib/pipeable&#39;;
+import { fold } from &#39;fp-ts/lib/Either&#39;;
 
-/**
- * Remove the border on images inside links in IE 10.
- */
-
-img {
-  border-style: none;
-}
+export const validator: &lt;T&gt;(decoder: Decoder&lt;T&gt;) =&gt; RequestHandler = decoder =&gt; (
+  req,
+  res,
+  next,
+) =&gt; {
+  return pipe(
+    decoder.decode(req.body),
+    fold(
+      errors =&gt; res.status(400).send({ status: &#39;error&#39;, error: errors }),
+      () =&gt; next(),
+    ),
+  );
+};
 </code></pre>
-<pre><code class="lang-css">/* Forms
-   ========================================================================== */
-
-/**
- * 1. Change the font styles in all browsers.
- * 2. Remove the margin in Firefox and Safari.
- */
-
-button,
-input,
-optgroup,
-select,
-textarea {
-  font-family: inherit; /* 1 */
-  font-size: 100%; /* 1 */
-  line-height: 1.15; /* 1 */
-  margin: 0; /* 2 */
-}
-
-/**
-  * Show the overflow in IE.
-  * 1. Show the overflow in Edge.
-  */
-
-button,
-input {
-  /* 1 */
-  overflow: visible;
-}
-
-/** ... other form resets */
+<p>Then finally we have all the elements to setup the validation in place.</p>
+<pre><code class="lang-typescript">app.post(&#39;/islands&#39;, validator(IslandDec), (req, res, next) =&gt; {
+  return addIsland(req.body)
+    .then(island =&gt; res.status(301).send({ status: &#39;success&#39;, data: island }))
+    .catch(next);
+});
 </code></pre>
-<pre><code class="lang-css">/* Sections
-   ========================================================================== */
+<h2 id="decoder-composition">Decoder composition</h2>
+<p>As a final note, I also want to show how flexible the <code class="purple">io-ts</code> <code class="purple">Decoder</code> is. We can for instance define a more complex <code class="purple">Decoder</code> by composing together simpler ones.</p>
+<pre><code class="lang-typescript">import * as D from &#39;io-ts/lib/Decoder&#39;;
 
-/**
- * Correct the font size and margin on `h1` elements within `section` and
- * `article` contexts in Chrome, Firefox, and Safari.
- */
+export const BulletinBodyDec = D.type({
+  dodo: D.string,
+  island: IslandDec,
+  time: D.string,
+  turnipPrice: D.number,
+  description: D.string,
+  preferences: D.type({
+    concurrent: D.number,
+    queue: D.number,
+    hasFee: D.boolean,
+    isPrivate: D.boolean,
+  }),
+});
 
-h1 {
-  font-size: 2em;
-  margin: 0.67em 0;
-}
+export const BulletinDec = D.intersection(
+  D.type({
+    id: D.string,
+    meta: D.type({
+      creationDate: D.string,
+    }),
+  }),
+  BulletinBodyDec,
+);
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin: 0;
-  padding: 0;
-  -webkit-font-smoothing: antialiased;
-  -moz-font-smoothing: antialiased;
-  -o-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
+export type BulletinBody = D.TypeOf&lt;typeof BulletinBodyDec&gt;;
+export type Bulletin = D.TypeOf&lt;typeof BulletinDec&gt;;
 </code></pre>
-<p>So then Web Components can import only the single pieces they require. I use <a class="dark-green dim" href="https://github.com/postcss/postcss-import">postcss-import</a>, but you can apply the same technique in Sass or Less.</p>
-<pre><code class="lang-css">@import &#39;normalize/embedded.css&#39;;
-@import &#39;normalize/sections.css&#39;;
-
-h1 {
-  color: rebeccapurple;
-}
-
-/** Other component styles */
-
-</code></pre>
-<p>This strategy is not optimal because there is still duplication, but at least it&#39;s minimal. It&#39;s a good compromise of isolation and duplication: you get independent Web Components with minimal inevitable CSS duplication.</p>
-<hr>
-<p>What do you think of this strategy? For the time being it&#39;s the best one I know, and the tip was given by a friend of mine <a class="dark-green dim" href="https://github.com/MaxArt2501">@MaxArt2501</a>. If you come up with a better strategy, let me know in the comments.</p>
+<p>We have defined a more complex <code class="purple">Bulletin</code> as an intersection of <code class="purple">Decoders</code> and <code class="purple">BulletinBodyDec</code> is able to reuse the previously defined <code class="purple">IslandDec</code>.</p>
 </div>
         </div>
       </section>
     </article>
 
     <div class="comments measure-wide center ph2 ph0-l">
-  <script>var ISSUE_ID = '32';</script>
+  <script>var ISSUE_ID = '34';</script>
 
   <h3>Comments</h3>
 
@@ -246,15 +207,15 @@ h1 {
           <div>
             <p class="black-70 measure lh-copy mv0">
               This blog is using GitHub Issues as comments. You can post by replying to issue
-              <a href="https://github.com/jiayihu/blog/issues/32#new_comment_field"  class="link black f5 underline-hover" target="_blank" rel="noopener noreferrer">
-                #32
+              <a href="https://github.com/jiayihu/blog/issues/34#new_comment_field"  class="link black f5 underline-hover" target="_blank" rel="noopener noreferrer">
+                #34
               </a>
             </p>
           </div>
         </div>
         <div class="w5 pa3">
           <a
-            href="https://github.com/jiayihu/blog/issues/32#new_comment_field"
+            href="https://github.com/jiayihu/blog/issues/34#new_comment_field"
             class="no-underline f6 tc db w-100 pv3 bg-animate bg-dark-green hover-bg-dark-blue white br2"
             target="_blank"
             rel="noopener noreferrer"
