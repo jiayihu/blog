@@ -132,3 +132,56 @@ export type Bulletin = D.TypeOf<typeof BulletinDec>;
 ```
 
 We have defined a more complex `Bulletin` as an intersection of `Decoders` and `BulletinBodyDec` is able to reuse the previously defined `IslandDec`.
+
+## Transform io-ts error towards a more standard error response
+
+By default, `io-ts` returns a `NonEmptyArray<Tree<string>>` type as errors, which is an array of error trees with at least one error. The `Tree` structure is convenient to understand the hierarchy of the invalid properties, but you may wish to return a more standard error response to the client. Suppose you would like to have the following REST error response instead:
+
+```typescript
+/**
+ * https://github.com/Microsoft/api-guidelines/blob/master/Guidelines.md#errorresponse--object
+ */
+export interface RestError {
+  code: 'BadArgument';
+  message: string;
+  details: Array<RestError>;
+}
+```
+
+The following code shows an example of how to transform the array of error `Tree`s (the type is `Array<Tree<string>>` aka `Forest<string>`) into a flatten array of `RestError`, by using a recursive function which is able to extract all the error messages from the forest.
+
+```typescript
+function getErrorValues(forest: Array<Tree<string>>): Array<string> {
+  return forest.flatMap(x => {
+    return x.forest.length ? [x.value, ...getErrorValues(x.forest)] : [x.value];
+  });
+}
+
+export const validator: <T>(decoder: Decoder<T>) => RequestHandler = decoder => (
+  req,
+  res,
+  next,
+) => {
+  return pipe(
+    decoder.decode(req.body),
+    fold(
+      errorForest => {
+        const details: Array<RestError> = getErrorValues(errorForest).map(message => {
+          return {
+            code: 'BadArgument',
+            message,
+          };
+        });
+        const error: RestError = {
+          code: 'BadArgument',
+          message: 'Invalid request body',
+          details,
+        };
+        
+        return res.status(400).send({ status: 'error', error });
+      },
+      () => next(),
+    ),
+  );
+};
+```
