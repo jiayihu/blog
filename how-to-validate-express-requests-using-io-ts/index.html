@@ -190,6 +190,52 @@ export type BulletinBody = D.TypeOf&lt;typeof BulletinBodyDec&gt;;
 export type Bulletin = D.TypeOf&lt;typeof BulletinDec&gt;;
 </code></pre>
 <p>We have defined a more complex <code class="purple">Bulletin</code> as an intersection of <code class="purple">Decoders</code> and <code class="purple">BulletinBodyDec</code> is able to reuse the previously defined <code class="purple">IslandDec</code>.</p>
+<h2 id="transform-io-ts-error-towards-a-more-standard-error-response">Transform io-ts error towards a more standard error response</h2>
+<p>By default, <code class="purple">io-ts</code> returns a <code class="purple">NonEmptyArray&lt;Tree&lt;string&gt;&gt;</code> type as errors, which is an array of error trees with at least one error. The <code class="purple">Tree</code> structure is convenient to understand the hierarchy of the invalid properties, but you may wish to return a more standard error response to the client. Suppose you would like to have the following REST error response instead:</p>
+<pre><code class="lang-typescript">/**
+ * https://github.com/Microsoft/api-guidelines/blob/master/Guidelines.md#errorresponse--object
+ */
+export interface RestError {
+  code: &#39;BadArgument&#39;;
+  message: string;
+  details: Array&lt;RestError&gt;;
+}
+</code></pre>
+<p>The following code shows an example of how to transform the array of error <code class="purple">Tree</code>s (the type is <code class="purple">Array&lt;Tree&lt;string&gt;&gt;</code> aka <code class="purple">Forest&lt;string&gt;</code>) into a flatten array of <code class="purple">RestError</code>, by using a recursive function which is able to extract all the error messages from the forest.</p>
+<pre><code class="lang-typescript">function getErrorValues(forest: Array&lt;Tree&lt;string&gt;&gt;): Array&lt;string&gt; {
+  return forest.flatMap(x =&gt; {
+    return x.forest.length ? [x.value, ...getErrorValues(x.forest)] : [x.value];
+  });
+}
+
+export const validator: &lt;T&gt;(decoder: Decoder&lt;T&gt;) =&gt; RequestHandler = decoder =&gt; (
+  req,
+  res,
+  next,
+) =&gt; {
+  return pipe(
+    decoder.decode(req.body),
+    fold(
+      errorForest =&gt; {
+        const details: Array&lt;RestError&gt; = getErrorValues(errorForest).map(message =&gt; {
+          return {
+            code: &#39;BadArgument&#39;,
+            message,
+          };
+        });
+        const error: RestError = {
+          code: &#39;BadArgument&#39;,
+          message: &#39;Invalid request body&#39;,
+          details,
+        };
+
+        return res.status(400).send({ status: &#39;error&#39;, error });
+      },
+      () =&gt; next(),
+    ),
+  );
+};
+</code></pre>
 </div>
         </div>
       </section>
