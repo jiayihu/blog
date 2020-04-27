@@ -1,32 +1,38 @@
 // @ts-check
 
-const CACHE_NAME = 'jiayihu-static-v11';
-const DATA_CACHE_NAME = 'jiayihu-data-v11';
-const urlsToCache = ['/', '/css/main.css', '/css/prism.css', '/js/main.js', '/js/prism.js'];
+const CACHE_NAME = "jiayihu-static-v12";
+const DATA_CACHE_NAME = "jiayihu-data-v12";
+const urlsToCache = [
+  "/",
+  "/css/main.css",
+  "/css/prism.css",
+  "/js/main.js",
+  "/js/prism.js"
+];
 
-self.addEventListener('install', event => {
+self.addEventListener("install", event => {
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
       // Atomic operation, if any file fails the entire cache operation fails
       return cache.addAll(urlsToCache);
-    }),
+    })
   );
 });
 
-self.addEventListener('activate', event => {
-  console.log('[ServiceWorker] activating.');
+self.addEventListener("activate", event => {
+  console.log("[ServiceWorker] activating.");
 
   event.waitUntil(
     caches.keys().then(keyList => {
       return Promise.all(
         keyList.map(key => {
           if (key !== CACHE_NAME && key !== DATA_CACHE_NAME) {
-            console.log('[ServiceWorker] Removing old cache', key);
+            console.log("[ServiceWorker] Removing old cache", key);
             return caches.delete(key);
           }
-        }),
+        })
       );
-    }),
+    })
   );
 
   self.skipWaiting();
@@ -36,11 +42,11 @@ self.addEventListener('activate', event => {
 /**
  * Only after first install, on second reload
  */
-self.addEventListener('fetch', event => {
+self.addEventListener("fetch", event => {
   /** @type {Request} */
   const request = event.request;
 
-  if (request.url.includes('api.github.com')) {
+  if (request.url.includes("api.github.com")) {
     // "Cache then network" strategy for API requests
     event.respondWith(
       caches.open(DATA_CACHE_NAME).then(cache => {
@@ -48,7 +54,7 @@ self.addEventListener('fetch', event => {
           cache.put(request.url, response.clone());
           return response;
         });
-      }),
+      })
     );
   } else {
     /**
@@ -59,7 +65,7 @@ self.addEventListener('fetch', event => {
     event.respondWith(
       caches.match(request).then(response => {
         return response || fetch(request);
-      }),
+      })
     );
   }
 });

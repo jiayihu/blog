@@ -1,0 +1,313 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="google-site-verification" content="6DIBzCM2sFIHFrOECCKoODFkMjWkvkmxMqJD0EFb7xU" />
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/prism.css">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:400,400i,700" rel="stylesheet">
+
+<!-- Favicons -->
+<link rel="apple-touch-icon" sizes="180x180" href="/images/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/icons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/images/icons/favicon-16x16.png">
+<link rel="mask-icon" href="/images/icons/safari-pinned-tab.svg" color="#5bbad5">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Jiayi's Chronicles">
+
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="theme-color" content="#ffffff">
+
+<link rel="manifest" href="/manifest.json">
+
+    <title>The past, present and future of virtualization | Jiayi's Chronicles</title>
+    <!-- Search Engine -->
+<meta name="description" content="Let's have a look at the current dominant solutions in cloud virtualization in terms of how they originated and have spread in the last years, along with future directions.">
+<!-- Schema.org for Google -->
+<meta itemprop="name" content="The past, present and future of virtualization">
+<meta itemprop="description" content="Let's have a look at the current dominant solutions in cloud virtualization in terms of how they originated and have spread in the last years, along with future directions.">
+<!-- Twitter -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="The past, present and future of virtualization">
+<meta name="twitter:description" content="Let's have a look at the current dominant solutions in cloud virtualization in terms of how they originated and have spread in the last years, along with future directions.">
+<meta name="twitter:site" content="@jiayi_ghu">
+<meta name="twitter:image:src" content="http://blog.jiayihu.net/images/past-present-future-virtualization/cover.jpg">
+<!-- Open Graph general (Facebook, Pinterest & Google+) -->
+<meta name="og:title" content="The past, present and future of virtualization">
+<meta name="og:description" content="Let's have a look at the current dominant solutions in cloud virtualization in terms of how they originated and have spread in the last years, along with future directions.">
+<meta name="og:image" content="http://blog.jiayihu.net/images/past-present-future-virtualization/cover.jpg">
+<meta name="og:url" content="http://blog.jiayihu.net/the-past-present-and-future-of-virtualization">
+<meta name="og:site_name" content="Jiayi's Chronicles">
+<meta name="og:type" content="website">
+
+  </head>
+
+  <body class="page--article dark-grey lh-copy sans-serif">
+    <nav class="db dt-l w-100 border-box pa3 ph5-l">
+  <a class="db dtc-l v-mid mid-gray link serif underline-hover w-100 w-25-l tc tl-l mb2 mb0-l f3" href="/" title="Home">
+    Jiayi's Chronicles
+  </a>
+  <div class="db dtc-l v-mid w-100 w-75-l tc tr-l">
+    <a class="link underline-hover dark-gray f6 f5-l dib mr3 mr4-l" href="/" title="Home">Home</a>
+    <a class="link underline-hover dark-gray f6 f5-l dib mr3 mr4-l" href="/about" title="About me">About me</a>
+  </div>
+</nav>
+
+
+    <article>
+      <header
+        class="vh-75 dt w-100 tc bg-washed-yellow cover"
+      >
+        <div class="dark-gold dtc serif v-mid">
+          <h1 class="f1 f-headline-l i lh-title ph3">The past, present and future of virtualization</h1>
+          <div class="ph0 mh0 measure f4 lh-copy center">
+            <p class="">
+              Let's have a look at the current dominant solutions in cloud virtualization in terms of how they originated and have spread in the last years, along with future directions.
+            </p>
+            <p class="article-meta f6 ttu tracked fs-normal">Jiayi Hu - Apr 27th 2020</p>
+          </div>
+        </div>
+      </header>
+      <section class="article-main f5 pv5 lh-copy ph2 relative">
+        <a
+          href="https://github.com/jiayihu/blog/tree/master/src/articles/past-present-future-virtualization.md"
+          class="color-inherit f6 no-underline underline-hover glow absolute top-1 right-1"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+            <span class="dib w1">
+                <svg viewBox="0 0 256 250" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid">
+                  <g>
+                    <path d="M128.00106,0 C57.3172926,0 0,57.3066942 0,128.00106 C0,184.555281 36.6761997,232.535542 87.534937,249.460899 C93.9320223,250.645779 96.280588,246.684165 96.280588,243.303333 C96.280588,240.251045 96.1618878,230.167899 96.106777,219.472176 C60.4967585,227.215235 52.9826207,204.369712 52.9826207,204.369712 C47.1599584,189.574598 38.770408,185.640538 38.770408,185.640538 C27.1568785,177.696113 39.6458206,177.859325 39.6458206,177.859325 C52.4993419,178.762293 59.267365,191.04987 59.267365,191.04987 C70.6837675,210.618423 89.2115753,204.961093 96.5158685,201.690482 C97.6647155,193.417512 100.981959,187.77078 104.642583,184.574357 C76.211799,181.33766 46.324819,170.362144 46.324819,121.315702 C46.324819,107.340889 51.3250588,95.9223682 59.5132437,86.9583937 C58.1842268,83.7344152 53.8029229,70.715562 60.7532354,53.0843636 C60.7532354,53.0843636 71.5019501,49.6441813 95.9626412,66.2049595 C106.172967,63.368876 117.123047,61.9465949 128.00106,61.8978432 C138.879073,61.9465949 149.837632,63.368876 160.067033,66.2049595 C184.49805,49.6441813 195.231926,53.0843636 195.231926,53.0843636 C202.199197,70.715562 197.815773,83.7344152 196.486756,86.9583937 C204.694018,95.9223682 209.660343,107.340889 209.660343,121.315702 C209.660343,170.478725 179.716133,181.303747 151.213281,184.472614 C155.80443,188.444828 159.895342,196.234518 159.895342,208.176593 C159.895342,225.303317 159.746968,239.087361 159.746968,243.303333 C159.746968,246.709601 162.05102,250.70089 168.53925,249.443941 C219.370432,232.499507 256,184.536204 256,128.00106 C256,57.3066942 198.691187,0 128.00106,0 Z M47.9405593,182.340212 C47.6586465,182.976105 46.6581745,183.166873 45.7467277,182.730227 C44.8183235,182.312656 44.2968914,181.445722 44.5978808,180.80771 C44.8734344,180.152739 45.876026,179.97045 46.8023103,180.409216 C47.7328342,180.826786 48.2627451,181.702199 47.9405593,182.340212 Z M54.2367892,187.958254 C53.6263318,188.524199 52.4329723,188.261363 51.6232682,187.366874 C50.7860088,186.474504 50.6291553,185.281144 51.2480912,184.70672 C51.8776254,184.140775 53.0349512,184.405731 53.8743302,185.298101 C54.7115892,186.201069 54.8748019,187.38595 54.2367892,187.958254 Z M58.5562413,195.146347 C57.7719732,195.691096 56.4895886,195.180261 55.6968417,194.042013 C54.9125733,192.903764 54.9125733,191.538713 55.713799,190.991845 C56.5086651,190.444977 57.7719732,190.936735 58.5753181,192.066505 C59.3574669,193.22383 59.3574669,194.58888 58.5562413,195.146347 Z M65.8613592,203.471174 C65.1597571,204.244846 63.6654083,204.03712 62.5716717,202.981538 C61.4524999,201.94927 61.1409122,200.484596 61.8446341,199.710926 C62.5547146,198.935137 64.0575422,199.15346 65.1597571,200.200564 C66.2704506,201.230712 66.6095936,202.705984 65.8613592,203.471174 Z M75.3025151,206.281542 C74.9930474,207.284134 73.553809,207.739857 72.1039724,207.313809 C70.6562556,206.875043 69.7087748,205.700761 70.0012857,204.687571 C70.302275,203.678621 71.7478721,203.20382 73.2083069,203.659543 C74.6539041,204.09619 75.6035048,205.261994 75.3025151,206.281542 Z M86.046947,207.473627 C86.0829806,208.529209 84.8535871,209.404622 83.3316829,209.4237 C81.8013,209.457614 80.563428,208.603398 80.5464708,207.564772 C80.5464708,206.498591 81.7483088,205.631657 83.2786917,205.606221 C84.8005962,205.576546 86.046947,206.424403 86.046947,207.473627 Z M96.6021471,207.069023 C96.7844366,208.099171 95.7267341,209.156872 94.215428,209.438785 C92.7295577,209.710099 91.3539086,209.074206 91.1652603,208.052538 C90.9808515,206.996955 92.0576306,205.939253 93.5413813,205.66582 C95.054807,205.402984 96.4092596,206.021919 96.6021471,207.069023 Z" fill="#161614"></path>
+                  </g>
+                </svg>
+            </span>
+            Edit on GitHub
+        </a>
+
+        <div class="center measure-wide">
+          <div class="article-content"><blockquote>
+<p>The following article is a brief summary of the past, current and future trends in system virtualization. The papers as source are linked at the end of the page.</p>
+</blockquote>
+<p>The rapid pace of innovation in datacenters and the software platforms within them has transformed how companies build, deploy, and manage online applications and services. Until the last decade, basically every application ran on its own physical machine.</p>
+<p>The high costs of buying and maintaining large numbers of machines, and the fact that each was often under-utilized, led to a great leap forward virtualization.</p>
+<p><strong>Virtual Machine Monitors</strong> (VMM), born at the end of the 1960s, went back to being popular in the late 2000s and they enabled tremendous consolidation of services onto servers, thus greatly reducing costs and improving manageability. However, hardware-based virtualization is not a panacea, and lighter-weight technologies arised to address its fundamental issues.</p>
+<p>One leading solution in this space is <strong>containers</strong>, a server-oriented repackaging of Unix-style processes with additional namespace virtualization. Combined with distribution tools such as Docker, open-sourced in 2013, containers enable developers to readily spin up new services without the slow provisioning and runtime overheads of virtual machines, at the cost of less resource isolation.</p>
+<p>Common to both hardware-based and container-based virtualization is the central notion of a server and  servers are notoriously difficult to configure and manage. As a result, a new model, called <strong>serverless computation</strong>, is poised to transform the construction of modern scalable applications. Instead of thinking of applications as collections of servers, developers instead define applications with a set of functions with access to a common data store.</p>
+<p>Existing serverless platforms such as <a class="dark-green dim" href="https://cloud.google.com/functions">Google Cloud Functions</a>, <a class="dark-green dim" href="https://azure.microsoft.com/en-us/services/functions/">Azure Functions</a> and <a class="dark-green dim" href="https://aws.amazon.com/lambda/?nc1=h_ls">AWS Lambda</a> isolate functions in ephemeral, stateless containers. The use of containers as an isolation mechanisms causes however latencies up to hundreds of ms, which may not be acceptable for some applications or for devices operating ad the Edge of the network. Besides containers have a not negligible resource footprint and isolation issues.</p>
+<p>The following sections offer a history of the past and current trends of the different virtualization techniques.</p>
+<h2 id="vm">VM</h2>
+<p>
+    <figure>
+      <a href="/images/past-present-future-virtualization/hypervisor-architecture.png" target="_blank" rel="noopener noreferrer">
+        <img class="lozad" data-src="/images/past-present-future-virtualization/hypervisor-architecture.png" alt="A deployment using an hypervisor" />
+      </a>
+      <figcaption class="f6 i tr mt1" >A deployment using an hypervisor</figcaption>
+    </figure>
+  </p>
+<p>At the end of the 1960s, the VMM, also called a <strong>hypervisor</strong>, came into being as a software-abstraction layer that partitions a hardware platform into one or more virtual machines. Each of these virtual machines was sufficiently similar to the underlying physical machine to run existing software unmodified.</p>
+<p>At the time, general-purpose computing was the domain of large, expensive mainframe hardware, and users found that VMMs provided a compelling way to multiplex such a scarce resource among multiple applications.</p>
+<p>The 1980s and 1990s, however, brought modern multitasking operating systems and a simultaneous drop in hardware cost, which eroded the value of VMMs. As mainframes gave way to minicomputers and then PCs, VMMs disappeared to the extent that computer architectures no longer provided the necessary hardware to implement them efficiently. By the late 1980s, neither academics nor industry practitioners viewed VMMs as much more than a historical curiosity.</p>
+<p>In the 1990s, Stanford University researchers began to look at the potential of virtual machines to overcome difficulties that hardware and operating system limitations imposed: this time the problems stemmed from massively parallel processing machines that were difficult to program and could not run existing operating systems. With virtual machines, researchers found they could make these unwieldy architectures look sufficiently similar to existing platforms to leverage the current operating systems. </p>
+<p>Furthermore the increased functionality that had made operating systems more capable had also made them fragile and vulnerable. To reduce the effects of system crashes and breakins, system administrators had resorted to a computing model with one application running per machine. This in turn increased hardware requirements, imposing significant cost and management overhead. Moving applications that once ran on many physical machines into virtual machines and consolidating those virtual machines onto just a few physical platforms increased use efficiency and reduced space and management costs without compromising security.</p>
+<p>Moving forward however, a VMM nowadays is less a vehicle for multitasking, as it was originally, and more a solution for security and reliability. Functions like migration and security that have proved difficult to achieve in modern operating systems seem much better suited to implementation at the VMM layer.</p>
+<p>For instance, AWS runs serverless functions in Linux containers inside virtual machines, with each virtual machine dedicated to functions from a single tenant.</p>
+<p>KVM (<em>Kernel-based Virtual Machine</em>) is an example of hypervisor built into the Linux kernel that allows a host machine to run multiple, isolated virtual machines. QEMU is a user-level full-system emulation platform and provides memory management, device emulation, and I/O for guest virtual machines. Due to the emulation being performed entirely in software, it is extremely slow, thus QEMU uses KVM as an accelerator so that the CPU virtualization can happen at kernel level. The KVM/QEMU combination provides each guest with private virtualized hardware, such as a network card and disk. On this platform, most operating system functionality resides in the guest OS running inside a virtual machine.</p>
+<p>KVM/QEMU is used for full-system virtualization and in Infrastructure-as-a-Service clouds (Iaas). With IaaS, rather than thinking of any computer as providing a particular fixed service, system administrators view computers simply as part of a pool of generic hardware resources.</p>
+<p>However, KVM/QEMU virtualization is heavyweight, due to both the large and full-featured QEMU emulation process and to full OS installations running inside virtual machines. As a result, it is too costly to run individual functions in a serverless environment.</p>
+<h2 id="containers">Containers</h2>
+<p>
+    <figure>
+      <a href="/images/past-present-future-virtualization/container-architecture.png" target="_blank" rel="noopener noreferrer">
+        <img class="lozad" data-src="/images/past-present-future-virtualization/container-architecture.png" alt="A container-based deployment" />
+      </a>
+      <figcaption class="f6 i tr mt1" >A container-based deployment</figcaption>
+    </figure>
+  </p>
+<p>Linux Containers (LXC) are an OS-level virtualization method for running multiple isolated applications sharing an underlying Linux kernel. A container consists of one or more processes, with reduced privileges, having restricted visibility into kernel objects and of host resources.</p>
+<p>Visibility into kernel objects is governed by <em>namespaces</em>, which prevent processes in one container from interacting with kernel objects, such as files or processes, in another container. Resource allocation is governed by <em>cgroups</em> (control groups), provided by the kernel to limit and prioritize resource usage.</p>
+<p>Some trace inspiration for containers back to the Unix <em>chroot</em> command, which was introduced as part of Unix version 7 in 1979. In 1998, an extended version of chroot was implemented in FreeBSD and called <em>jail</em>. In 2004, the capability was improved and released with Solaris 10 as zones. By Solaris 11, a full-blown capability based on zones was completed and called <em>containers</em>. As Linux emerged as the dominant open platform, replacing these earlier variations, the technology found its way into the standard distribution in the form of LXC.</p>
+<p>With containers, applications share an OS and as a result these deployments will be significantly smaller in size than hypervisor deployments, making it possible to store nowadays a few thousand containers on a physical host (versus a strictly limited number of VMs).</p>
+<h3 id="docker">Docker</h3>
+<p><strong>Docker</strong>, open-sourced in 2013, is an extension of LXC that adds a user-space Docker daemon to instantiate and manage containers. The daemon can be configured to launch containers with different container engines, such as the the default <em>runc</em> engine or the gVisor wrapper <em>runsc</em> (gVisor is presented later). The runc engine enables isolation for a running container by creating a set of namespaces and cgroups.</p>
+<p>Docker can also initialize storage and networking for the container engine to then use. The storage driver provides a union file system, using the Linux kernel, which allows sharing of read-only files. Files created inside a Docker container are stored on a writable layer private to the container provided through a storage driver.</p>
+<p>Each container has its own virtual network interface. By default, all containers on a given Docker host communicate through bridge interfaces, which prevents a container from having privileged access to the sockets or interfaces of another container. Interactions between containers are possible through overlay networks or through containers’ public ports.</p>
+<p>Image-based containers package applications with individual runtime stacks, making the resultant containers independent from the host operating system. This makes it possible to run several instances of an application, on different platforms. Many leading cloud providers like Amazon, Google, Microsoft, IBM and others use this technology for enabling Platform-as-a-Service (PaaS), and Function-as-a-Service (FaaS) in the recent year .</p>
+<p>Software developers tend to prefer using PaaS compared to Iaas, focusing on developer productivity rather than managing the infrastructure layer. PaaS focuses on providing language runtime and services to developers leaving infrastructure provisioning and management to the underlying layer. Therefore since PaaSs use containers for their runtime, as PaaSs gained in popularity in the last years, so did containers.</p>
+<p>Containers are lightweight when compared to virtual machines: they provide extremely fast instantiation times, small per-instance memory footprints, and high density on a single host, among other features. On the downside, containers offer weaker isolation than VMs, to the point where containers are ran in virtual machines to achieve proper isolation.</p>
+<p>Accordingly, recently lightweight isolation platforms have been introduced as a bridge between containers and full system virtualization.</p>
+<p>
+    <figure>
+      <a href="/images/past-present-future-virtualization/spectrum-virtualization.png" target="_blank" rel="noopener noreferrer">
+        <img class="lozad" data-src="/images/past-present-future-virtualization/spectrum-virtualization.png" alt="The spectrum of virtualization" />
+      </a>
+      <figcaption class="f6 i tr mt1" >The spectrum of virtualization</figcaption>
+    </figure>
+  </p>
+<h2 id="a-bridge-between-containers-and-vm">A bridge between containers and VM</h2>
+<p>Both Firecracker and gVisor rely on host kernel functionality. Firecracker provides a narrower interface to the kernel by starting guest VMs and providing full virtualization, whereas gVisor has a wider interface by being paravirtualized. They both have low overhead in terms of memory footprint.</p>
+<h3 id="gvisor">gVisor</h3>
+<p>
+    <figure>
+      <a href="/images/past-present-future-virtualization/gvisor-architecture.png" target="_blank" rel="noopener noreferrer">
+        <img class="lozad" data-src="/images/past-present-future-virtualization/gvisor-architecture.png" alt="gVisor architecture" />
+      </a>
+      <figcaption class="f6 i tr mt1" >gVisor architecture</figcaption>
+    </figure>
+  </p>
+<p>In May 2018, Google open-sourced <strong>gVisor</strong>, a sandboxed container runtime that uses paravirtualization to isolate containerized applications from the host system without the heavy-weight resource allocation that comes with full virtual machines. It implements a user space kernel, Sentry, that is written in the Go Language and runs in a restricted container.  All syscalls made by the application are redirected into the Sentry, which implements most system call functionality itself and makes calls to a limited number of host syscalls to support its operations. This prevents the application from having any direct interaction with the host through syscalls. </p>
+<p>gVisor has its own user-space networking stack written in Go called netstack. Sentry uses netstack to handle almost all networking rather than relying on kernel code that shares much more state across containers.</p>
+<p>Unlike a VM which requires a fixed set of resources on creation, gVisor can accommodate changing resources over time, as most normal Linux processes do, and has flexible resource footprint and lower fixed cost than a full VM. However, this flexibility comes at the price of higher per-system call overhead.</p>
+<p>Google currently uses gVisor in Google Cloud Platform (GCP) services like the App Engine standard environment, Cloud Functions, Cloud ML Engine and Cloud Run.</p>
+<h3 id="firecracker">Firecracker</h3>
+<p>
+    <figure>
+      <a href="/images/past-present-future-virtualization/firecracker-architecture.png" target="_blank" rel="noopener noreferrer">
+        <img class="lozad" data-src="/images/past-present-future-virtualization/firecracker-architecture.png" alt="Firecracker architecture" />
+      </a>
+      <figcaption class="f6 i tr mt1" >Firecracker architecture</figcaption>
+    </figure>
+  </p>
+<p>In late 2018, Amazon Web Services introduced <strong>Firecracker</strong> as a new virtualization technology that uses KVM to create and run virtual machines. Like QEMU, it uses the KVM hypervisor to launch VM instances on a Linux host and with Linux guest operating system. </p>
+<p>Firecracker has however a minimalist design and provides lightweight virtual machines called microVMs. It takes advantage of the security and workload isolation provided by traditional VMs but with much less overhead via lightweight I/O services and a stripped-down guest operating system.</p>
+<p>Firecracker excludes unnecessary devices and guest-facing functionality to reduce the memory footprint and attack surface of each microVM. Compared to KVM/QEMU, Firecracker has a minimal device model to support the guest operating system and stripped-down functionality. Both of these characteristics allow it to make fewer syscalls and execute with fewer privileges than KVM/QEMU.</p>
+<p>Firecracker also adds constraints on the values allowed as arguments to system calls as well. A syscall is blocked if the argument values do not match the filtering rule. Besides, it provides virtual resources and IO and, to ensure fair usage of resource, it enforces rate limiters on each volume and network interface, which can be created and configured by administrators.</p>
+<p>Firecracker is currently used by Amazon Web Services for its serverless services AWS Lambda and <a class="dark-green dim" href="https://aws.amazon.com/it/fargate/">AWS Fargate</a>, since it is purpose-built for running serverless functions and containers safely and efficiently, and nothing more.</p>
+<h2 id="worth-mentioning">Worth mentioning</h2>
+<h3 id="unikernels">Unikernels</h3>
+<p>Unikernels (2013) are tiny virtual machines where a minimalistic operating system is linked directly with the target application. The resulting VM is typically only a few megabytes in size and can only run the target application.</p>
+<p>The unikernel approach builds on past work in library OSs. The entire software stack of system libraries, language runtime, and applications is compiled into a single bootable VM image that runs directly on a standard hypervisor.</p>
+<p>Many unikernel implementations, however, lack the maturity required for production platforms, e.g. missing the required tooling and a way for non-expert users to deploy custom images. This makes porting containerized applications very challenging. Container users also can rely on a large ecosystem of tools and support to run unmodified existing applications.</p>
+<p>X-Containers (2019) is an alternative LibOS platform and improves container isolation based on paravirtualization, while providing isolation between containers. The X-Container platform automatically optimizes the binary of an application during runtime to improve performance by rewriting costly system calls into much cheaper function calls in the LibOS.</p>
+<p>However, because of its architecture, it&#39;s unsuitable for running some containers that still require process and kernel isolation. Also due to the requirement of running a LibOS with each container, X-Containers take longer time to boot and have bigger memory footprint.</p>
+<h2 id="webassembly">WebAssembly</h2>
+<p>The aforementioned existing VM/container solutions are highly inefficient for enabling low latency functions and usage of the limited Edge resources.</p>
+<p>The existing serverless frameworks host function instances in short-lived Virtual Machines (VMs) or containers, which support application process isolation and resource provisioning. These frameworks are  heavy-weight for operating on Edge systems and not efficient for providing low latencies, especially when functions are instantiated for the first time (cold-start).</p>
+<p>To achieve better efficiency, these platforms cache and reuse containers for multiple function calls within a given time window; e.g. 5 minutes, whereas some users send artificial requests to avoid container shutdown.</p>
+<p>In the Edge environment, the long-lived and/or over-provisioned containers/VMs can quickly exhaust the limited node resources and become impractical for serving a large number of IoT devices. Therefore, supporting a high number of serverless functions while providing a low response time (say 10ms) is one of the main performance challenges for resource-constrained Edge computing nodes.</p>
+<p>WebAssembly (Wasm), introduced in 2017, is a nascent technology that provides a strong memory isolation (through sandboxing) at near-native performance with a much smaller memory footprint. Engineers from the four major browser vendors (Google, Microsoft, Mozilla, Apple) have collaboratively designed a language to addresses the problem of safe, fast, portable low-level code on the Web.</p>
+<p>The main storage of a WebAssembly program is a large array of bytes referred to as a linear memory or simply memory. All memory access is dynamically checked against the memory size and out of bounds access results in a trap. Linear memory is disjoint from code space, the execution stack, and the engine’s data structures; therefore compiled programs cannot corrupt their execution environment, jump to arbitrary locations, or perform other undefined behaviour. At worst, a buggy or exploited WebAssembly program can make a mess of the data in its own memory.</p>
+<p>Wasm also enables the users to write functions in different languages, which are compiled into a platform-independent bytecode. Wasm runtimes have a power to leverage various hardware and software technologies for providing isolation and managing desirable resource allocations.</p>
+<p>There has been a significant effort in the last years in adopting Wasm for a native execution, as it is a portable target for compilation of various high-level languages. Wasm standard does not necessarily make webspecific assumptions and there has been substantial work to standardize the WebAssembly System Interface (WASI) to run Wasm outside Web.</p>
+<p>There are a number of Wasm runtimes for programs written in different languages, all focused on enabling the native execution of Wasm. In March 2019, the edge-computing platform Fastly has announced and open-sourced Lucet that provides a compiler and runtime to enable native execution of Wasm applications and can instantiate a Wasm module within 50μs, with just a few kilobytes of memory overhead.</p>
+<p>WebAssembly could be then used as a new method for running serverless functions without the use of containers. This method leverages its binary format that provides inherent memory and execution safety guarantees via its language features and a runtime with strong sandboxing capabilities. This idea is still at its infancy but there has been some interest in the last year, as shown by the works done in &quot;<a class="dark-green dim" href="https://dl.acm.org/doi/abs/10.1145/3302505.3310084">An Execution Model for Serverless Functions at the Edge (2019)</a>&quot; and &quot;<a class="dark-green dim" href="https://arxiv.org/abs/2002.09344">FAASM: Lightweight Isolation for Efﬁcient Stateful Serverless Computing (2020)</a>&quot;.</p>
+<h2 id="references">References</h2>
+<ol>
+<li><a class="dark-green dim" href="https://dl.acm.org/doi/abs/10.1145/3381052.3381315">Blending Containers and Virtual Machines: A Study of Firecracker and gVisor</a>. 2020.</li>
+<li><a class="dark-green dim" href="https://ieeexplore.ieee.org/abstract/document/9049531">Challenges and Opportunities for Efficient Serverless Computing at the Edge</a>. 2019</li>
+<li><a class="dark-green dim" href="https://arxiv.org/abs/2002.09344">FAASM: Lightweight Isolation for Efficient Stateful Serverless Computing</a>. 2020</li>
+<li><a class="dark-green dim" href="https://dl.acm.org/doi/abs/10.1145/3062341.3062363">Bringing the Web up to Speed with WebAssembly</a>. 2017</li>
+<li><a class="dark-green dim" href="https://dl.acm.org/doi/abs/10.1145/3132747.3132763">My VM is Lighter (and Safer) than your Container</a>. 2017</li>
+<li><a class="dark-green dim" href="https://dl.acm.org/doi/abs/10.1145/2490301.2451167">Unikernels: Library Operating Systems for the Cloud</a>. 2013</li>
+<li><a class="dark-green dim" href="https://ieeexplore.ieee.org/abstract/document/1430630/">Virtual Machine Monitors: Current Technology and Future Trends</a>. 2005.</li>
+<li><a class="dark-green dim" href="https://ieeexplore.ieee.org/abstract/document/7036275/">Containers and Cloud: From LXC to Docker to Kubernetes</a>. 2014</li>
+<li><a class="dark-green dim" href="https://dl.acm.org/doi/abs/10.1145/3297858.3304016">X-Containers: Breaking Down Barriers to Improve Performance and Isolation of Cloud-Native Containers</a>. 2019</li>
+</ol>
+</div>
+        </div>
+      </section>
+    </article>
+
+    <div class="comments measure-wide center ph2 ph0-l">
+  <script>var ISSUE_ID = '38';</script>
+
+  <h3>Comments</h3>
+
+  
+    <div class="br2 ba b--lightest-blue bg-washed-blue f6 mb5">
+      <div class="flex items-center">
+        <div class="fg1 pa3">
+          <div>
+            <p class="black-70 measure lh-copy mv0">
+              This blog is using GitHub Issues as comments. You can post by replying to issue
+              <a href="https://github.com/jiayihu/blog/issues/38#new_comment_field"  class="link black f5 underline-hover" target="_blank" rel="noopener noreferrer">
+                #38
+              </a>
+            </p>
+          </div>
+        </div>
+        <div class="w5 pa3">
+          <a
+            href="https://github.com/jiayihu/blog/issues/38#new_comment_field"
+            class="no-underline f6 tc db w-100 pv3 bg-animate bg-dark-green hover-bg-dark-blue white br2"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Post a comment
+          </a>
+        </div>
+      </div>
+    </div>
+  
+
+  <div class="comments-content"></div>
+
+  <!-- HTML put to avoid uncss removing the CSS classes needed by async comments -->
+  <ul class="list pl0 dn">
+    <li class="comment flex mt3">
+      <div class="comment__author mr2 tc">
+        <a href="https://github.com/jiayihu" class="dib h2--half w2--half">
+          <img src="https://avatars1.githubusercontent.com/u/10067273?v=4" alt="jiayihu" class="br2 h2--half w2--half dib">
+        </a>
+      </div>
+      <div class="fg1 br2 ba b--moon-gray f6">
+        <div class="comment__header bb b--moon-gray bg-black-05 flex items-center silver ph3 pv2">
+          <span>
+            <a href="https://github.com/jiayihu" class="link underline-hover near-black">
+              jiayihu
+            </a>
+            commented
+            <a href="https://github.com/jiayihu/blog/issues/2#issuecomment-394303150" class="link underline-hover silver">
+              2 weeks ago
+            </a>
+          </span>
+          <span class="ba b--moon-gray br2 mla f7 fw7 ph2 pv1">Author</span>
+        </div>
+        <div class="comment__body pa3"></div>
+    </li>
+  </ul>
+</div>
+
+
+    <footer class="pv4 ph3 ph5-ns tc mt4">
+  <a class="link dim gray dib h2 w2 br-100 mr3 " href="https://twitter.com/jiayi_ghu" title="">
+    <svg data-icon="twitter" viewBox="0 0 32 32" style="fill:currentcolor">
+      <title>twitter icon</title>
+      <path d="M2 4 C6 8 10 12 15 11 A6 6 0 0 1 22 4 A6 6 0 0 1 26 6 A8 8 0 0 0 31 4 A8 8 0 0 1 28 8 A8 8 0 0 0 32 7 A8 8 0 0 1 28 11 A18 18 0 0 1 10 30 A18 18 0 0 1 0 27 A12 12 0 0 0 8 24 A8 8 0 0 1 3 20 A8 8 0 0 0 6 19.5 A8 8 0 0 1 0 12 A8 8 0 0 0 3 13 A8 8 0 0 1 2 4"></path>
+    </svg>
+  </a>
+  <a class="link dim gray dib br-100 h2 w2 mr3 " href="https://github.com/jiayihu" title="">
+    <svg data-icon="github" viewBox="0 0 32 32" style="fill:currentcolor">
+      <title>github icon</title>
+      <path d="M0 18 C0 12 3 10 3 9 C2.5 7 2.5 4 3 3 C6 3 9 5 10 6 C12 5 14 5 16 5 C18 5 20 5 22 6 C23 5 26 3 29 3 C29.5 4 29.5 7 29 9 C29 10 32 12 32 18 C32 25 30 30 16 30 C2 30 0 25 0 18 M3 20 C3 24 4 28 16 28 C28 28 29 24 29 20 C29 16 28 14 16 14 C4 14 3 16 3 20 M8 21 A1.5 2.5 0 0 0 13 21 A1.5 2.5 0 0 0 8 21 M24 21 A1.5 2.5 0 0 0 19 21 A1.5 2.5 0 0 0 24 21 z"></path>
+    </svg>
+  </a>
+  <a class="link dim gray dib br-100 h2 w2 mr3 " href="https://www.linkedin.com/in/jiayi-hu/" title="LinkedIn">
+    <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414">
+      <title>LinkedIn icon</title>
+      <path d="M13.632 13.635h-2.37V9.922c0-.886-.018-2.025-1.234-2.025-1.235 0-1.424.964-1.424 1.96v3.778h-2.37V6H8.51V7.04h.03c.318-.6 1.092-1.233 2.247-1.233 2.4 0 2.845 1.58 2.845 3.637v4.188zM3.558 4.955c-.762 0-1.376-.617-1.376-1.377 0-.758.614-1.375 1.376-1.375.76 0 1.376.617 1.376 1.375 0 .76-.617 1.377-1.376 1.377zm1.188 8.68H2.37V6h2.376v7.635zM14.816 0H1.18C.528 0 0 .516 0 1.153v13.694C0 15.484.528 16 1.18 16h13.635c.652 0 1.185-.516 1.185-1.153V1.153C16 .516 15.467 0 14.815 0z" fill-rule="nonzero"/>
+    </svg>
+  </a>
+  <small class="mt4 f6 db tc">© 2018. All Rights Reserved</small>
+</footer>
+
+<script src="https://ft-polyfill-service.herokuapp.com/v2/polyfill.min.js?features=default,fetch"></script>
+<script src="/js/main.js"></script>
+<script src="/js/prism.js"></script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-103053006-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+  </body>
+</html>
