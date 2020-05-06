@@ -1,20 +1,21 @@
 <html>
-    <head>
-      {% include "layouts/partials/_head.html" %}
-      <title>About me | Chronichles of Jiayi</title>
-    </head>
+  <head>
+    {% include "layouts/partials/_head.html" %}
+    <title>About me | Chronichles of Jiayi</title>
+    <meta name="Description" content="About me" />
+  </head>
 
-    <body class="dark-gray lh-copy sans-serif">
-      {% include "layouts/partials/_nav.html" %}
+  <body class="dark-gray lh-copy sans-serif">
+    {% include "layouts/partials/_nav.html" %}
 
-      <article>
-        <h1 class="f1 lh-title tc">About me</h1>
-        <section class="center measure-wide f5 pv5 lh-copy ph2">
-          <img src="/images/speaking.jpg" alt="Jiayi Hu - Speaking" />
-          {{ contents | safe }}
-        </section>
-      </article>
+    <article>
+      <h1 class="f1 lh-title tc">About me</h1>
+      <section class="center measure-wide f5 pv5 lh-copy ph2">
+        <img src="/images/speaking.jpg" alt="Jiayi Hu - Speaking" />
+        {{ contents | safe }}
+      </section>
+    </article>
 
-      {% include "layouts/partials/_footer.html" %}
-    </body>
-  </html>
+    {% include "layouts/partials/_footer.html" %}
+  </body>
+</html>
