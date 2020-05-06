@@ -1,7 +1,7 @@
 /** @type {ServiceWorkerGlobalScope} */
 var _self = self;
 
-const CACHE_STATIC = "jiayihu-static-v2";
+const CACHE_STATIC = "jiayihu-static-v1";
 const CACHE_IMAGES = "jiayihu-images-v1";
 const CACHE_PAGES = "jiayihu-pages-v1";
 const CACHE_NAMES = [CACHE_STATIC, CACHE_IMAGES, CACHE_PAGES];
@@ -12,9 +12,11 @@ const staticUrlsToCache = [
 
   "/css/main.css",
   "/css/prism.css",
+  "https://fonts.googleapis.com/css?family=Merriweather:400,400i,700",
 
   "/js/main.js",
   "/js/prism.js",
+  "https://polyfill.io/v3/polyfill.min.js?features=default%2Cfetch",
 ];
 
 _self.addEventListener("install", (event) => {
@@ -22,7 +24,13 @@ _self.addEventListener("install", (event) => {
 
   event.waitUntil(
     caches.open(CACHE_STATIC).then((cache) => {
-      return cache.addAll(staticUrlsToCache);
+      return Promise.all(
+        staticUrlsToCache.map((url) =>
+          cache.add(url).catch((error) => {
+            console.log("Failed to add", url, "to the cache", error);
+          })
+        )
+      );
     })
   );
 });
