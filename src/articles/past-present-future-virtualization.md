@@ -4,7 +4,7 @@ subtitle: Let's have a look at the current dominant solutions in cloud virtualiz
 date: 2020-04-27
 layout: article.html
 cover: /images/past-present-future-virtualization/cover.jpg
-coverColor: \#EAADAC
+coverColor: \#AF1203
 ---
 
 > The following article is a brief summary of the past, current and future trends in system virtualization. The papers as source are linked at the end of the page.

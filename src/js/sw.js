@@ -1,71 +1,147 @@
-// @ts-check
+/** @type {ServiceWorkerGlobalScope} */
+var _self = self;
 
-const CACHE_NAME = "jiayihu-static-v12";
-const DATA_CACHE_NAME = "jiayihu-data-v12";
-const urlsToCache = [
-  "/",
+const CACHE_STATIC = "jiayihu-static-v2";
+const CACHE_IMAGES = "jiayihu-images-v1";
+const CACHE_PAGES = "jiayihu-pages-v1";
+const CACHE_NAMES = [CACHE_STATIC, CACHE_IMAGES, CACHE_PAGES];
+
+const staticUrlsToCache = [
+  "/offline.html",
+  "/manifest.json",
+
   "/css/main.css",
   "/css/prism.css",
+
   "/js/main.js",
-  "/js/prism.js"
+  "/js/prism.js",
 ];
 
-self.addEventListener("install", event => {
+_self.addEventListener("install", (event) => {
+  _self.skipWaiting();
+
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      // Atomic operation, if any file fails the entire cache operation fails
-      return cache.addAll(urlsToCache);
+    caches.open(CACHE_STATIC).then((cache) => {
+      return cache.addAll(staticUrlsToCache);
     })
   );
 });
 
-self.addEventListener("activate", event => {
-  console.log("[ServiceWorker] activating.");
-
+_self.addEventListener("activate", (event) => {
   event.waitUntil(
-    caches.keys().then(keyList => {
+    caches.keys().then((keyList) => {
       return Promise.all(
-        keyList.map(key => {
-          if (key !== CACHE_NAME && key !== DATA_CACHE_NAME) {
-            console.log("[ServiceWorker] Removing old cache", key);
-            return caches.delete(key);
-          }
+        keyList.map((cacheKey) => {
+          if (!CACHE_NAMES.includes(cacheKey)) return caches.delete(cacheKey);
+
+          return Promise.resolve(null);
         })
-      );
+      ).then(() => _self.clients.claim());
     })
   );
-
-  self.skipWaiting();
-  self.clients.claim();
 });
 
 /**
  * Only after first install, on second reload
  */
-self.addEventListener("fetch", event => {
-  /** @type {Request} */
+_self.addEventListener("fetch", (event) => {
   const request = event.request;
+  const url = new URL(request.url);
 
-  if (request.url.includes("api.github.com")) {
-    // "Cache then network" strategy for API requests
-    event.respondWith(
-      caches.open(DATA_CACHE_NAME).then(cache => {
-        return fetch(request).then(response => {
-          cache.put(request.url, response.clone());
-          return response;
-        });
-      })
+  const imagesRegxp = /(\.(png|jpeg|svg|ico))$/;
+  if (imagesRegxp.test(request.url)) {
+    // Stale-while-revalidate
+    return event.respondWith(staleWhileRevalidate(CACHE_IMAGES, request));
+  }
+
+  const isHome = url.pathname === "/";
+  if (isHome) {
+    // Network then cache if offline
+    return event.respondWith(
+      freshWhileCache(CACHE_PAGES, request).catch(() =>
+        caches.match("/offline.html")
+      )
     );
-  } else {
-    /**
-     * "Cache, falling back to the network" for static file requests.
-     * @NOTE: this causes Chrome Network Devtools to show "from ServiceWorker"
-     * even though the resource is actually fetched from server
-     */
-    event.respondWith(
-      caches.match(request).then(response => {
-        return response || fetch(request);
+  }
+
+  const isHTML =
+    request.headers.get("Accept").includes("text/html") &&
+    url.pathname.endsWith("/");
+  if (isHTML) {
+    return event.respondWith(
+      staleWhileRevalidate(CACHE_PAGES, request).catch((error) => {
+        console.log("Failed to fetch", request.url, error);
+        return caches.match("/offline.html");
       })
     );
   }
+
+  /**
+   * "Cache, falling back to the network" as default strategy
+   * @NOTE: this causes Chrome Network Devtools to show "from ServiceWorker"
+   * even though the resource is actually fetched from server
+   */
+  event.respondWith(
+    caches.match(request).then((response) => {
+      return response || fetch(request);
+    })
+  );
 });
+
+self.addEventListener("message", (message) => {
+  const data = message.data;
+
+  switch (data.type) {
+    case "TRIM_CACHE":
+      trimCache(CACHE_IMAGES, 50);
+      break;
+    default:
+      break;
+  }
+});
+
+function staleWhileRevalidate(cacheName, request) {
+  return caches.open(cacheName).then((cache) => {
+    return cache.match(request).then((response) => {
+      const fetchRequest = fetch(request).then((fetchResponse) => {
+        cache.put(request, fetchResponse.clone());
+
+        return fetchResponse;
+      });
+
+      return response || fetchRequest;
+    });
+  });
+}
+
+function freshWhileCache(cacheName, request) {
+  return caches.open(cacheName).then((cache) => {
+    return fetch(request)
+      .then((response) => {
+        cache.put(request, response.clone());
+
+        return response;
+      })
+      .catch((error) => {
+        console.log("Failed to fetch", request.url, error);
+
+        return cache.match(request).then((response) => {
+          if (!response) return Promise.reject(null);
+
+          return response;
+        });
+      });
+  });
+}
+
+function trimCache(cacheName, limit) {
+  return caches.open(cacheName).then((cache) => {
+    return cache.keys().then((requests) => {
+      if (requests.length <= limit) return null;
+
+      return Promise.all(
+        requests.slice(0, limit).map((request) => cache.delete(request))
+      );
+    });
+  });
+}

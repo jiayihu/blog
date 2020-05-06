@@ -34,15 +34,15 @@ gulp.task("js", () => {
         "babelify",
         {
           presets: ["es2015"],
-          plugins: ["transform-inline-environment-variables"]
-        }
-      ]
-    ]
+          plugins: ["transform-inline-environment-variables"],
+        },
+      ],
+    ],
   };
   const appBundle = browserify(customOpts);
   if (IS_DEV) appBundle.plugin(watchify);
 
-  const buildApp = function() {
+  const buildApp = function () {
     return appBundle
       .bundle()
       .on("error", console.log)
@@ -59,11 +59,11 @@ gulp.task("js", () => {
   return buildApp();
 });
 
-gulp.task("pwa", function() {
+gulp.task("pwa", function () {
   gulp.src("./src/js/sw.js").pipe(gulp.dest("./public/"));
 });
 
-gulp.task("pwa:watch", function() {
+gulp.task("pwa:watch", function () {
   gulp.watch(["./src/js/sw.js"], ["pwa"]);
 });
 
@@ -97,7 +97,7 @@ gulp.task("css", () => {
     .pipe(browserSync.stream());
 });
 
-gulp.task("critical", function() {
+gulp.task("critical", function () {
   return gulp
     .src("./public/**/*.html", { base: "./" })
     .pipe(
@@ -106,10 +106,10 @@ gulp.task("critical", function() {
         inline: true,
         css: ["public/css/main.css"],
         width: 1280,
-        height: 900
+        height: 900,
       })
     )
-    .on("error", function(err) {
+    .on("error", function (err) {
       log.error(err.message);
     })
     .pipe(gulp.dest("./")); // Use the same value of { base } in .src to allow overriding source files
@@ -125,11 +125,12 @@ gulp.task("css:watch", () => {
 
 gulp.task("browserSync", () => {
   return browserSync({
-    browser: "google chrome",
     server: {
-      baseDir: "./public"
+      baseDir: "./public",
     },
-    port: 8000
+    watch: true,
+    files: "**/*",
+    port: 8000,
   });
 });
 

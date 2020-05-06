@@ -71,7 +71,7 @@ import { Decoder } from 'io-ts/lib/Decoder';
 import { pipe } from 'fp-ts/lib/pipeable';
 import { fold } from 'fp-ts/lib/Either';
 
-export const validator: <T>(decoder: Decoder<T>) => RequestHandler = decoder => (
+export const validator: <T>(decoder: Decoder<T>) => RequestHandler<ParamsDictionary, any, T> = decoder => (
   req,
   res,
   next,
@@ -86,11 +86,11 @@ export const validator: <T>(decoder: Decoder<T>) => RequestHandler = decoder => 
 };
 ```
 
-Then finally we have all the elements to setup the validation in place.
+Then finally we have all the elements to setup the validation in place. As mentioned, a nice benefit of using `io-ts` is having better types. In this case, `validator` returns a `RequestHandler<ParamsDictionary, any, T>` which is able to type `req.body` in the route handler, instead of being `any`.
 
 ```typescript
 app.post('/islands', validator(IslandDec), (req, res, next) => {
-  return addIsland(req.body)
+  return addIsland(req.body) // req.body is strictly typed
     .then(island => res.status(301).send({ status: 'success', data: island }))
     .catch(next);
 });
@@ -157,7 +157,7 @@ function getErrorValues(forest: Array<Tree<string>>): Array<string> {
   });
 }
 
-export const validator: <T>(decoder: Decoder<T>) => RequestHandler = decoder => (
+export const validator: <T>(decoder: Decoder<T>) => RequestHandler<ParamsDictionary, any, T> = decoder => (
   req,
   res,
   next,
