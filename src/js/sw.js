@@ -66,15 +66,13 @@ _self.addEventListener("fetch", (event) => {
   if (isHome) {
     // Network then cache if offline
     return event.respondWith(
-      freshWhileCache(CACHE_PAGES, request).catch(() =>
+      networkFallbackCache(CACHE_PAGES, request).catch(() =>
         caches.match("/offline.html")
       )
     );
   }
 
-  const isHTML =
-    request.headers.get("Accept").includes("text/html") &&
-    url.pathname.endsWith("/");
+  const isHTML = request.mode === "navigate";
   if (isHTML) {
     return event.respondWith(
       staleWhileRevalidate(CACHE_PAGES, request).catch((error) => {
@@ -122,7 +120,7 @@ function staleWhileRevalidate(cacheName, request) {
   });
 }
 
-function freshWhileCache(cacheName, request) {
+function networkFallbackCache(cacheName, request) {
   return caches.open(cacheName).then((cache) => {
     return fetch(request)
       .then((response) => {
