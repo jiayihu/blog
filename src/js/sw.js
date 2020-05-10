@@ -56,6 +56,8 @@ _self.addEventListener("fetch", (event) => {
   const request = event.request;
   const url = new URL(request.url);
 
+  if (request.method !== "GET" || url.origin !== location.origin) return;
+
   const imagesRegxp = /(\.(png|jpeg|svg|ico))$/;
   if (imagesRegxp.test(request.url)) {
     // Stale-while-revalidate

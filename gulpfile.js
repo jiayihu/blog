@@ -1,7 +1,6 @@
 const gulp = require("gulp");
 const gulpIf = require("gulp-if");
 const browserSync = require("browser-sync");
-const runSequence = require("run-sequence");
 const del = require("del");
 
 const postcss = require("gulp-postcss");
@@ -60,27 +59,33 @@ gulp.task("js", () => {
 });
 
 gulp.task("pwa", function () {
-  gulp.src("./src/js/sw.js").pipe(gulp.dest("./public/"));
+  return gulp.src("./src/js/sw.js").pipe(gulp.dest("./public/"));
 });
 
-gulp.task("pwa:watch", function () {
-  gulp.watch(["./src/js/sw.js"], ["pwa"]);
+gulp.task("pwa:watch", function (done) {
+  gulp.watch(["./src/js/sw.js"], gulp.series("pwa"));
+  done();
 });
 
 /**
  * Metalsmith
  */
 
-gulp.task("metalsmith", () => {
+gulp.task("metalsmith", (done) => {
   del.sync(["public/**/*.html"]);
-  metalsmith(() => browserSync.reload());
+  metalsmith(() => {
+    browserSync.reload();
+    done();
+  });
 });
 
-gulp.task("metalsmith:watch", () => {
-  return gulp.watch(
+gulp.task("metalsmith:watch", (done) => {
+  gulp.watch(
     ["./layouts/**/*.html", "./src/articles/*.md"],
-    ["metalsmith"]
+    gulp.series("metalsmith")
   );
+
+  done();
 });
 
 /**
@@ -115,49 +120,55 @@ gulp.task("critical", function () {
     .pipe(gulp.dest("./")); // Use the same value of { base } in .src to allow overriding source files
 });
 
-gulp.task("css:watch", () => {
-  gulp.watch("./src/styles/**/*.css", ["css"]);
+gulp.task("css:watch", (done) => {
+  gulp.watch("./src/styles/**/*.css", gulp.series("css"));
+  done();
 });
 
 /**
  * Other
  */
 
-gulp.task("browserSync", () => {
-  return browserSync({
-    server: {
-      baseDir: "./public",
+gulp.task("browserSync", (done) => {
+  browserSync(
+    {
+      server: {
+        baseDir: "./public",
+      },
+      watch: true,
+      files: "**/*",
+      port: 8000,
     },
-    watch: true,
-    files: "**/*",
-    port: 8000,
-  });
+    () => done()
+  );
 });
 
 gulp.task("clean", () => {
-  del.sync(["public"]);
+  return del(["public"]);
 });
 
 gulp.task("static", () => {
   return gulp.src("./src/static/**/*").pipe(gulp.dest("./public/"));
 });
 
-gulp.task("default", () => {
-  runSequence(
+gulp.task(
+  "default",
+  gulp.series(
     "clean",
-    ["static", "metalsmith", "css", "js", "pwa"],
+    gulp.parallel("static", "metalsmith", "css", "js", "pwa"),
     "browserSync",
-    ["css:watch", "metalsmith:watch", "pwa:watch"]
-  );
-});
+    gulp.parallel("css:watch", "metalsmith:watch", "pwa:watch")
+  )
+);
 
-gulp.task("build", () => {
-  runSequence(
+gulp.task(
+  "build",
+  gulp.series(
     "clean",
-    ["static", "metalsmith", "css", "js", "pwa"],
+    gulp.parallel(["static", "metalsmith", "css", "js", "pwa"]),
     "critical"
-  );
-});
+  )
+);
 
 function swallowError(error) {
   console.log(error.toString());
