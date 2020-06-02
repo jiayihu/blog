@@ -221,7 +221,7 @@ architectures or hyper-parameters.
 | Bidirectional GRU 128 outputs with a Decoder Dense Layer of 256 units  |   3,149,136   |     61min     |   1.6835   |
 | Bidirectional GRU 64 outputs with a Decoder Dense Layer of 128 units   |   941,200     |     24min     |   2.3211   |
 | Bidirectional GRU 192 outputs with a Decoder Dense Layer of 192 units  |   2,895,120     |    57min     |   1.7118   |
-| Bidirectional GRU 192 outputs with a Decoder Dense Layer of 128 units  |   2,230,480     |    41min     |   1.8218   |
+| Bidirectional GRU 192 outputs with a Decoder Dense Layer of 128 units  |   2,230,480     |    41min     |   1.8352   |
 
 Despite the best model is 128 GRU outputs with 256 units in the hidden Dense layer, the model has much more parameters and therefore incurs also in slower inference time later. Since inference latency is an important metric for the task under consideration, I preferred to keep the model with 192 GRU outputs and 128 units in the hidden layer. It is the second best-scoring model but with ~2.2mln parameters compared to ~3.2mln parameters of the best-absolute model.
 
