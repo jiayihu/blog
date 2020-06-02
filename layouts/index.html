@@ -10,7 +10,7 @@
     <meta name="Description" content="Chronicles of a young developer" />
   </head>
 
-  <body class="dark-grey lh-copy sans-serif">
+  <body class="dark-grey lh-copy">
     {% include "layouts/partials/_nav.html" %}
 
     <blockquote class="i measure-wide center mt5">
@@ -25,9 +25,7 @@
         <article class="center mw7 ph3 pv5 pv5-ns">
           <header>
             <h2 class="f3 lh-title mb1 mt0">
-              <a
-                href="{{ '/' + article.path + '/' }}"
-                class="link underline-hover"
+              <a href="{{ '/' + article.path + '/' }}" class="underline-hover"
                 >{{ article.title }}</a
               >
             </h2>

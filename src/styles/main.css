@@ -11,4 +11,12 @@
 
 @import 'partials/_colors';
 
+.m0-auto {
+  margin: 0 auto;
+}
+
+.measure-66ch {
+  max-width: 66ch;
+}
+
 /* uncss:ignore end */

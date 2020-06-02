@@ -24,7 +24,7 @@ const defaultLinkRenderer = renderer.link;
 renderer.link = function (...args) {
   return defaultLinkRenderer
     .apply(renderer, args)
-    .replace("<a", '<a class="link dim"');
+    .replace("<a", '<a class="dim"');
 };
 
 renderer.codespan = (text) => `<code class="purple">${text}</code>`;
