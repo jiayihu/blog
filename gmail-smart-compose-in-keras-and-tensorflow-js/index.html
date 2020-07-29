@@ -283,7 +283,7 @@ probability of being the correct word to predict. Since the
 categories are provided as integers, the function used as loss is
 <code class="purple">sparse_categorical_crossentropy</code> whereas <code class="purple">perplexity</code> is the
 metric.</p>
-<p>$$Perplexity(x) = -\sum_x{p(x)\ log\ p(x)}$$</p>
+<p>$$log\ Perplexity(x) = -\sum_x{p(x)\ log\ p(x)}$$</p>
 <p><code class="purple">x</code> is the ground truth label and <code class="purple">p(x)</code> is the model. The lower
 is the perplexity, and the higher is the probability of assigning
 the true target tokens. Perplexity is a typical metric used to
