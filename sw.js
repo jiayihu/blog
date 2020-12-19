@@ -1,7 +1,7 @@
 /** @type {ServiceWorkerGlobalScope} */
 var _self = self;
 
-const CACHE_STATIC = "jiayihu-static-v3";
+const CACHE_STATIC = "jiayihu-static-v4";
 const CACHE_IMAGES = "jiayihu-images-v1";
 const CACHE_PAGES = "jiayihu-pages-v1";
 const CACHE_NAMES = [CACHE_STATIC, CACHE_IMAGES, CACHE_PAGES];
