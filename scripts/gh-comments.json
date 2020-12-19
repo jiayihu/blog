@@ -25,5 +25,8 @@
   },
   "articles/gmail-smart-compose-keras.html": {
     "issueId": 40
+  },
+  "articles/k3s-alpine-linux-raspberry.html": {
+    "issueId": 43
   }
 }
