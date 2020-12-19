@@ -203,7 +203,7 @@ units to encode the input context.
     `sparse_categorical_crossentropy` whereas `perplexity` is the
     metric.
     
-    $$Perplexity(x) = -\sum_x{p(x)\ log\ p(x)}$$
+    $$log\ Perplexity(x) = -\sum_x{p(x)\ log\ p(x)}$$
     
     `x` is the ground truth label and `p(x)` is the model. The lower
     is the perplexity, and the higher is the probability of assigning
