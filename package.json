@@ -6,6 +6,7 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro check && astro build",
+    "deploy": "gh-pages -d dist --nojekyll",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -18,5 +19,9 @@
     "katex": "^0.16.10",
     "reading-time": "^1.5.0",
     "typescript": "^5.3.3"
+  },
+  "devDependencies": {
+    "@types/katex": "^0.16.7",
+    "gh-pages": "^6.1.1"
   }
 }
