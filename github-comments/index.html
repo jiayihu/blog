@@ -1,0 +1,195 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-bvzihdzo> <head><!-- Global Metadata --><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><!-- Favicons --><link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png"><link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#5bbad5"><meta name="generator" content="Astro v4.3.2"><!-- Canonical URL --><link rel="canonical" href="https://blog.jiayihu.net/github-comments/"><!-- Primary Meta Tags --><title>Using and automating GitHub issues as blog comments</title><meta name="title" content="Using and automating GitHub issues as blog comments"><meta name="description" content="Practical guide in pure Javascript to replace Disqus blog comments using automated GitHub issues"><!-- Open Graph / Facebook --><meta property="og:type" content="website"><meta property="og:url" content="https://blog.jiayihu.net/github-comments/"><meta property="og:title" content="Using and automating GitHub issues as blog comments"><meta property="og:description" content="Practical guide in pure Javascript to replace Disqus blog comments using automated GitHub issues"><meta property="og:image" content="https://blog.jiayihu.net/blog-placeholder-1.jpg"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://blog.jiayihu.net/github-comments/"><meta property="twitter:title" content="Using and automating GitHub issues as blog comments"><meta property="twitter:description" content="Practical guide in pure Javascript to replace Disqus blog comments using automated GitHub issues"><meta property="twitter:image" content="https://blog.jiayihu.net/blog-placeholder-1.jpg"><meta name="google-site-verification" content="6DIBzCM2sFIHFrOECCKoODFkMjWkvkmxMqJD0EFb7xU"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="apple-mobile-web-app-title" content="Jiayi's Chronicles"><meta name="msapplication-TileColor" content="#ffffff"><meta name="theme-color" content="#ffffff"><style>:root{--accent: #a00;--accent-dark: rgb(110, 1, 1);--black: 15, 18, 25;--sand: 255, 252, 250;--dark-gold: 90, 68, 13;--purple: 111, 66, 193;--gray: 96, 115, 159;--gray-light: 229, 233, 240;--gray-dark: 34, 41, 57;--gray-gradient: rgba(var(--sand), 100%), #fff;--box-shadow: 0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%), 0 16px 32px rgba(var(--gray), 33%)}body{font-family:-apple-system,BlinkMacSystemFont,avenir next,avenir,helvetica neue,helvetica,ubuntu,roboto,noto,segoe ui,arial,sans-serif;margin:0;padding:0;text-align:left;background:linear-gradient(var(--gray-gradient)) no-repeat;background-size:100% 600px;word-wrap:break-word;overflow-wrap:break-word;color:rgb(var(--gray-dark));font-size:16px;line-height:1.7}main{width:720px;max-width:calc(100% - 2em);margin:auto;padding:3em 1em}h1,h2,h3,h4,h5,h6{font-family:Latin Modern,Georgia,Cambria,Times New Roman,Times,serif;font-weight:400;margin:0 0 .5rem;line-height:1.2}h1{font-size:3.052em}h2{font-size:2.441em}h3{font-size:1.953em}h4{font-size:1.563em}h5{font-size:1.25em}strong,b{font-weight:700}a{color:var(--accent);font-family:Latin Modern,Georgia,Cambria,Times New Roman,Times,serif}a:hover{color:var(--accent-dark);text-decoration:underline}p{margin-bottom:1em}.prose p{margin-bottom:2em}textarea{width:100%;font-size:16px}input{font-size:16px}table{width:100%}img{max-width:100%;height:auto;border-radius:8px}code{padding:2px 5px;background-color:rgb(var(--gray-light));border-radius:2px;color:rgb(var(--purple))}pre{padding:1.5em;border-radius:8px}pre>code{all:unset}blockquote{border-left:4px solid var(--accent);padding:0 0 0 20px;margin:0;font-size:1.333em}hr{border:none;border-top:1px solid rgb(var(--gray-light))}@media (max-width: 720px){body{font-size:18px}main{padding:1em}}.sr-only{border:0;padding:0;margin:0;position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px 1px 1px 1px);clip:rect(1px,1px,1px,1px);clip-path:inset(50%);white-space:nowrap}footer[data-astro-cid-sz7xmlte]{padding:2em 1em 6em;color:rgb(var(--gray));text-align:center}.social-links[data-astro-cid-sz7xmlte]{display:flex;justify-content:center;gap:1em;margin-top:1em}.social-links[data-astro-cid-sz7xmlte] a[data-astro-cid-sz7xmlte]{text-decoration:none;color:rgb(var(--gray))}.social-links[data-astro-cid-sz7xmlte] a[data-astro-cid-sz7xmlte]:hover{color:rgb(var(--gray-dark))}a[data-astro-cid-eimmu3lg]{border-bottom:4px solid transparent;color:var(--black);display:inline-block;text-decoration:none}a[data-astro-cid-eimmu3lg].active{color:var(--accent);text-decoration:underline}header[data-astro-cid-3ef6ksr2]{margin:0;padding:1rem}h2[data-astro-cid-3ef6ksr2]{margin:0;font-size:1.5em}h2[data-astro-cid-3ef6ksr2] a[data-astro-cid-3ef6ksr2],h2[data-astro-cid-3ef6ksr2] a[data-astro-cid-3ef6ksr2].active{font-weight:400;text-decoration:none}nav[data-astro-cid-3ef6ksr2]{display:flex;align-items:center;justify-content:space-between;flex-direction:column}@media (min-width: 720px){nav[data-astro-cid-3ef6ksr2]{flex-direction:row}}nav[data-astro-cid-3ef6ksr2] a[data-astro-cid-3ef6ksr2]{padding:1em .5em}nav[data-astro-cid-3ef6ksr2] .logo[data-astro-cid-3ef6ksr2]{color:var(--accent);text-transform:uppercase}.internal-links[data-astro-cid-3ef6ksr2]{font-size:1rem}
+main[data-astro-cid-bvzihdzo]{width:calc(100% - 2em);max-width:100%;margin:0}.header[data-astro-cid-bvzihdzo]{color:rgb(var(--dark-gold));display:flex;flex-direction:column;gap:1rem;align-items:center;font-family:Latin Modern,Georgia,Cambria,Times New Roman,Times,serif;justify-content:center;height:75vh}.title[data-astro-cid-bvzihdzo]{text-align:center}.title[data-astro-cid-bvzihdzo] h1[data-astro-cid-bvzihdzo]{font-weight:400;font-size:4rem;font-style:italic}.description[data-astro-cid-bvzihdzo]{font-size:1.25rem;width:720px;max-width:calc(100% - 2em)}.date[data-astro-cid-bvzihdzo]{margin-bottom:.5em}.last-updated-on[data-astro-cid-bvzihdzo]{font-style:italic}.dot-separator[data-astro-cid-bvzihdzo]:after{content:" - "}.reading-time[data-astro-cid-bvzihdzo]{text-transform:uppercase}.prose[data-astro-cid-bvzihdzo]{width:720px;max-width:calc(100% - 2em);margin:auto;padding:1em;color:rgb(var(--gray-dark));h2,h3,h4,h5,h6{margin-top:1em;a{color:inherit;font-size:.75em;margin-left:-1em;text-decoration:none}}}
+</style><script type="module">const o=document.querySelectorAll(".prose h2, .prose h3, .prose h4, .prose h5, .prose h6");Array.from(o).forEach(r=>{const e=r.id;r.innerHTML=`<a href="#${e}" aria-hidden="true">#</a> ${r.innerHTML}`});
+</script></head> <body data-astro-cid-bvzihdzo> <header data-astro-cid-3ef6ksr2> <nav data-astro-cid-3ef6ksr2> <h2 data-astro-cid-3ef6ksr2><a href="/" class="logo" data-astro-cid-3ef6ksr2>Jiayi&#39;s Chronicles</a></h2> <div class="internal-links" data-astro-cid-3ef6ksr2> <a href="/" data-astro-cid-3ef6ksr2 data-astro-cid-eimmu3lg> Home </a>  <a href="/about" data-astro-cid-3ef6ksr2 data-astro-cid-eimmu3lg> About </a>  </div> </nav> </header>  <main data-astro-cid-bvzihdzo> <article data-astro-cid-bvzihdzo> <header class="header" data-astro-cid-bvzihdzo> <div class="title" data-astro-cid-bvzihdzo> <h1 data-astro-cid-bvzihdzo>Using and automating GitHub issues as blog comments</h1> </div> <p class="description" data-astro-cid-bvzihdzo>Practical guide in pure Javascript to replace Disqus blog comments using automated GitHub issues</p> <div class="date" data-astro-cid-bvzihdzo> <time datetime="2017-07-27T00:00:00.000Z"> Jul 27, 2017 </time>  <span class="dot-separator" data-astro-cid-bvzihdzo></span> <span class="reading-time" data-astro-cid-bvzihdzo>6 min read</span> </div> </header> <div class="prose" data-astro-cid-bvzihdzo>  <p>When dealing with blog comments, I’ve been using <a href="https://disqus.com/">Disqus</a> for the last years but I was interested in giving GitHub issues a shot. Besides my blog is already completely freely hosted on <a href="https://pages.github.com">GitHub Pages</a>, therefore moving the comments to the platform would have been a nice addition.</p>
+<p>I can’t say Disqus is a bad product. It just works™ and it’s easy to setup for anyone, even without any technical skill. But it doesn’t come without costs, which are <strong>slow loading times</strong> and <strong>user tracking</strong>.<br>
+You can read more about the former in <a href="http://donw.io/post/github-comments/">Replacing Disqus with GitHub Comments</a>, which is also the article that inspired me into trying GitHub comments, whereas <a href="https://replyable.com/2017/03/disqus-is-your-data-worth-trading-for-convenience/">The hidden price of using Disqus</a> provides more details about the latter.</p>
+<h2 id="pros--cons">Pros &#x26; Cons</h2>
+<h3 id="pros">Pros</h3>
+<p>Without Disqus, the page loading time has improved by 35% and the size has been reduced of about 400KB. You can compare the following two network profiles, done with Chrome devtools and using a simulated regular 3G connection.</p>
+<p><img  src="/_astro/timeline-with-disqus.Y_lxTn5X_Z1sBqxF.webp" alt="Timeline with Disqus" width="755" height="682" loading="lazy" decoding="async"></p>
+<p><img  src="/_astro/timeline-without-disqus.1xbgmDjw_2qGDNB.webp" alt="Timeline without Disqus" width="722" height="684" loading="lazy" decoding="async"></p>
+<p>Beyond improved performance you also gain the following points:</p>
+<ul>
+<li>No reader tracking</li>
+<li>Comments can be written in <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">Markdown</a></li>
+<li>Free protection from spamming, since a GitHub account is required</li>
+<li>(Hopefully) comments of higher quality from real GitHub profiles</li>
+<li>Reply notifications for blog authors and readers via GitHub, using the same platform we love</li>
+<li>Comment editing and deletion</li>
+<li>Complete control of comments appearance</li>
+</ul>
+<h3 id="cons">Cons</h3>
+<p>Of course, this system is not suitable for anyone and have some important cons:</p>
+<ul>
+<li>More difficult setup</li>
+<li>Readers must have a GitHub account in order to comment</li>
+<li>Readers must leave the blog to comment on the GitHub issue</li>
+</ul>
+<p>For the last point, you could register an <a href="https://developer.github.com/apps/building-integrations/setting-up-and-registering-oauth-apps/">OAuth application</a> to post comments from your blog, but you’d still need to ask the authorization to your reader.</p>
+<h2 id="setting-up">Setting up</h2>
+<p>The concept behind showing the comments in your blog is pretty simple:</p>
+<ol>
+<li>
+<p>Create a GitHub issue when you publish a new article, such as <a href="https://github.com/jiayihu/blog/issues/29">https://github.com/jiayihu/blog/issues/29</a></p>
+</li>
+<li>
+<p>Users will comment on the issue related to an article</p>
+</li>
+<li>
+<p>You get the comments JSON using <a href="https://developer.github.com/v3/">GitHub API</a></p>
+</li>
+<li>
+<p>You render them using plain Javascript, HTML and CSS</p>
+</li>
+</ol>
+<p>About the third point, you should create a GitHub <a href="https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/">Access Token</a> to avoid hitting the rate limits. The only permission needed is <code>public_repo</code>, do not add more scopes because they’re not needed.<br>
+Without authentication, you won’t be allowed to make more than 60 requests per hour, whereas with a token the limit is increased up to 5000 requests per hour.</p>
+<p>Then you only need to retrieve the JSON from GitHub and render the comments into the DOM.</p>
+<h3 id="the-script">The script</h3>
+<p>I based my script on the post <a href="http://hydroecology.net/using-github-to-host-blog-comments/">Using GitHub to host blog comments: a working example</a>, but it comes without dependencies and written in modern ES6 Javascript. Remember to transpile it to ES5 using <a href="https://babeljs.io">Babel</a>.</p>
+<p>The complete script can be found on my blog repo at <a href="https://github.com/jiayihu/blog/blob/master/src/js/modules/comments.js">/src/js/modules/comments.js</a>. Note that the strange CSS classes you’ll see
+are from <a href="http://tachyons.io">Tachyons</a>, used to build the UI with Atomic CSS.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> commentHTML</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">comment</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#9ECBFF"> `</span></span>
+<span class="line"><span style="color:#9ECBFF">    &#x3C;li class="comment flex mt3"></span></span>
+<span class="line"><span style="color:#9ECBFF">      &#x3C;div class="comment__body pa3">${</span><span style="color:#E1E4E8">comment</span><span style="color:#9ECBFF">.</span><span style="color:#E1E4E8">body_html</span><span style="color:#9ECBFF">}&#x3C;/div></span></span>
+<span class="line"><span style="color:#9ECBFF">    &#x3C;/li></span></span>
+<span class="line"><span style="color:#9ECBFF">  `</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> listHTML</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">comments</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#9ECBFF"> `</span></span>
+<span class="line"><span style="color:#9ECBFF">    &#x3C;ul class="list pl0"></span></span>
+<span class="line"><span style="color:#9ECBFF">      ${</span><span style="color:#E1E4E8">comments</span><span style="color:#9ECBFF">.</span><span style="color:#B392F0">map</span><span style="color:#9ECBFF">(</span><span style="color:#79B8FF">comment</span><span style="color:#F97583"> =></span><span style="color:#B392F0"> commentHTML</span><span style="color:#9ECBFF">(</span><span style="color:#E1E4E8">comment</span><span style="color:#9ECBFF">)).</span><span style="color:#B392F0">join</span><span style="color:#9ECBFF">(</span><span style="color:#9ECBFF">''</span><span style="color:#9ECBFF">)</span><span style="color:#9ECBFF">}</span></span>
+<span class="line"><span style="color:#9ECBFF">    &#x3C;/ul></span></span>
+<span class="line"><span style="color:#9ECBFF">  `</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> noCommentsHTML</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#9ECBFF"> `</span></span>
+<span class="line"><span style="color:#9ECBFF">    &#x3C;p class="f6 tc">Be the first to comment.&#x3C;p></span></span>
+<span class="line"><span style="color:#9ECBFF">  `</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> errorHTML</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#9ECBFF"> `</span></span>
+<span class="line"><span style="color:#9ECBFF">    &#x3C;div class="flex items-center justify-center pa4 bg-washed-red near-black f6"></span></span>
+<span class="line"><span style="color:#9ECBFF">      &#x3C;span class="lh-title ml3">Comments are not shown yet for this article.&#x3C;/span></span></span>
+<span class="line"><span style="color:#9ECBFF">    &#x3C;/div></span></span>
+<span class="line"><span style="color:#9ECBFF">  `</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> renderContent</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">content</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> container</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> document.</span><span style="color:#B392F0">querySelector</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'.comments-content'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">  // Comments from Github API are already sanitized</span></span>
+<span class="line"><span style="color:#E1E4E8">  container.innerHTML </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> content;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> default</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> renderComments</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#F97583">  if</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">!</span><span style="color:#E1E4E8">window.</span><span style="color:#79B8FF">ISSUE_ID</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">return</span><span style="color:#B392F0"> renderContent</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">errorHTML</span><span style="color:#E1E4E8">());</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">  // ISSUE_ID is globally injected by the article template</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> API_URL</span><span style="color:#F97583"> =</span><span style="color:#9ECBFF"> `https://api.github.com/repos/jiayihu/blog/issues/${</span><span style="color:#E1E4E8">window</span><span style="color:#9ECBFF">.</span><span style="color:#79B8FF">ISSUE_ID</span><span style="color:#9ECBFF">}/comments`</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#6A737D">  // The token should be loaded from the build environment and not hardcoded</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> TOKEN</span><span style="color:#F97583"> =</span><span style="color:#9ECBFF"> '123GitHubOAuthToken'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">  fetch</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">API_URL</span><span style="color:#E1E4E8">, {</span></span>
+<span class="line"><span style="color:#E1E4E8">    headers: {</span></span>
+<span class="line"><span style="color:#E1E4E8">      Accept: </span><span style="color:#9ECBFF">'application/vnd.github.v3.html+json'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">      Authorization: </span><span style="color:#9ECBFF">`token ${</span><span style="color:#79B8FF">TOKEN</span><span style="color:#9ECBFF">}`</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">      'Content-Type'</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">'application/json'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">    },</span></span>
+<span class="line"><span style="color:#E1E4E8">    mode: </span><span style="color:#9ECBFF">'cors'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">  })</span></span>
+<span class="line"><span style="color:#E1E4E8">    .</span><span style="color:#B392F0">then</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">response</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">      if</span><span style="color:#E1E4E8"> (response.ok) </span><span style="color:#F97583">return</span><span style="color:#E1E4E8"> response.</span><span style="color:#B392F0">json</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#F97583">      else</span><span style="color:#F97583"> return</span><span style="color:#79B8FF"> Promise</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">reject</span><span style="color:#E1E4E8">(response.statusText);</span></span>
+<span class="line"><span style="color:#E1E4E8">    })</span></span>
+<span class="line"><span style="color:#E1E4E8">    .</span><span style="color:#B392F0">then</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">comments</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">      if</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">!</span><span style="color:#E1E4E8">comments.</span><span style="color:#79B8FF">length</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#B392F0">        renderContent</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">noCommentsHTML</span><span style="color:#E1E4E8">());</span></span>
+<span class="line"><span style="color:#F97583">        return</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">      renderContent</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">listHTML</span><span style="color:#E1E4E8">(comments));</span></span>
+<span class="line"><span style="color:#E1E4E8">    })</span></span>
+<span class="line"><span style="color:#E1E4E8">    .</span><span style="color:#B392F0">catch</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">error</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">      console.</span><span style="color:#B392F0">error</span><span style="color:#E1E4E8">(error);</span></span>
+<span class="line"><span style="color:#B392F0">      renderContent</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">errorHTML</span><span style="color:#E1E4E8">());</span></span>
+<span class="line"><span style="color:#E1E4E8">    });</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<h3 id="the-template">The template</h3>
+<p>The template is also pretty straightforward. The value <code>issueId</code> can be added in the article Markdown, for instance using the <a href="https://jekyllrb.com/docs/frontmatter/">YAML front matter</a> if you have Jekyll. I use the same approach in <a href="http://www.metalsmith.io">Metalsmith</a>, the static site generator of my blog.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">---</span></span>
+<span class="line"><span style="color:#85E89D">title</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Your article title</span></span>
+<span class="line"><span style="color:#85E89D">issueId</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">1</span></span>
+<span class="line"><span style="color:#85E89D">pubDate</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">July 27th, 2017</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">---</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">Your article content.</span></span></code></pre>
+<p>The comments box template is the following instead:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">div</span><span style="color:#B392F0"> class</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"comments measure-wide center"</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">  &#x3C;</span><span style="color:#85E89D">script</span><span style="color:#E1E4E8">></span><span style="color:#F97583">var</span><span style="color:#79B8FF"> ISSUE_ID</span><span style="color:#F97583"> =</span><span style="color:#9ECBFF"> '{{ issueId }}'</span><span style="color:#E1E4E8">;&#x3C;/</span><span style="color:#85E89D">script</span><span style="color:#E1E4E8">></span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">  &#x3C;</span><span style="color:#85E89D">h3</span><span style="color:#E1E4E8">>Comments&#x3C;/</span><span style="color:#85E89D">h3</span><span style="color:#E1E4E8">></span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">  {% if issueId %}</span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;</span><span style="color:#85E89D">div</span><span style="color:#B392F0"> class</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"br2 ba b--lightest-blue bg-washed-blue f6 mb5"</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">      &#x3C;</span><span style="color:#85E89D">div</span><span style="color:#B392F0"> class</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"flex items-center"</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">        &#x3C;</span><span style="color:#85E89D">div</span><span style="color:#B392F0"> class</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"fg1 pa3"</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">          &#x3C;</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">            &#x3C;</span><span style="color:#85E89D">p</span><span style="color:#B392F0"> class</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"black-70 measure lh-copy mv0"</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">              This blog is using GitHub Issues as comments. You can post by replying to issue</span></span>
+<span class="line"><span style="color:#E1E4E8">              &#x3C;</span><span style="color:#85E89D">a</span><span style="color:#B392F0"> href</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"https://github.com/jiayihu/blog/issues/{{ issueId }}#new_comment_field"</span><span style="color:#B392F0">  class</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"link black f5 underline-hover"</span><span style="color:#B392F0"> target</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"_blank"</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">                #{{ issueId }}</span></span>
+<span class="line"><span style="color:#E1E4E8">              &#x3C;/</span><span style="color:#85E89D">a</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">            &#x3C;/</span><span style="color:#85E89D">p</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">          &#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">        &#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">        &#x3C;</span><span style="color:#85E89D">div</span><span style="color:#B392F0"> class</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"w5 pa3"</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">          &#x3C;</span><span style="color:#85E89D">a</span><span style="color:#E1E4E8"> </span></span>
+<span class="line"><span style="color:#B392F0">            href</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"https://github.com/jiayihu/blog/issues/{{ issueId }}#new_comment_field"</span><span style="color:#E1E4E8"> </span></span>
+<span class="line"><span style="color:#B392F0">            class</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"no-underline f6 tc db w-100 pv3 bg-animate bg-blue hover-bg-dark-blue white br2"</span></span>
+<span class="line"><span style="color:#B392F0">            target</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"_blank"</span></span>
+<span class="line"><span style="color:#E1E4E8">          ></span></span>
+<span class="line"><span style="color:#E1E4E8">            Post a comment</span></span>
+<span class="line"><span style="color:#E1E4E8">          &#x3C;/</span><span style="color:#85E89D">a</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">        &#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">      &#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">  {% endif %}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">  &#x3C;</span><span style="color:#85E89D">div</span><span style="color:#B392F0"> class</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"comments-content"</span><span style="color:#E1E4E8">>&#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span></code></pre>
+<p><br><br>
+You can see the result at the bottom of this article. Nice, isn’t it?</p>
+<h2 id="automate-issue-creation">Automate issue creation</h2>
+<p>An improvement of the previous setup is automating the creation of an issue every time you publish a new article. Basically, you won’t need to remember to do any manual work once you have set up the system.</p>
+<p>The script is available on npm as <a href="https://github.com/jiayihu/gh-issues-for-comments">gh-issues-for-comments</a> and it will take care of opening the GitHub issues with a proper title, description and even labels. <a href="https://github.com/jiayihu/blog/issues/29">The issue for this article</a> is an example of how mine is auto-generated.
+The script will also create and update a file called <code>gh-comments.json</code> to keep track of the issues.</p>
+<p>Feel free to read the source code, Pull Requests are welcome!</p>
+<br>
+<p>Lastly, if you are using Metalsmith like me, I’ve also published a plugin called <a href="https://github.com/jiayihu/metalsmith-gh-comments">metalsmith-gh-comments</a>. It will run <code>gh-issues-for-comments</code> and add an <code>issueId</code> property to each article for layout usage.<br>
+I also suggest configuring the plugin only in the production phase, when you’re about to publish the article and less likely to change it:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> githubComments</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> require</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'metalsmith-gh-comments'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> IS_DEV</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> process.env.</span><span style="color:#79B8FF">NODE_ENV</span><span style="color:#F97583"> !==</span><span style="color:#9ECBFF"> 'production'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">.</span><span style="color:#B392F0">use</span><span style="color:#E1E4E8">(</span></span>
+<span class="line"><span style="color:#79B8FF">  IS_DEV</span></span>
+<span class="line"><span style="color:#F97583">    ?</span><span style="color:#E1E4E8"> () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {}</span></span>
+<span class="line"><span style="color:#F97583">    :</span><span style="color:#B392F0"> githubComments</span><span style="color:#E1E4E8">({</span></span>
+<span class="line"><span style="color:#E1E4E8">        username: </span><span style="color:#9ECBFF">'jiayihu'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">        repo: </span><span style="color:#9ECBFF">'blog'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">        token: </span><span style="color:#9ECBFF">'123GitHubOAuthToken'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">      })</span></span>
+<span class="line"><span style="color:#E1E4E8">)</span></span></code></pre>
+<h2 id="conclusion">Conclusion</h2>
+<p>So far I’m satisfied with this setup. I don’t expect my blog to receive a huge number of comments and I write about tech topics, therefore the readers are likely to have a GitHub account.</p>
+<p>A point of improvement would be the possibility of posting comments on the blog without leaving the page, but also without an OAuth application. The latter would require an authorization, such as when you sign up using Facebook or Twitter.</p>
+<p>Let me know what are your thoughts.</p>   <script src="https://giscus.app/client.js" data-repo="jiayihu/blog" data-repo-id="MDEwOlJlcG9zaXRvcnk1ODc1MTUxMA==" data-category="Announcements" data-category-id="DIC_kwDOA4B6Fs4Ce90Z" data-mapping="title" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script> </div> </article> </main> <footer data-astro-cid-sz7xmlte>
+&copy; 2024 Jiayi Hu. All rights reserved.
+<div class="social-links" data-astro-cid-sz7xmlte> <a href="https://twitter.com/jiayi0x10" target="_blank" data-astro-cid-sz7xmlte> <span class="sr-only" data-astro-cid-sz7xmlte>Follow Astro on Twitter</span> <svg viewBox="0 0 16 16" aria-hidden="true" width="32" height="32" astro-icon="social/twitter" data-astro-cid-sz7xmlte><path fill="currentColor" d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z" data-astro-cid-sz7xmlte></path></svg> </a> <a href="https://github.com/jiayihu" target="_blank" data-astro-cid-sz7xmlte> <span class="sr-only" data-astro-cid-sz7xmlte>Go to Jiayi's GitHub repo</span> <svg viewBox="0 0 16 16" aria-hidden="true" width="32" height="32" astro-icon="social/github" data-astro-cid-sz7xmlte><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" data-astro-cid-sz7xmlte></path></svg> </a> <a href="https://www.linkedin.com/in/jiayi-hu/" target="_blank" data-astro-cid-sz7xmlte> <span class="sr-only" data-astro-cid-sz7xmlte>Go to Jiayi's LinkedIn page</span> <svg viewBox="0 0 16 16" aria-hidden="true" width="32" height="32" astro-icon="social/linkedin" data-astro-cid-sz7xmlte> <path fill="currentColor" d="M13.632 13.635h-2.37V9.922c0-.886-.018-2.025-1.234-2.025-1.235 0-1.424.964-1.424 1.96v3.778h-2.37V6H8.51V7.04h.03c.318-.6 1.092-1.233 2.247-1.233 2.4 0 2.845 1.58 2.845 3.637v4.188zM3.558 4.955c-.762 0-1.376-.617-1.376-1.377 0-.758.614-1.375 1.376-1.375.76 0 1.376.617 1.376 1.375 0 .76-.617 1.377-1.376 1.377zm1.188 8.68H2.37V6h2.376v7.635zM14.816 0H1.18C.528 0 0 .516 0 1.153v13.694C0 15.484.528 16 1.18 16h13.635c.652 0 1.185-.516 1.185-1.153V1.153C16 .516 15.467 0 14.815 0z" fill-rule="nonzero" data-astro-cid-sz7xmlte></path> </svg> </a> </div> </footer>  </body></html>

@@ -1,377 +1,138 @@
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="google-site-verification" content="6DIBzCM2sFIHFrOECCKoODFkMjWkvkmxMqJD0EFb7xU">
-<style>
-  html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,header,nav,section{display:block}h1{font-size:2em;margin:.67em 0}a{background-color:transparent;-webkit-text-decoration-skip:objects}svg:not(:root){overflow:hidden}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}.border-box,a,article,body,div,h1,header,html,p,section{-webkit-box-sizing:border-box;box-sizing:border-box}.cover{background-size:cover!important}.db{display:block}.dib{display:inline-block}.dt{display:table}.dtc{display:table-cell}@media screen and (min-width:60em){.dt-l{display:table}.dtc-l{display:table-cell}}.serif{font-family:Merriweather,georgia,times,serif}.i{font-style:italic}.fs-normal{font-style:normal}.vh-75{height:75vh}.tracked{letter-spacing:.1em}.lh-title{line-height:1.25}.lh-copy{line-height:1.5}.link{color:#f63545;text-decoration:none}.mw7{max-width:768px;max-width:48rem}.w-100{width:100%}.relative{position:relative}.dark-gray{color:#333}.mid-gray{color:#555}.pa3{padding:16px;padding:1rem}.ph0{padding-left:0;padding-right:0}.ph2{padding-left:8px;padding-left:.5rem;padding-right:8px;padding-right:.5rem}.ph3{padding-left:16px;padding-left:1rem;padding-right:16px;padding-right:1rem}.mr3{margin-right:16px;margin-right:1rem}.mb2{margin-bottom:8px;margin-bottom:.5rem}.mh0{margin-left:0;margin-right:0}@media screen and (min-width:60em){.mr4-l{margin-right:2rem}.mb0-l{margin-bottom:0}}.tr{text-align:right}.tc{text-align:center}@media screen and (min-width:60em){.tl-l{text-align:left}.tr-l{text-align:right}}.ttu{text-transform:uppercase}.f1{font-size:48px;font-size:3rem}.f3{font-size:24px;font-size:1.5rem}.f4{font-size:20px;font-size:1.25rem}.f5{font-size:16px;font-size:1rem}.f6{font-size:14px;font-size:.875rem}@media screen and (min-width:60em){.f-headline-l{font-size:4rem}.f5-l{font-size:1rem}}.measure{max-width:30em}.center{margin-right:auto;margin-left:auto}.nowrap{white-space:nowrap}.v-mid{vertical-align:middle}h1{font-weight:400}.dark-gold{color:#5a440d}.m0-auto{margin:0 auto}.measure-66ch{max-width:66ch}
-</style>
-<link rel="preload" href="/css/main.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="/css/main.css"></noscript>
-<link rel="preload" href="/css/prism.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="/css/prism.css"></noscript>
-<link rel="preload" href="/css/latex.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="/css/latex.css"></noscript>
-<link href="https://fonts.googleapis.com/css?family=Merriweather:400,400i,700" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link href="https://fonts.googleapis.com/css?family=Merriweather:400,400i,700" rel="stylesheet"></noscript>
-<script>!function(n){"use strict";n.loadCSS||(n.loadCSS=function(){});var t,o=loadCSS.relpreload={};o.support=function(){var e;try{e=n.document.createElement("link").relList.supports("preload")}catch(t){e=!1}return function(){return e}}(),o.bindMediaToggle=function(t){var e=t.media||"all";function a(){t.addEventListener?t.removeEventListener("load",a):t.attachEvent&&t.detachEvent("onload",a),t.setAttribute("onload",null),t.media=e}t.addEventListener?t.addEventListener("load",a):t.attachEvent&&t.attachEvent("onload",a),setTimeout(function(){t.rel="stylesheet",t.media="only x"}),setTimeout(a,3e3)},o.poly=function(){if(!o.support())for(var t=n.document.getElementsByTagName("link"),e=0;e<t.length;e++){var a=t[e];"preload"!==a.rel||"style"!==a.getAttribute("as")||a.getAttribute("data-loadcss")||(a.setAttribute("data-loadcss",!0),o.bindMediaToggle(a))}},o.support()||(o.poly(),t=n.setInterval(o.poly,500),n.addEventListener?n.addEventListener("load",function(){o.poly(),n.clearInterval(t)}):n.attachEvent&&n.attachEvent("onload",function(){o.poly(),n.clearInterval(t)})),"undefined"!=typeof exports?exports.loadCSS=loadCSS:n.loadCSS=loadCSS}("undefined"!=typeof global?global:this);</script>
-
-<!-- Favicons -->
-<link rel="apple-touch-icon" sizes="180x180" href="/images/icons/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/images/icons/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/images/icons/favicon-16x16.png">
-<link rel="mask-icon" href="/images/icons/safari-pinned-tab.svg" color="#5bbad5">
-
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
-<meta name="apple-mobile-web-app-title" content="Jiayi's Chronicles">
-
-<meta name="msapplication-TileColor" content="#ffffff">
-<meta name="theme-color" content="#ffffff">
-
-<link rel="manifest" href="/manifest.json">
-
-    <title>CSS resets in Shadow DOM | Jiayi's Chronicles</title>
-    <!-- Search Engine -->
-<meta name="description" content="How to apply reset.css or normalize.css with Web Components encapsulated in Shadow DOM">
-<!-- Schema.org for Google -->
-<meta itemprop="name" content="CSS resets in Shadow DOM">
-<meta itemprop="description" content="How to apply reset.css or normalize.css with Web Components encapsulated in Shadow DOM">
-<!-- Twitter -->
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CSS resets in Shadow DOM">
-<meta name="twitter:description" content="How to apply reset.css or normalize.css with Web Components encapsulated in Shadow DOM">
-<meta name="twitter:site" content="@jiayi_ghu">
-<meta name="twitter:image:src" content="http://blog.jiayihu.net/images/css-reset-shadow-dom/cover.jpg">
-<!-- Open Graph general (Facebook, Pinterest & Google+) -->
-<meta name="og:title" content="CSS resets in Shadow DOM">
-<meta name="og:description" content="How to apply reset.css or normalize.css with Web Components encapsulated in Shadow DOM">
-<meta name="og:image" content="http://blog.jiayihu.net/images/css-reset-shadow-dom/cover.jpg">
-<meta name="og:url" content="http://blog.jiayihu.net/css-resets-in-shadow-dom">
-<meta name="og:site_name" content="Jiayi's Chronicles">
-<meta name="og:type" content="website">
-
-    <meta name="Description" content="How to apply reset.css or normalize.css with Web Components encapsulated in Shadow DOM">
-  </head>
-
-  <body class="page--article dark-grey lh-copy">
-    <nav class="db dt-l w-100 border-box pa3 mw7 m0-auto">
-  <a class="db dtc-l v-mid mid-gray link serif underline-hover w-100 tc tl-l mb2 mb0-l f3 nowrap" href="/" title="Home">
-    Jiayi's Chronicles
-  </a>
-  <div class="db dtc-l nowrap v-mid w-100 tc tr-l">
-    <a class="link underline-hover dark-gray f6 f5-l dib mr3 mr4-l" href="/" title="Home">Home</a>
-    <a class="link underline-hover dark-gray f6 f5-l dib mr3 mr4-l" href="/about" title="About me">About me</a>
-  </div>
-</nav>
-
-
-    <article>
-      <header class="vh-75 dt w-100 tc cover">
-        <div class="article__header dark-gold dtc v-mid">
-          <h1 class="article__title f1 f-headline-l i lh-title ph3">
-            CSS resets in Shadow DOM
-          </h1>
-          <div class="ph0 mh0 measure f4 lh-copy center">
-            <p class="article__subtitle abstract">
-              How to apply reset.css or normalize.css with Web Components encapsulated in Shadow DOM
-            </p>
-            <p class="article-meta author f6 ttu tracked fs-normal">
-              Jiayi Hu - Sep 5th 2018
-            </p>
-          </div>
-        </div>
-      </header>
-      <section class="article-main f5 lh-copy ph2 relative">
-        <div class="center measure-66ch m0-auto">
-          <div class="tr">
-            <a href="https://github.com/jiayihu/blog/tree/master/src/articles/css-resets-in-shadow-dom.md" class="color-inherit f6 no-underline underline-hover glow" target="_blank" rel="noopener noreferrer">
-              <span class="dib w1">
-                <svg
-                  viewBox="0 0 256 250"
-                  version="1.1"
-                  xmlns="http://www.w3.org/2000/svg"
-                  xmlns:xlink="http://www.w3.org/1999/xlink"
-                  preserveAspectRatio="xMidYMid"
-                >
-                  <g>
-                    <path
-                      d="M128.00106,0 C57.3172926,0 0,57.3066942 0,128.00106 C0,184.555281 36.6761997,232.535542 87.534937,249.460899 C93.9320223,250.645779 96.280588,246.684165 96.280588,243.303333 C96.280588,240.251045 96.1618878,230.167899 96.106777,219.472176 C60.4967585,227.215235 52.9826207,204.369712 52.9826207,204.369712 C47.1599584,189.574598 38.770408,185.640538 38.770408,185.640538 C27.1568785,177.696113 39.6458206,177.859325 39.6458206,177.859325 C52.4993419,178.762293 59.267365,191.04987 59.267365,191.04987 C70.6837675,210.618423 89.2115753,204.961093 96.5158685,201.690482 C97.6647155,193.417512 100.981959,187.77078 104.642583,184.574357 C76.211799,181.33766 46.324819,170.362144 46.324819,121.315702 C46.324819,107.340889 51.3250588,95.9223682 59.5132437,86.9583937 C58.1842268,83.7344152 53.8029229,70.715562 60.7532354,53.0843636 C60.7532354,53.0843636 71.5019501,49.6441813 95.9626412,66.2049595 C106.172967,63.368876 117.123047,61.9465949 128.00106,61.8978432 C138.879073,61.9465949 149.837632,63.368876 160.067033,66.2049595 C184.49805,49.6441813 195.231926,53.0843636 195.231926,53.0843636 C202.199197,70.715562 197.815773,83.7344152 196.486756,86.9583937 C204.694018,95.9223682 209.660343,107.340889 209.660343,121.315702 C209.660343,170.478725 179.716133,181.303747 151.213281,184.472614 C155.80443,188.444828 159.895342,196.234518 159.895342,208.176593 C159.895342,225.303317 159.746968,239.087361 159.746968,243.303333 C159.746968,246.709601 162.05102,250.70089 168.53925,249.443941 C219.370432,232.499507 256,184.536204 256,128.00106 C256,57.3066942 198.691187,0 128.00106,0 Z M47.9405593,182.340212 C47.6586465,182.976105 46.6581745,183.166873 45.7467277,182.730227 C44.8183235,182.312656 44.2968914,181.445722 44.5978808,180.80771 C44.8734344,180.152739 45.876026,179.97045 46.8023103,180.409216 C47.7328342,180.826786 48.2627451,181.702199 47.9405593,182.340212 Z M54.2367892,187.958254 C53.6263318,188.524199 52.4329723,188.261363 51.6232682,187.366874 C50.7860088,186.474504 50.6291553,185.281144 51.2480912,184.70672 C51.8776254,184.140775 53.0349512,184.405731 53.8743302,185.298101 C54.7115892,186.201069 54.8748019,187.38595 54.2367892,187.958254 Z M58.5562413,195.146347 C57.7719732,195.691096 56.4895886,195.180261 55.6968417,194.042013 C54.9125733,192.903764 54.9125733,191.538713 55.713799,190.991845 C56.5086651,190.444977 57.7719732,190.936735 58.5753181,192.066505 C59.3574669,193.22383 59.3574669,194.58888 58.5562413,195.146347 Z M65.8613592,203.471174 C65.1597571,204.244846 63.6654083,204.03712 62.5716717,202.981538 C61.4524999,201.94927 61.1409122,200.484596 61.8446341,199.710926 C62.5547146,198.935137 64.0575422,199.15346 65.1597571,200.200564 C66.2704506,201.230712 66.6095936,202.705984 65.8613592,203.471174 Z M75.3025151,206.281542 C74.9930474,207.284134 73.553809,207.739857 72.1039724,207.313809 C70.6562556,206.875043 69.7087748,205.700761 70.0012857,204.687571 C70.302275,203.678621 71.7478721,203.20382 73.2083069,203.659543 C74.6539041,204.09619 75.6035048,205.261994 75.3025151,206.281542 Z M86.046947,207.473627 C86.0829806,208.529209 84.8535871,209.404622 83.3316829,209.4237 C81.8013,209.457614 80.563428,208.603398 80.5464708,207.564772 C80.5464708,206.498591 81.7483088,205.631657 83.2786917,205.606221 C84.8005962,205.576546 86.046947,206.424403 86.046947,207.473627 Z M96.6021471,207.069023 C96.7844366,208.099171 95.7267341,209.156872 94.215428,209.438785 C92.7295577,209.710099 91.3539086,209.074206 91.1652603,208.052538 C90.9808515,206.996955 92.0576306,205.939253 93.5413813,205.66582 C95.054807,205.402984 96.4092596,206.021919 96.6021471,207.069023 Z"
-                      fill="#161614"
-                    ></path>
-                  </g>
-                </svg>
-              </span>
-              Edit on GitHub
-            </a>
-          </div>
-          <div class="article-content"><p>Now that also <a class="dim" href="https://blog.nightly.mozilla.org/2018/09/06/developer-tools-support-for-web-components-in-firefox-63/">Firefox 63 is supporting <strong>Web Components</strong></a>, they are definitely the new shiny technology in the front-end which allow creating reusable Custom Elements using standard JavaScript APIs. With <strong>Shadow DOM</strong>, they are even well encapsulated, but this raises some questions like how to reset the CSS within the Shadow DOM.</p>
+<!DOCTYPE html><html lang="en" data-astro-cid-bvzihdzo> <head><!-- Global Metadata --><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><!-- Favicons --><link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png"><link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#5bbad5"><meta name="generator" content="Astro v4.3.2"><!-- Canonical URL --><link rel="canonical" href="https://blog.jiayihu.net/css-resets-in-shadow-dom/"><!-- Primary Meta Tags --><title>CSS resets in Shadow DOM</title><meta name="title" content="CSS resets in Shadow DOM"><meta name="description" content="How to apply reset.css or normalize.css with Web Components encapsulated in Shadow DOM"><!-- Open Graph / Facebook --><meta property="og:type" content="website"><meta property="og:url" content="https://blog.jiayihu.net/css-resets-in-shadow-dom/"><meta property="og:title" content="CSS resets in Shadow DOM"><meta property="og:description" content="How to apply reset.css or normalize.css with Web Components encapsulated in Shadow DOM"><meta property="og:image" content="https://blog.jiayihu.net/blog-placeholder-1.jpg"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://blog.jiayihu.net/css-resets-in-shadow-dom/"><meta property="twitter:title" content="CSS resets in Shadow DOM"><meta property="twitter:description" content="How to apply reset.css or normalize.css with Web Components encapsulated in Shadow DOM"><meta property="twitter:image" content="https://blog.jiayihu.net/blog-placeholder-1.jpg"><meta name="google-site-verification" content="6DIBzCM2sFIHFrOECCKoODFkMjWkvkmxMqJD0EFb7xU"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="apple-mobile-web-app-title" content="Jiayi's Chronicles"><meta name="msapplication-TileColor" content="#ffffff"><meta name="theme-color" content="#ffffff"><style>:root{--accent: #a00;--accent-dark: rgb(110, 1, 1);--black: 15, 18, 25;--sand: 255, 252, 250;--dark-gold: 90, 68, 13;--purple: 111, 66, 193;--gray: 96, 115, 159;--gray-light: 229, 233, 240;--gray-dark: 34, 41, 57;--gray-gradient: rgba(var(--sand), 100%), #fff;--box-shadow: 0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%), 0 16px 32px rgba(var(--gray), 33%)}body{font-family:-apple-system,BlinkMacSystemFont,avenir next,avenir,helvetica neue,helvetica,ubuntu,roboto,noto,segoe ui,arial,sans-serif;margin:0;padding:0;text-align:left;background:linear-gradient(var(--gray-gradient)) no-repeat;background-size:100% 600px;word-wrap:break-word;overflow-wrap:break-word;color:rgb(var(--gray-dark));font-size:16px;line-height:1.7}main{width:720px;max-width:calc(100% - 2em);margin:auto;padding:3em 1em}h1,h2,h3,h4,h5,h6{font-family:Latin Modern,Georgia,Cambria,Times New Roman,Times,serif;font-weight:400;margin:0 0 .5rem;line-height:1.2}h1{font-size:3.052em}h2{font-size:2.441em}h3{font-size:1.953em}h4{font-size:1.563em}h5{font-size:1.25em}strong,b{font-weight:700}a{color:var(--accent);font-family:Latin Modern,Georgia,Cambria,Times New Roman,Times,serif}a:hover{color:var(--accent-dark);text-decoration:underline}p{margin-bottom:1em}.prose p{margin-bottom:2em}textarea{width:100%;font-size:16px}input{font-size:16px}table{width:100%}img{max-width:100%;height:auto;border-radius:8px}code{padding:2px 5px;background-color:rgb(var(--gray-light));border-radius:2px;color:rgb(var(--purple))}pre{padding:1.5em;border-radius:8px}pre>code{all:unset}blockquote{border-left:4px solid var(--accent);padding:0 0 0 20px;margin:0;font-size:1.333em}hr{border:none;border-top:1px solid rgb(var(--gray-light))}@media (max-width: 720px){body{font-size:18px}main{padding:1em}}.sr-only{border:0;padding:0;margin:0;position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px 1px 1px 1px);clip:rect(1px,1px,1px,1px);clip-path:inset(50%);white-space:nowrap}footer[data-astro-cid-sz7xmlte]{padding:2em 1em 6em;color:rgb(var(--gray));text-align:center}.social-links[data-astro-cid-sz7xmlte]{display:flex;justify-content:center;gap:1em;margin-top:1em}.social-links[data-astro-cid-sz7xmlte] a[data-astro-cid-sz7xmlte]{text-decoration:none;color:rgb(var(--gray))}.social-links[data-astro-cid-sz7xmlte] a[data-astro-cid-sz7xmlte]:hover{color:rgb(var(--gray-dark))}a[data-astro-cid-eimmu3lg]{border-bottom:4px solid transparent;color:var(--black);display:inline-block;text-decoration:none}a[data-astro-cid-eimmu3lg].active{color:var(--accent);text-decoration:underline}header[data-astro-cid-3ef6ksr2]{margin:0;padding:1rem}h2[data-astro-cid-3ef6ksr2]{margin:0;font-size:1.5em}h2[data-astro-cid-3ef6ksr2] a[data-astro-cid-3ef6ksr2],h2[data-astro-cid-3ef6ksr2] a[data-astro-cid-3ef6ksr2].active{font-weight:400;text-decoration:none}nav[data-astro-cid-3ef6ksr2]{display:flex;align-items:center;justify-content:space-between;flex-direction:column}@media (min-width: 720px){nav[data-astro-cid-3ef6ksr2]{flex-direction:row}}nav[data-astro-cid-3ef6ksr2] a[data-astro-cid-3ef6ksr2]{padding:1em .5em}nav[data-astro-cid-3ef6ksr2] .logo[data-astro-cid-3ef6ksr2]{color:var(--accent);text-transform:uppercase}.internal-links[data-astro-cid-3ef6ksr2]{font-size:1rem}
+main[data-astro-cid-bvzihdzo]{width:calc(100% - 2em);max-width:100%;margin:0}.header[data-astro-cid-bvzihdzo]{color:rgb(var(--dark-gold));display:flex;flex-direction:column;gap:1rem;align-items:center;font-family:Latin Modern,Georgia,Cambria,Times New Roman,Times,serif;justify-content:center;height:75vh}.title[data-astro-cid-bvzihdzo]{text-align:center}.title[data-astro-cid-bvzihdzo] h1[data-astro-cid-bvzihdzo]{font-weight:400;font-size:4rem;font-style:italic}.description[data-astro-cid-bvzihdzo]{font-size:1.25rem;width:720px;max-width:calc(100% - 2em)}.date[data-astro-cid-bvzihdzo]{margin-bottom:.5em}.last-updated-on[data-astro-cid-bvzihdzo]{font-style:italic}.dot-separator[data-astro-cid-bvzihdzo]:after{content:" - "}.reading-time[data-astro-cid-bvzihdzo]{text-transform:uppercase}.prose[data-astro-cid-bvzihdzo]{width:720px;max-width:calc(100% - 2em);margin:auto;padding:1em;color:rgb(var(--gray-dark));h2,h3,h4,h5,h6{margin-top:1em;a{color:inherit;font-size:.75em;margin-left:-1em;text-decoration:none}}}
+</style><script type="module">const o=document.querySelectorAll(".prose h2, .prose h3, .prose h4, .prose h5, .prose h6");Array.from(o).forEach(r=>{const e=r.id;r.innerHTML=`<a href="#${e}" aria-hidden="true">#</a> ${r.innerHTML}`});
+</script></head> <body data-astro-cid-bvzihdzo> <header data-astro-cid-3ef6ksr2> <nav data-astro-cid-3ef6ksr2> <h2 data-astro-cid-3ef6ksr2><a href="/" class="logo" data-astro-cid-3ef6ksr2>Jiayi&#39;s Chronicles</a></h2> <div class="internal-links" data-astro-cid-3ef6ksr2> <a href="/" data-astro-cid-3ef6ksr2 data-astro-cid-eimmu3lg> Home </a>  <a href="/about" data-astro-cid-3ef6ksr2 data-astro-cid-eimmu3lg> About </a>  </div> </nav> </header>  <main data-astro-cid-bvzihdzo> <article data-astro-cid-bvzihdzo> <header class="header" data-astro-cid-bvzihdzo> <div class="title" data-astro-cid-bvzihdzo> <h1 data-astro-cid-bvzihdzo>CSS resets in Shadow DOM</h1> </div> <p class="description" data-astro-cid-bvzihdzo>How to apply reset.css or normalize.css with Web Components encapsulated in Shadow DOM</p> <div class="date" data-astro-cid-bvzihdzo> <time datetime="2018-09-05T00:00:00.000Z"> Sep 5, 2018 </time>  <span class="dot-separator" data-astro-cid-bvzihdzo></span> <span class="reading-time" data-astro-cid-bvzihdzo>5 min read</span> </div> </header> <div class="prose" data-astro-cid-bvzihdzo>  <p>Now that also <a href="https://blog.nightly.mozilla.org/2018/09/06/developer-tools-support-for-web-components-in-firefox-63/">Firefox 63 is supporting <strong>Web Components</strong></a>, they are definitely the new shiny technology in the front-end which allow creating reusable Custom Elements using standard JavaScript APIs. With <strong>Shadow DOM</strong>, they are even well encapsulated, but this raises some questions like how to reset the CSS within the Shadow DOM.</p>
 <aside class="notice">
-You can read more about Web Components on <a class="dim" href="https://developer.mozilla.org/en-US/docs/Web/Web_Components">MDN</a>.
+You can read more about Web Components on [MDN](https://developer.mozilla.org/en-US/docs/Web/Web_Components).
 </aside>
-
-<p>When building Web Components, Shadow DOM allows encapsulation of what the component renders. As the name suggests, Shadow DOM attaches a separate hidden DOM tree to your element, allowing you to keep the internal DOM and the styles private. For the CSS, this means that any style outside the element has no impact within the Shadow DOM and vice-versa any style defined in the latter doesn&#39;t affect elements out of it.</p>
-<p>Let&#39;s define a simple Custom Elements for our special paragraph component:</p>
-<pre><code class="lang-js">const template = document.createElement(&#39;template&#39;)
-template.innerHTML = `
-  &lt;style&gt;
-    p {
-      color: white;
-      background-color: #666;
-      padding: 5px;
-    }
-  &lt;/style&gt;
-  &lt;p&gt;My paragraph&lt;/p&gt;
-`
-
-class MyParagraph extends HTMLElement {
-    constructor() {
-      super();
-      const template = document.getElementById(&#39;my-paragraph&#39;);
-
-      this.attachShadow({mode: &#39;open&#39;})
-        .appendChild(template.content.cloneNode(true));
-  }
-}
-
-customElements.define(&#39;my-paragraph&#39;, MyParagraph)
-</code></pre>
-<p>It&#39;s possible then to use it as <code class="purple">&lt;my-paragraph&gt;&lt;/my-paragraph&gt;</code>, and it renders a paragraph with white text, grey background and 5px padding. You can <a class="dim" href="https://codepen.io/jiayihu/pen/RYxVrr?editors=1010">see it live on Codepen</a> using the latest Chrome, Safari or Firefox. <a class="dim" href="https://caniuse.com/#feat=custom-elementsv1">Edge is the only one missing Web Components</a> yet.</p>
-<p>Now, if we define the following global CSS declaration, we can notice that it doesn&#39;t have an impact on our custom paragraph although a <code class="purple">&lt;p&gt;</code> element is used within it.</p>
-<pre><code class="lang-css">p {
-  text-transform: uppercase;
-}
-</code></pre>
-<p>Likewise, <code class="purple">MyParagraph</code> styles don&#39;t have effects on the outer <code class="purple">&lt;p&gt;Usual paragraph&lt;/p&gt;</code> declared in the HTML.</p>
-<p>Okay that it&#39;s clear what Shadow DOM means for styles, let&#39;s proceed with the main topic of the article.</p>
+<p>When building Web Components, Shadow DOM allows encapsulation of what the component renders. As the name suggests, Shadow DOM attaches a separate hidden DOM tree to your element, allowing you to keep the internal DOM and the styles private. For the CSS, this means that any style outside the element has no impact within the Shadow DOM and vice-versa any style defined in the latter doesn’t affect elements out of it.</p>
+<p>Let’s define a simple Custom Elements for our special paragraph component:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> template</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> document.</span><span style="color:#B392F0">createElement</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'template'</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">template.innerHTML </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> `</span></span>
+<span class="line"><span style="color:#9ECBFF">  &#x3C;style></span></span>
+<span class="line"><span style="color:#9ECBFF">    p {</span></span>
+<span class="line"><span style="color:#9ECBFF">      color: white;</span></span>
+<span class="line"><span style="color:#9ECBFF">      background-color: #666;</span></span>
+<span class="line"><span style="color:#9ECBFF">      padding: 5px;</span></span>
+<span class="line"><span style="color:#9ECBFF">    }</span></span>
+<span class="line"><span style="color:#9ECBFF">  &#x3C;/style></span></span>
+<span class="line"><span style="color:#9ECBFF">  &#x3C;p>My paragraph&#x3C;/p></span></span>
+<span class="line"><span style="color:#9ECBFF">`</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">class</span><span style="color:#B392F0"> MyParagraph</span><span style="color:#F97583"> extends</span><span style="color:#B392F0"> HTMLElement</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">    constructor</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#79B8FF">      super</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#F97583">      const</span><span style="color:#79B8FF"> template</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> document.</span><span style="color:#B392F0">getElementById</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'my-paragraph'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF">      this</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">attachShadow</span><span style="color:#E1E4E8">({mode: </span><span style="color:#9ECBFF">'open'</span><span style="color:#E1E4E8">})</span></span>
+<span class="line"><span style="color:#E1E4E8">        .</span><span style="color:#B392F0">appendChild</span><span style="color:#E1E4E8">(template.content.</span><span style="color:#B392F0">cloneNode</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">true</span><span style="color:#E1E4E8">));</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">customElements.</span><span style="color:#B392F0">define</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'my-paragraph'</span><span style="color:#E1E4E8">, MyParagraph)</span></span></code></pre>
+<p>It’s possible then to use it as <code>&#x3C;my-paragraph>&#x3C;/my-paragraph></code>, and it renders a paragraph with white text, grey background and 5px padding. You can <a href="https://codepen.io/jiayihu/pen/RYxVrr?editors=1010">see it live on Codepen</a> using the latest Chrome, Safari or Firefox. <a href="https://caniuse.com/#feat=custom-elementsv1">Edge is the only one missing Web Components</a> yet.</p>
+<p>Now, if we define the following global CSS declaration, we can notice that it doesn’t have an impact on our custom paragraph although a <code>&#x3C;p></code> element is used within it.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color:#85E89D">p</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#79B8FF">  text-transform</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">uppercase</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<p>Likewise, <code>MyParagraph</code> styles don’t have effects on the outer <code>&#x3C;p>Usual paragraph&#x3C;/p></code> declared in the HTML.</p>
+<p>Okay that it’s clear what Shadow DOM means for styles, let’s proceed with the main topic of the article.</p>
 <h2 id="how-to-reset-the-css-in-web-components">How to reset the CSS in Web Components</h2>
-<p>Since Shadow DOM is separated from the rest of the document, this means that your Custom Elements won&#39;t be able to be styled by your global CSS reset like <a class="dim" href="https://meyerweb.com/eric/tools/css/reset/">reset.css</a> or <a class="dim" href="https://necolas.github.io/normalize.css/">normalize.css</a>. By default, without any style from yours, they use the User Agent stylesheet defined by the browser along with all the inconsistencies between browsers.</p>
-<p>With the deprecation of <code class="purple">/deep/</code> and <code class="purple">&gt;&gt;&gt;</code> CSS selectors, it&#39;s impossible for any stylesheet to customize the style within a Shadow DOM even if the purpose is to reset it.</p>
-<p>The only way, as far as I know, is to import the CSS reset within every your Web Component, for instance <code class="purple">@import &#39;normalize.css&#39;;</code> as Sass or PostCSS. The problem is that this duplicates much code. <code class="purple">normalize.css</code> is almost 6KB uncompressed, which means that if you have 100 components, you  deliver <code class="purple">600KB</code> of duplicated code.</p>
+<p>Since Shadow DOM is separated from the rest of the document, this means that your Custom Elements won’t be able to be styled by your global CSS reset like <a href="https://meyerweb.com/eric/tools/css/reset/">reset.css</a> or <a href="https://necolas.github.io/normalize.css/">normalize.css</a>. By default, without any style from yours, they use the User Agent stylesheet defined by the browser along with all the inconsistencies between browsers.</p>
+<p>With the deprecation of <code>/deep/</code> and <code>>>></code> CSS selectors, it’s impossible for any stylesheet to customize the style within a Shadow DOM even if the purpose is to reset it.</p>
+<p>The only way, as far as I know, is to import the CSS reset within every your Web Component, for instance <code>@import 'normalize.css';</code> as Sass or PostCSS. The problem is that this duplicates much code. <code>normalize.css</code> is almost 6KB uncompressed, which means that if you have 100 components, you  deliver <code>600KB</code> of duplicated code.</p>
 <p>The philosophy of Web Components is to build isolated components which can be used anywhere without the need of other libraries and, for this reason, they must share nothing between each other and they must contain all the needed code to work alone.</p>
-<p>However, this means also that your single Custom Element doesn&#39;t need the whole reset CSS. It can import only the parts which affect its Shadow DOM.</p>
-<p>Taking <a class="dim" href="https://necolas.github.io/normalize.css/">normalize.css</a> as example, we are able to divide it into tiny pieces like the following:</p>
-<pre><code>normalize
-   ├── document.css
-   ├── embedded.css
-   ├── forms.css
-   ├── grouping.css
-   ├── interactive.css
-   ├── misc.css
-   ├── sections.css
-   └── text-level.css
-</code></pre><pre><code class="lang-css">/* Embedded content
-   ========================================================================== */
-
-/**
- * Remove the border on images inside links in IE 10.
- */
-
-img {
-  border-style: none;
-}
-</code></pre>
-<pre><code class="lang-css">/* Forms
-   ========================================================================== */
-
-/**
- * 1. Change the font styles in all browsers.
- * 2. Remove the margin in Firefox and Safari.
- */
-
-button,
-input,
-optgroup,
-select,
-textarea {
-  font-family: inherit; /* 1 */
-  font-size: 100%; /* 1 */
-  line-height: 1.15; /* 1 */
-  margin: 0; /* 2 */
-}
-
-/**
-  * Show the overflow in IE.
-  * 1. Show the overflow in Edge.
-  */
-
-button,
-input {
-  /* 1 */
-  overflow: visible;
-}
-
-/** ... other form resets */
-</code></pre>
-<pre><code class="lang-css">/* Sections
-   ========================================================================== */
-
-/**
- * Correct the font size and margin on `h1` elements within `section` and
- * `article` contexts in Chrome, Firefox, and Safari.
- */
-
-h1 {
-  font-size: 2em;
-  margin: 0.67em 0;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin: 0;
-  padding: 0;
-  -webkit-font-smoothing: antialiased;
-  -moz-font-smoothing: antialiased;
-  -o-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-</code></pre>
-<p>So then Web Components can import only the single pieces they require. I use <a class="dim" href="https://github.com/postcss/postcss-import">postcss-import</a>, but you can apply the same technique in Sass or Less.</p>
-<pre><code class="lang-css">@import &#39;normalize/embedded.css&#39;;
-@import &#39;normalize/sections.css&#39;;
-
-h1 {
-  color: rebeccapurple;
-}
-
-/** Other component styles */
-
-</code></pre>
-<p>This strategy is not optimal because there is still duplication, but at least it&#39;s minimal. It&#39;s a good compromise of isolation and duplication: you get independent Web Components with minimal inevitable CSS duplication.</p>
+<p>However, this means also that your single Custom Element doesn’t need the whole reset CSS. It can import only the parts which affect its Shadow DOM.</p>
+<p>Taking <a href="https://necolas.github.io/normalize.css/">normalize.css</a> as example, we are able to divide it into tiny pieces like the following:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0"><code><span class="line"><span>normalize</span></span>
+<span class="line"><span>   ├── document.css</span></span>
+<span class="line"><span>   ├── embedded.css</span></span>
+<span class="line"><span>   ├── forms.css</span></span>
+<span class="line"><span>   ├── grouping.css</span></span>
+<span class="line"><span>   ├── interactive.css</span></span>
+<span class="line"><span>   ├── misc.css</span></span>
+<span class="line"><span>   ├── sections.css</span></span>
+<span class="line"><span>   └── text-level.css</span></span></code></pre>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color:#6A737D">/* Embedded content</span></span>
+<span class="line"><span style="color:#6A737D">   ========================================================================== */</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">/**</span></span>
+<span class="line"><span style="color:#6A737D"> * Remove the border on images inside links in IE 10.</span></span>
+<span class="line"><span style="color:#6A737D"> */</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">img</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#79B8FF">  border-style</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">none</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color:#6A737D">/* Forms</span></span>
+<span class="line"><span style="color:#6A737D">   ========================================================================== */</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">/**</span></span>
+<span class="line"><span style="color:#6A737D"> * 1. Change the font styles in all browsers.</span></span>
+<span class="line"><span style="color:#6A737D"> * 2. Remove the margin in Firefox and Safari.</span></span>
+<span class="line"><span style="color:#6A737D"> */</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">button</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#85E89D">input</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#85E89D">optgroup</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#85E89D">select</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#85E89D">textarea</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#79B8FF">  font-family</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">inherit</span><span style="color:#E1E4E8">; </span><span style="color:#6A737D">/* 1 */</span></span>
+<span class="line"><span style="color:#79B8FF">  font-size</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">100</span><span style="color:#F97583">%</span><span style="color:#E1E4E8">; </span><span style="color:#6A737D">/* 1 */</span></span>
+<span class="line"><span style="color:#79B8FF">  line-height</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">1.15</span><span style="color:#E1E4E8">; </span><span style="color:#6A737D">/* 1 */</span></span>
+<span class="line"><span style="color:#79B8FF">  margin</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">; </span><span style="color:#6A737D">/* 2 */</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">/**</span></span>
+<span class="line"><span style="color:#6A737D">  * Show the overflow in IE.</span></span>
+<span class="line"><span style="color:#6A737D">  * 1. Show the overflow in Edge.</span></span>
+<span class="line"><span style="color:#6A737D">  */</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">button</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#85E89D">input</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#6A737D">  /* 1 */</span></span>
+<span class="line"><span style="color:#79B8FF">  overflow</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">visible</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">/** ... other form resets */</span></span></code></pre>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color:#6A737D">/* Sections</span></span>
+<span class="line"><span style="color:#6A737D">   ========================================================================== */</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">/**</span></span>
+<span class="line"><span style="color:#6A737D"> * Correct the font size and margin on `h1` elements within `section` and</span></span>
+<span class="line"><span style="color:#6A737D"> * `article` contexts in Chrome, Firefox, and Safari.</span></span>
+<span class="line"><span style="color:#6A737D"> */</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">h1</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#79B8FF">  font-size</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">2</span><span style="color:#F97583">em</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#79B8FF">  margin</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">0.67</span><span style="color:#F97583">em</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">h1</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#85E89D">h2</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#85E89D">h3</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#85E89D">h4</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#85E89D">h5</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#85E89D">h6</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#79B8FF">  margin</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#79B8FF">  padding</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#79B8FF">  -webkit-font-smoothing</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">antialiased</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#79B8FF">  -moz-font-smoothing</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">antialiased</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#79B8FF">  -o-font-smoothing</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">antialiased</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#79B8FF">  -moz-osx-font-smoothing</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">grayscale</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span></code></pre>
+<p>So then Web Components can import only the single pieces they require. I use <a href="https://github.com/postcss/postcss-import">postcss-import</a>, but you can apply the same technique in Sass or Less.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color:#F97583">@import</span><span style="color:#9ECBFF"> 'normalize/embedded.css'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">@import</span><span style="color:#9ECBFF"> 'normalize/sections.css'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">h1</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#79B8FF">  color</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">rebeccapurple</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">/** Other component styles */</span></span>
+<span class="line"></span></code></pre>
+<p>This strategy is not optimal because there is still duplication, but at least it’s minimal. It’s a good compromise of isolation and duplication: you get independent Web Components with minimal inevitable CSS duplication.</p>
 <hr>
-<p>What do you think of this strategy? For the time being it&#39;s the best one I know, and the tip was given by a friend of mine <a class="dim" href="https://github.com/MaxArt2501">@MaxArt2501</a>. If you come up with a better strategy, let me know in the comments.</p>
-</div>
-        </div>
-      </section>
-    </article>
-
-    <div class="comments measure-wide center ph2 ph0-l">
-  <script>var ISSUE_ID = '32';</script>
-
-  <h3>Comments</h3>
-
-  
-    <div class="br2 ba b--lightest-blue bg-washed-blue f6 mb5">
-      <div class="flex items-center">
-        <div class="fg1 pa3">
-          <div>
-            <p class="black-70 measure lh-copy mv0">
-              This blog is using GitHub Issues as comments. You can post by replying to issue
-              <a href="https://github.com/jiayihu/blog/issues/32#new_comment_field" class="link black f5 underline-hover" target="_blank" rel="noopener noreferrer">
-                #32
-              </a>
-            </p>
-          </div>
-        </div>
-        <div class="w5 pa3">
-          <a href="https://github.com/jiayihu/blog/issues/32#new_comment_field" class="link no-underline f6 tc db w-100 pv3 bg-animate bg-dark-green hover-bg-dark-blue white br2" target="_blank" rel="noopener noreferrer">
-            Post a comment
-          </a>
-        </div>
-      </div>
-    </div>
-  
-
-  <div class="comments-content"></div>
-
-  <!-- HTML put to avoid uncss removing the CSS classes needed by async comments -->
-  <ul class="list pl0 dn">
-    <li class="comment flex mt3">
-      <div class="comment__author mr2 tc">
-        <a href="https://github.com/jiayihu" class="dib h2--half w2--half">
-          <img src="https://avatars1.githubusercontent.com/u/10067273?v=4" alt="jiayihu" class="br2 h2--half w2--half dib">
-        </a>
-      </div>
-      <div class="fg1 br2 ba b--moon-gray f6 measure-wide">
-        <div class="comment__header bb b--moon-gray bg-black-05 flex items-center silver ph3 pv2">
-          <span>
-            <a href="https://github.com/jiayihu" class="link underline-hover near-black">
-              jiayihu
-            </a>
-            commented
-            <a href="https://github.com/jiayihu/blog/issues/2#issuecomment-394303150" class="link underline-hover silver">
-              2 weeks ago
-            </a>
-          </span>
-          <span class="ba b--moon-gray br2 mla f7 fw7 ph2 pv1">Author</span>
-        </div>
-        <div class="comment__body pa3"></div>
-    </div></li>
-  </ul>
-</div>
- <footer class="pv4 ph3 ph5-ns tc mt4">
-  <a class="link dim gray dib h2 w2 br-100 mr3" href="https://twitter.com/jiayi_ghu" title="">
-    <svg data-icon="twitter" viewBox="0 0 32 32" style="fill: currentcolor;">
-      <title>twitter icon</title>
-      <path
-        d="M2 4 C6 8 10 12 15 11 A6 6 0 0 1 22 4 A6 6 0 0 1 26 6 A8 8 0 0 0 31 4 A8 8 0 0 1 28 8 A8 8 0 0 0 32 7 A8 8 0 0 1 28 11 A18 18 0 0 1 10 30 A18 18 0 0 1 0 27 A12 12 0 0 0 8 24 A8 8 0 0 1 3 20 A8 8 0 0 0 6 19.5 A8 8 0 0 1 0 12 A8 8 0 0 0 3 13 A8 8 0 0 1 2 4"
-      ></path>
-    </svg>
-  </a>
-  <a class="link dim gray dib br-100 h2 w2 mr3" href="https://github.com/jiayihu" title="">
-    <svg data-icon="github" viewBox="0 0 32 32" style="fill: currentcolor;">
-      <title>github icon</title>
-      <path
-        d="M0 18 C0 12 3 10 3 9 C2.5 7 2.5 4 3 3 C6 3 9 5 10 6 C12 5 14 5 16 5 C18 5 20 5 22 6 C23 5 26 3 29 3 C29.5 4 29.5 7 29 9 C29 10 32 12 32 18 C32 25 30 30 16 30 C2 30 0 25 0 18 M3 20 C3 24 4 28 16 28 C28 28 29 24 29 20 C29 16 28 14 16 14 C4 14 3 16 3 20 M8 21 A1.5 2.5 0 0 0 13 21 A1.5 2.5 0 0 0 8 21 M24 21 A1.5 2.5 0 0 0 19 21 A1.5 2.5 0 0 0 24 21 z"
-      ></path>
-    </svg>
-  </a>
-  <a class="link dim gray dib br-100 h2 w2 mr3" href="https://www.linkedin.com/in/jiayi-hu/" title="LinkedIn">
-    <svg
-      fill="currentColor"
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 16 16"
-      fill-rule="evenodd"
-      clip-rule="evenodd"
-      stroke-linejoin="round"
-      stroke-miterlimit="1.414"
-    >
-      <title>LinkedIn icon</title>
-      <path
-        d="M13.632 13.635h-2.37V9.922c0-.886-.018-2.025-1.234-2.025-1.235 0-1.424.964-1.424 1.96v3.778h-2.37V6H8.51V7.04h.03c.318-.6 1.092-1.233 2.247-1.233 2.4 0 2.845 1.58 2.845 3.637v4.188zM3.558 4.955c-.762 0-1.376-.617-1.376-1.377 0-.758.614-1.375 1.376-1.375.76 0 1.376.617 1.376 1.375 0 .76-.617 1.377-1.376 1.377zm1.188 8.68H2.37V6h2.376v7.635zM14.816 0H1.18C.528 0 0 .516 0 1.153v13.694C0 15.484.528 16 1.18 16h13.635c.652 0 1.185-.516 1.185-1.153V1.153C16 .516 15.467 0 14.815 0z"
-        fill-rule="nonzero"
-      />
-    </svg>
-  </a>
-  <small class="mt4 f6 db tc">© 2020. All Rights Reserved</small>
-</footer>
-
-<script src="https://polyfill.io/v3/polyfill.min.js?features=default%2Cfetch"></script>
-<script src="/js/main.js"></script>
-<script src="/js/prism.js"></script>
-
-<script>
-  (function (i, s, o, g, r, a, m) {
-    i["GoogleAnalyticsObject"] = r;
-    (i[r] =
-      i[r] ||
-      function () {
-        (i[r].q = i[r].q || []).push(arguments);
-      }),
-      (i[r].l = 1 * new Date());
-    (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
-    a.async = 1;
-    a.src = g;
-    m.parentNode.insertBefore(a, m);
-  })(
-    window,
-    document,
-    "script",
-    "https://www.google-analytics.com/analytics.js",
-    "ga"
-  );
-
-  ga("create", "UA-103053006-1", "auto");
-  ga("send", "pageview");
-</script>
-
-
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-  </body>
-</html>
+<p>What do you think of this strategy? For the time being it’s the best one I know, and the tip was given by a friend of mine <a href="https://github.com/MaxArt2501">@MaxArt2501</a>. If you come up with a better strategy, let me know in the comments.</p>   <script src="https://giscus.app/client.js" data-repo="jiayihu/blog" data-repo-id="MDEwOlJlcG9zaXRvcnk1ODc1MTUxMA==" data-category="Announcements" data-category-id="DIC_kwDOA4B6Fs4Ce90Z" data-mapping="title" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script> </div> </article> </main> <footer data-astro-cid-sz7xmlte>
+&copy; 2024 Jiayi Hu. All rights reserved.
+<div class="social-links" data-astro-cid-sz7xmlte> <a href="https://twitter.com/jiayi0x10" target="_blank" data-astro-cid-sz7xmlte> <span class="sr-only" data-astro-cid-sz7xmlte>Follow Astro on Twitter</span> <svg viewBox="0 0 16 16" aria-hidden="true" width="32" height="32" astro-icon="social/twitter" data-astro-cid-sz7xmlte><path fill="currentColor" d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z" data-astro-cid-sz7xmlte></path></svg> </a> <a href="https://github.com/jiayihu" target="_blank" data-astro-cid-sz7xmlte> <span class="sr-only" data-astro-cid-sz7xmlte>Go to Jiayi's GitHub repo</span> <svg viewBox="0 0 16 16" aria-hidden="true" width="32" height="32" astro-icon="social/github" data-astro-cid-sz7xmlte><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" data-astro-cid-sz7xmlte></path></svg> </a> <a href="https://www.linkedin.com/in/jiayi-hu/" target="_blank" data-astro-cid-sz7xmlte> <span class="sr-only" data-astro-cid-sz7xmlte>Go to Jiayi's LinkedIn page</span> <svg viewBox="0 0 16 16" aria-hidden="true" width="32" height="32" astro-icon="social/linkedin" data-astro-cid-sz7xmlte> <path fill="currentColor" d="M13.632 13.635h-2.37V9.922c0-.886-.018-2.025-1.234-2.025-1.235 0-1.424.964-1.424 1.96v3.778h-2.37V6H8.51V7.04h.03c.318-.6 1.092-1.233 2.247-1.233 2.4 0 2.845 1.58 2.845 3.637v4.188zM3.558 4.955c-.762 0-1.376-.617-1.376-1.377 0-.758.614-1.375 1.376-1.375.76 0 1.376.617 1.376 1.375 0 .76-.617 1.377-1.376 1.377zm1.188 8.68H2.37V6h2.376v7.635zM14.816 0H1.18C.528 0 0 .516 0 1.153v13.694C0 15.484.528 16 1.18 16h13.635c.652 0 1.185-.516 1.185-1.153V1.153C16 .516 15.467 0 14.815 0z" fill-rule="nonzero" data-astro-cid-sz7xmlte></path> </svg> </a> </div> </footer>  </body></html>

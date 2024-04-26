@@ -1,0 +1,193 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-bvzihdzo> <head><!-- Global Metadata --><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><!-- Favicons --><link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png"><link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#5bbad5"><meta name="generator" content="Astro v4.3.2"><!-- Canonical URL --><link rel="canonical" href="https://blog.jiayihu.net/angular-aot/"><!-- Primary Meta Tags --><title>Angular AOT compilation with Webpack</title><meta name="title" content="Angular AOT compilation with Webpack"><meta name="description" content="Set up AOT compilation in Webpack to avoid runtime compilation, reduce bundle size and improve application start"><!-- Open Graph / Facebook --><meta property="og:type" content="website"><meta property="og:url" content="https://blog.jiayihu.net/angular-aot/"><meta property="og:title" content="Angular AOT compilation with Webpack"><meta property="og:description" content="Set up AOT compilation in Webpack to avoid runtime compilation, reduce bundle size and improve application start"><meta property="og:image" content="https://blog.jiayihu.net/blog-placeholder-1.jpg"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://blog.jiayihu.net/angular-aot/"><meta property="twitter:title" content="Angular AOT compilation with Webpack"><meta property="twitter:description" content="Set up AOT compilation in Webpack to avoid runtime compilation, reduce bundle size and improve application start"><meta property="twitter:image" content="https://blog.jiayihu.net/blog-placeholder-1.jpg"><meta name="google-site-verification" content="6DIBzCM2sFIHFrOECCKoODFkMjWkvkmxMqJD0EFb7xU"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="apple-mobile-web-app-title" content="Jiayi's Chronicles"><meta name="msapplication-TileColor" content="#ffffff"><meta name="theme-color" content="#ffffff"><style>:root{--accent: #a00;--accent-dark: rgb(110, 1, 1);--black: 15, 18, 25;--sand: 255, 252, 250;--dark-gold: 90, 68, 13;--purple: 111, 66, 193;--gray: 96, 115, 159;--gray-light: 229, 233, 240;--gray-dark: 34, 41, 57;--gray-gradient: rgba(var(--sand), 100%), #fff;--box-shadow: 0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%), 0 16px 32px rgba(var(--gray), 33%)}body{font-family:-apple-system,BlinkMacSystemFont,avenir next,avenir,helvetica neue,helvetica,ubuntu,roboto,noto,segoe ui,arial,sans-serif;margin:0;padding:0;text-align:left;background:linear-gradient(var(--gray-gradient)) no-repeat;background-size:100% 600px;word-wrap:break-word;overflow-wrap:break-word;color:rgb(var(--gray-dark));font-size:16px;line-height:1.7}main{width:720px;max-width:calc(100% - 2em);margin:auto;padding:3em 1em}h1,h2,h3,h4,h5,h6{font-family:Latin Modern,Georgia,Cambria,Times New Roman,Times,serif;font-weight:400;margin:0 0 .5rem;line-height:1.2}h1{font-size:3.052em}h2{font-size:2.441em}h3{font-size:1.953em}h4{font-size:1.563em}h5{font-size:1.25em}strong,b{font-weight:700}a{color:var(--accent);font-family:Latin Modern,Georgia,Cambria,Times New Roman,Times,serif}a:hover{color:var(--accent-dark);text-decoration:underline}p{margin-bottom:1em}.prose p{margin-bottom:2em}textarea{width:100%;font-size:16px}input{font-size:16px}table{width:100%}img{max-width:100%;height:auto;border-radius:8px}code{padding:2px 5px;background-color:rgb(var(--gray-light));border-radius:2px;color:rgb(var(--purple))}pre{padding:1.5em;border-radius:8px}pre>code{all:unset}blockquote{border-left:4px solid var(--accent);padding:0 0 0 20px;margin:0;font-size:1.333em}hr{border:none;border-top:1px solid rgb(var(--gray-light))}@media (max-width: 720px){body{font-size:18px}main{padding:1em}}.sr-only{border:0;padding:0;margin:0;position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px 1px 1px 1px);clip:rect(1px,1px,1px,1px);clip-path:inset(50%);white-space:nowrap}footer[data-astro-cid-sz7xmlte]{padding:2em 1em 6em;color:rgb(var(--gray));text-align:center}.social-links[data-astro-cid-sz7xmlte]{display:flex;justify-content:center;gap:1em;margin-top:1em}.social-links[data-astro-cid-sz7xmlte] a[data-astro-cid-sz7xmlte]{text-decoration:none;color:rgb(var(--gray))}.social-links[data-astro-cid-sz7xmlte] a[data-astro-cid-sz7xmlte]:hover{color:rgb(var(--gray-dark))}a[data-astro-cid-eimmu3lg]{border-bottom:4px solid transparent;color:var(--black);display:inline-block;text-decoration:none}a[data-astro-cid-eimmu3lg].active{color:var(--accent);text-decoration:underline}header[data-astro-cid-3ef6ksr2]{margin:0;padding:1rem}h2[data-astro-cid-3ef6ksr2]{margin:0;font-size:1.5em}h2[data-astro-cid-3ef6ksr2] a[data-astro-cid-3ef6ksr2],h2[data-astro-cid-3ef6ksr2] a[data-astro-cid-3ef6ksr2].active{font-weight:400;text-decoration:none}nav[data-astro-cid-3ef6ksr2]{display:flex;align-items:center;justify-content:space-between;flex-direction:column}@media (min-width: 720px){nav[data-astro-cid-3ef6ksr2]{flex-direction:row}}nav[data-astro-cid-3ef6ksr2] a[data-astro-cid-3ef6ksr2]{padding:1em .5em}nav[data-astro-cid-3ef6ksr2] .logo[data-astro-cid-3ef6ksr2]{color:var(--accent);text-transform:uppercase}.internal-links[data-astro-cid-3ef6ksr2]{font-size:1rem}
+main[data-astro-cid-bvzihdzo]{width:calc(100% - 2em);max-width:100%;margin:0}.header[data-astro-cid-bvzihdzo]{color:rgb(var(--dark-gold));display:flex;flex-direction:column;gap:1rem;align-items:center;font-family:Latin Modern,Georgia,Cambria,Times New Roman,Times,serif;justify-content:center;height:75vh}.title[data-astro-cid-bvzihdzo]{text-align:center}.title[data-astro-cid-bvzihdzo] h1[data-astro-cid-bvzihdzo]{font-weight:400;font-size:4rem;font-style:italic}.description[data-astro-cid-bvzihdzo]{font-size:1.25rem;width:720px;max-width:calc(100% - 2em)}.date[data-astro-cid-bvzihdzo]{margin-bottom:.5em}.last-updated-on[data-astro-cid-bvzihdzo]{font-style:italic}.dot-separator[data-astro-cid-bvzihdzo]:after{content:" - "}.reading-time[data-astro-cid-bvzihdzo]{text-transform:uppercase}.prose[data-astro-cid-bvzihdzo]{width:720px;max-width:calc(100% - 2em);margin:auto;padding:1em;color:rgb(var(--gray-dark));h2,h3,h4,h5,h6{margin-top:1em;a{color:inherit;font-size:.75em;margin-left:-1em;text-decoration:none}}}
+</style><script type="module">const o=document.querySelectorAll(".prose h2, .prose h3, .prose h4, .prose h5, .prose h6");Array.from(o).forEach(r=>{const e=r.id;r.innerHTML=`<a href="#${e}" aria-hidden="true">#</a> ${r.innerHTML}`});
+</script></head> <body data-astro-cid-bvzihdzo> <header data-astro-cid-3ef6ksr2> <nav data-astro-cid-3ef6ksr2> <h2 data-astro-cid-3ef6ksr2><a href="/" class="logo" data-astro-cid-3ef6ksr2>Jiayi&#39;s Chronicles</a></h2> <div class="internal-links" data-astro-cid-3ef6ksr2> <a href="/" data-astro-cid-3ef6ksr2 data-astro-cid-eimmu3lg> Home </a>  <a href="/about" data-astro-cid-3ef6ksr2 data-astro-cid-eimmu3lg> About </a>  </div> </nav> </header>  <main data-astro-cid-bvzihdzo> <article data-astro-cid-bvzihdzo> <header class="header" data-astro-cid-bvzihdzo> <div class="title" data-astro-cid-bvzihdzo> <h1 data-astro-cid-bvzihdzo>Angular AOT compilation with Webpack</h1> </div> <p class="description" data-astro-cid-bvzihdzo>Set up AOT compilation in Webpack to avoid runtime compilation, reduce bundle size and improve application start</p> <div class="date" data-astro-cid-bvzihdzo> <time datetime="2017-07-22T00:00:00.000Z"> Jul 22, 2017 </time>  <span class="dot-separator" data-astro-cid-bvzihdzo></span> <span class="reading-time" data-astro-cid-bvzihdzo>7 min read</span> </div> </header> <div class="prose" data-astro-cid-bvzihdzo>  <p>Recently I’ve been dealing very often with Angular 2+ AOT compilation in Webpack and I’ve always found it an exhausting activity.
+The information is completely missing or extremely incomplete in the <a href="https://angular.io/guide/aot-compiler">official Angular documentation</a>, with no mentions about how to run it with a custom Webpack configuration.</p>
+<p>Despite we’re almost at <a href="https://github.com/angular/angular/blob/master/CHANGELOG.md#500-beta0-2017-07-19">Angular 5</a>, the AOT compilation is still very experimental in my opinion and it’s a journey of try &#x26; error, digging into Angular source code and GitHub issues until you succeed or give up.<br>
+Nevertheless, <a href="https://angular.io/guide/aot-compiler#why-do-aot-compilation">its benefits</a> are often a requirement for your application.</p>
+<p>In this article, I’ll share my experience about how to make the AOT compilation work with a custom Webpack configuration.</p>
+<h3 id="disclaimer">Disclaimer</h3>
+<p>This article won’t explain the details of <a href="https://angular.io/guide/aot-compiler">what AOT compilation is</a> or <a href="http://blog.mgechev.com/2016/08/14/ahead-of-time-compilation-angular-offline-precompilation/">what it does technically</a>. Also, the following parts assume you are using a custom Webpack configuration.</p>
+<p>If you’re using standard <a href="https://github.com/angular/angular-cli">angular-cli</a> it will magically take care of AOT compilation for you and the command is <code>ng build --prod</code>. But you could still find the following information useful if you ejected the Webpack configuration or if you’re curious about how it works under the hood.</p>
+<h2 id="webpack-configuration">Webpack configuration</h2>
+<p>The first step towards successful AOT compilation is adding <code>AOTPlugin</code> to your Webpack configuration file, usually named <code>webpack.config.js</code>.
+You can install the plugin from the package <a href="https://github.com/angular/angular-cli/tree/master/packages/%40ngtools/webpack">@ngtools/webpack</a>, the official plugin from the Angular team and used under the hood in <code>angular-cli</code>.</p>
+<p>The plugin uses <code>ngc</code>, the Angular AOT compiler, internally.</p>
+<ol>
+<li>
+<p>Import and instantiate <code>AOTPlugin</code>. We’ll use this plugin only in production to generate the JS bundle distributed and actually used by the users.</p>
+<p>The plugin requires at least the path of the <code>tsconfig.json</code> used in production and the path to the <code>app.module</code> file, where <code>AppModule</code> is exported. The latter must be absolute, whereas the former can be relative.</p>
+<p>You can read the plugin README for the <a href="https://github.com/angular/angular-cli/blob/5c4c5b488940cec13ed2c41e7a7031889f4f9b2f/packages/%40ngtools/webpack/README.md#options">complete list of available options</a>.</p>
+</li>
+</ol>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> AotPlugin</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> require</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'@ngtools/webpack'</span><span style="color:#E1E4E8">).AotPlugin;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> prodPlugins</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> [</span></span>
+<span class="line"><span style="color:#F97583">  new</span><span style="color:#B392F0"> AotPlugin</span><span style="color:#E1E4E8">({</span></span>
+<span class="line"><span style="color:#E1E4E8">    tsConfigPath: </span><span style="color:#9ECBFF">'tsconfig-prod.json'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">    entryModule: path.</span><span style="color:#B392F0">resolve</span><span style="color:#E1E4E8">(__dirname, </span><span style="color:#9ECBFF">'src/app/app.module#AppModule'</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">  }),</span></span>
+<span class="line"><span style="color:#E1E4E8">];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// The value 'production' depends on what NODE_ENV is set when running Webpack</span></span>
+<span class="line"><span style="color:#6A737D">// to compile the production bundle</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> IS_DEV</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> process.env.</span><span style="color:#79B8FF">NODE_ENV</span><span style="color:#F97583"> !==</span><span style="color:#9ECBFF"> 'production'</span><span style="color:#E1E4E8">;</span></span></code></pre>
+<ol start="2">
+<li>Change <code>entry</code> path based on the environment. We’ll see in a while what <code>main-prod.ts</code> is:</li>
+</ol>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color:#6A737D">// ...later in the config</span></span>
+<span class="line"><span style="color:#B392F0">entry</span><span style="color:#E1E4E8">: path.</span><span style="color:#B392F0">join</span><span style="color:#E1E4E8">(root.src, </span><span style="color:#79B8FF">IS_DEV</span><span style="color:#F97583"> ?</span><span style="color:#9ECBFF"> 'main.ts'</span><span style="color:#F97583"> :</span><span style="color:#9ECBFF"> 'main-prod.ts'</span><span style="color:#E1E4E8">),</span></span></code></pre>
+<ol start="3">
+<li>Change the Typescript loader based on the environment. We’ll use <code>@ngtools/webpack</code> loader in production.</li>
+</ol>
+<p>Note we’re including <code>node_modules</code> because the Angular compiler will use TS files located in <code>node_modules</code>. These files are called <a href="http://blog.mgechev.com/2016/08/14/ahead-of-time-compilation-angular-offline-precompilation/#inside-ngfactoryts">*.ngfactory.ts</a>, the linked article provides a clear overview of their purpose.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#B392F0">  test</span><span style="color:#E1E4E8">:</span><span style="color:#9ECBFF"> /</span><span style="color:#85E89D;font-weight:bold">\.</span><span style="color:#DBEDFF">tsx</span><span style="color:#F97583">?$</span><span style="color:#9ECBFF">/</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#B392F0">  use</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">IS_DEV</span><span style="color:#F97583"> ?</span><span style="color:#E1E4E8"> [</span><span style="color:#9ECBFF">'ts-loader'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'angular2-template-loader'</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">:</span><span style="color:#9ECBFF"> '@ngtools/webpack'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#B392F0">  exclude</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">IS_DEV</span><span style="color:#F97583"> ?</span><span style="color:#E1E4E8"> [</span><span style="color:#9ECBFF">/</span><span style="color:#DBEDFF">node_modules</span><span style="color:#9ECBFF">/</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> []</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<p><br><br></p>
+<p>The resulting change to <code>webpack.config.js</code> should look similar to the following diff:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">const webpack = require('webpack');</span></span>
+<span class="line"><span style="color:#85E89D"><span style="user-select: none;">+</span> const AotPlugin = require('@ngtools/webpack').AotPlugin;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D"><span style="user-select: none;">+</span> const IS_DEV = process.env.NODE_ENV !== 'production';</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">const devPlugins = [</span></span>
+<span class="line"><span style="color:#E1E4E8">  // Your usual development plugins</span></span>
+<span class="line"><span style="color:#E1E4E8">];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">const prodPlugins = [</span></span>
+<span class="line"><span style="color:#85E89D"><span style="user-select: none;">+</span> new AotPlugin({</span></span>
+<span class="line"><span style="color:#85E89D"><span style="user-select: none;">+</span>   tsConfigPath: 'tsconfig.json',</span></span>
+<span class="line"><span style="color:#85E89D"><span style="user-select: none;">+</span>   entryModule: path.resolve(__dirname, 'examples/app/app.module#AppModule'),</span></span>
+<span class="line"><span style="color:#85E89D"><span style="user-select: none;">+</span> }),</span></span>
+<span class="line"><span style="color:#E1E4E8">  new webpack.optimize.UglifyJsPlugin({</span></span>
+<span class="line"><span style="color:#E1E4E8">    sourceMap: false,</span></span>
+<span class="line"><span style="color:#E1E4E8">    output: { comments: false },</span></span>
+<span class="line"><span style="color:#E1E4E8">    compressor: {</span></span>
+<span class="line"><span style="color:#E1E4E8">      warnings: false</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">  })</span></span>
+<span class="line"><span style="color:#E1E4E8">];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">module.exports = {</span></span>
+<span class="line"><span style="color:#E1E4E8">  devtool: 'eval',</span></span>
+<span class="line"><span style="color:#FDAEB7"><span style="user-select: none;">-</span> entry: path.join(root.src, 'main.ts'),</span></span>
+<span class="line"><span style="color:#85E89D"><span style="user-select: none;">+</span> entry: path.join(root.src, IS_DEV ? 'main.ts' : 'main-prod.ts'),</span></span>
+<span class="line"><span style="color:#E1E4E8">  output: {</span></span>
+<span class="line"><span style="color:#E1E4E8">    path: root.dest,</span></span>
+<span class="line"><span style="color:#E1E4E8">    publicPath: 'dist',</span></span>
+<span class="line"><span style="color:#E1E4E8">    filename: 'main.js'</span></span>
+<span class="line"><span style="color:#E1E4E8">  },</span></span>
+<span class="line"><span style="color:#E1E4E8">  module: {</span></span>
+<span class="line"><span style="color:#E1E4E8">    rules: [</span></span>
+<span class="line"><span style="color:#E1E4E8">      {</span></span>
+<span class="line"><span style="color:#E1E4E8">        test: /\.tsx?$/,</span></span>
+<span class="line"><span style="color:#FDAEB7"><span style="user-select: none;">-</span>       use: ['ts-loader', 'angular2-template-loader'],</span></span>
+<span class="line"><span style="color:#85E89D"><span style="user-select: none;">+</span>       use: IS_DEV ? ['ts-loader', 'angular2-template-loader'] : '@ngtools/webpack',</span></span>
+<span class="line"><span style="color:#FDAEB7"><span style="user-select: none;">-</span>       exclude: [/node_modules/]</span></span>
+<span class="line"><span style="color:#85E89D"><span style="user-select: none;">+</span>       exclude: IS_DEV ? [/node_modules/] : []</span></span>
+<span class="line"><span style="color:#E1E4E8">      },</span></span>
+<span class="line"><span style="color:#E1E4E8">      // ...other loaders like the following</span></span>
+<span class="line"><span style="color:#E1E4E8">      {</span></span>
+<span class="line"><span style="color:#E1E4E8">        test: /\.html$/,</span></span>
+<span class="line"><span style="color:#E1E4E8">        use: 'raw-loader',</span></span>
+<span class="line"><span style="color:#E1E4E8">        exclude: [/node_modules/]</span></span>
+<span class="line"><span style="color:#E1E4E8">      }</span></span>
+<span class="line"><span style="color:#E1E4E8">    ]</span></span>
+<span class="line"><span style="color:#E1E4E8">  },</span></span>
+<span class="line"><span style="color:#E1E4E8">  plugins: IS_DEV ? devPlugins : prodPlugins</span></span>
+<span class="line"><span style="color:#E1E4E8">};</span></span></code></pre>
+<h2 id="tsconfig-prodjson">tsconfig-prod.json</h2>
+<p>Now we’ll add the Angular compiler settings <code>angularCompilerOptions</code> to the Typescript configuration file used in production, named <code>tsconfig-prod.json</code> in this case.</p>
+<p>The <a href="https://github.com/angular/angular/blob/abee78582123de81a3b1a77dadab7dafe4226055/packages/tsc-wrapped/src/options.ts#L11">complete list of possible options</a> can be found in the source code of the compiler.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#E1E4E8">  "compilerOptions": {</span></span>
+<span class="line"><span style="color:#E1E4E8">    "target": "es5",</span></span>
+<span class="line"><span style="color:#E1E4E8">    "module": "commonjs",</span></span>
+<span class="line"><span style="color:#E1E4E8">    "moduleResolution": "node",</span></span>
+<span class="line"><span style="color:#E1E4E8">    "sourceMap": false,</span></span>
+<span class="line"><span style="color:#E1E4E8">    "inlineSources": false,</span></span>
+<span class="line"><span style="color:#E1E4E8">    "emitDecoratorMetadata": true,</span></span>
+<span class="line"><span style="color:#E1E4E8">    "experimentalDecorators": true,</span></span>
+<span class="line"><span style="color:#E1E4E8">    "lib": [</span></span>
+<span class="line"><span style="color:#E1E4E8">      "es2015",</span></span>
+<span class="line"><span style="color:#E1E4E8">      "dom"</span></span>
+<span class="line"><span style="color:#E1E4E8">    ]</span></span>
+<span class="line"><span style="color:#E1E4E8">    "suppressImplicitAnyIndexErrors": true</span></span>
+<span class="line"><span style="color:#E1E4E8">  },</span></span>
+<span class="line"><span style="color:#85E89D"><span style="user-select: none;">+</span>  "angularCompilerOptions": {</span></span>
+<span class="line"><span style="color:#85E89D"><span style="user-select: none;">+</span>    "genDir": "aot", // Specify where Angular can create temporary AOT files</span></span>
+<span class="line"><span style="color:#85E89D"><span style="user-select: none;">+</span>    "skipMetadataEmit" : true // Don't generate not necessary metadata files. They are useful only if you're publishing an Angular UI library</span></span>
+<span class="line"><span style="color:#85E89D"><span style="user-select: none;">+</span>  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<h2 id="main-prodts">main-prod.ts</h2>
+<p>Last step of the configuration: create a new file <code>main-prod.ts</code>, very similar to the usual <code>main-prod.ts</code>, where you bootstrap the application. The main differences are:</p>
+<ol>
+<li>
+<p>We’re importing <code>enableProdMode</code>, which will disable development behaviours. For instance, the application won’t warn about <a href="https://github.com/angular/angular/issues/6005">“expression has changed” errors</a>.</p>
+</li>
+<li>
+<p>We’re using <code>@angular/platform-browser</code> instead of <code>@angular/platform-browser-dynamic</code>. This will avoid including the JIT compiler (about 2MB uncompressed) in the final bundle and it will instead make use of the AOT compilation files, included by <code>@ngtools/webpack</code>.</p>
+</li>
+</ol>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { enableProdMode } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> '@angular/core'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { platformBrowser } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> '@angular/platform-browser'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { AppModule } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> './app.module'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">enableProdMode</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> platform</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> platformBrowser</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#E1E4E8">platform.</span><span style="color:#B392F0">bootstrapModule</span><span style="color:#E1E4E8">(AppModule);</span></span></code></pre>
+<h2 id="make-your-code-aot-ready">Make your code AOT ready</h2>
+<p>Now you’re finally ready to run the AOT compilation! 🎉 This is an example of the npm script in <code>package.json</code>, which can be ran using <code>npm run build</code>:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#79B8FF">  "scripts"</span><span style="color:#E1E4E8">: {</span></span>
+<span class="line"><span style="color:#79B8FF">    "build"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"cross-env NODE_ENV=production webpack"</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<br>
+<p>Actually… if you try the compilation you’re likely to run into a lot of scary red errors. That’s because you still have to make your Angular application code AOT ready.</p>
+<p>Your code, especially your components, must follow some specific rules like not having <code>private</code> properties or methods in templates. You can find the list of rules <a href="https://medium.com/@isaacplmann/making-your-angular-2-library-statically-analyzable-for-aot-e1c6f3ebedd5">here</a>.</p>
+<p><strong>Important note</strong>: these rules must be followed by <em>every</em> piece of your application, even by external Angular libraries imported in your project. Otherwise, the compilation will throw.</p>
+<p>The AOT compiler errors usually fall into 3 categories:</p>
+<ol>
+<li>
+<p><strong>Code not AOT compatible</strong>, which don’t follow the previous rules</p>
+</li>
+<li>
+<p><strong>Typescript type checking fails</strong>. The AOT compilation will also throw if a template is using a property/method which doesn’t exist in the component class or if the types don’t match. This doesn’t happen with the JIT/runtime compilator.</p>
+</li>
+<li>
+<p><strong>Logic errors</strong> like dependency cycles.</p>
+</li>
+</ol>
+<p>As you can see the latter 2 categories are actually useful errors, whereas the first one is just a hassle.</p>
+<h2 id="performance">Performance</h2>
+<p>After the compilation, you should see an improvement of the bundle size and a much faster bootstrap time.</p>
+<h3 id="bundle-size">Bundle size</h3>
+<p>You can use <a href="https://github.com/th0r/webpack-bundle-analyzer">webpack-bundle-analyzer</a> to have a visual treemap of the bundle content.<br>
+Before AOT compilation the <code>@angular</code> package had a size of 3.13MB uncompressed, whereas after the compilation it has been reduced to 1.29MB uncompressed. Still big, but surely better.</p>
+<p>Pre-AOT (click to open):</p>
+<p><img  src="/_astro/bundle-size-pre-aot.ULYlqhug_Z1IJLnA.webp" alt="Bundle size - pre AOT" width="1107" height="678" loading="lazy" decoding="async"></p>
+<p>Post-AOT (click to open):</p>
+<p><img  src="/_astro/bundle-size-post-aot.Mdo9BYJK_gIsjp.webp" alt="Bundle size - post AOT" width="1070" height="670" loading="lazy" decoding="async"></p>
+<h3 id="loading-time">Loading time</h3>
+<p>Another difference can be seen on the right side of the images. The AOT compiled application uses <code>.ngfactory.ts</code> files, produced by the AOT compiler, which replaces the HTML templates and avoids runtime compilation.</p>
+<p>Thanks to those statically compiled files, the initial loading time has been reduced by about 70%.</p>
+<p>Pre-AOT:</p>
+<p><img  src="/_astro/loading-pre-aot.mnXmwsAw_Z1OjUd3.webp" alt="Loading time - pre AOT" width="466" height="30" loading="lazy" decoding="async"></p>
+<p>Post-AOT:</p>
+<p><img  src="/_astro/loading-post-aot.epRpkNuz_1K4sV8.webp" alt="Loading time - post AOT" width="547" height="34" loading="lazy" decoding="async"></p>
+<h2 id="final-words">Final words</h2>
+<p>After the previous steps, you should finally have an AOT compiled application. The most difficult step is getting through all the compiler errors.</p>
+<p>If you find cryptic errors I suggest searching for solutions in <a href="https://github.com/angular/angular/issues">Angular issues</a>, you’ll likely find someone else having the same issue. At least you won’t be alone in the dark.</p>
+<p>Hopefully, this article will also help you see some light in the dark. Let me know in the comments.</p>
+<h3 id="notes-about-versions">Notes about versions</h3>
+<p>The versions assumed in this article are Angular 4, Webpack 2/3 and <code>@ngtools/webpack@1.5.1</code>.</p>
+<h3 id="notes-about-ui-library">Notes about UI library</h3>
+<p>So far we covered AOT compilation with an Angular <em>application</em>, in a next post we’ll see how to distribute AOT compatible <em>UI libraries</em> without Webpack and with unique requirements they must respect.</p>
+<p>We’ll also use directly the <code>ngc</code> compiler and see how to make it work with Sass. Stay tuned.</p>   <script src="https://giscus.app/client.js" data-repo="jiayihu/blog" data-repo-id="MDEwOlJlcG9zaXRvcnk1ODc1MTUxMA==" data-category="Announcements" data-category-id="DIC_kwDOA4B6Fs4Ce90Z" data-mapping="title" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script> </div> </article> </main> <footer data-astro-cid-sz7xmlte>
+&copy; 2024 Jiayi Hu. All rights reserved.
+<div class="social-links" data-astro-cid-sz7xmlte> <a href="https://twitter.com/jiayi0x10" target="_blank" data-astro-cid-sz7xmlte> <span class="sr-only" data-astro-cid-sz7xmlte>Follow Astro on Twitter</span> <svg viewBox="0 0 16 16" aria-hidden="true" width="32" height="32" astro-icon="social/twitter" data-astro-cid-sz7xmlte><path fill="currentColor" d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z" data-astro-cid-sz7xmlte></path></svg> </a> <a href="https://github.com/jiayihu" target="_blank" data-astro-cid-sz7xmlte> <span class="sr-only" data-astro-cid-sz7xmlte>Go to Jiayi's GitHub repo</span> <svg viewBox="0 0 16 16" aria-hidden="true" width="32" height="32" astro-icon="social/github" data-astro-cid-sz7xmlte><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" data-astro-cid-sz7xmlte></path></svg> </a> <a href="https://www.linkedin.com/in/jiayi-hu/" target="_blank" data-astro-cid-sz7xmlte> <span class="sr-only" data-astro-cid-sz7xmlte>Go to Jiayi's LinkedIn page</span> <svg viewBox="0 0 16 16" aria-hidden="true" width="32" height="32" astro-icon="social/linkedin" data-astro-cid-sz7xmlte> <path fill="currentColor" d="M13.632 13.635h-2.37V9.922c0-.886-.018-2.025-1.234-2.025-1.235 0-1.424.964-1.424 1.96v3.778h-2.37V6H8.51V7.04h.03c.318-.6 1.092-1.233 2.247-1.233 2.4 0 2.845 1.58 2.845 3.637v4.188zM3.558 4.955c-.762 0-1.376-.617-1.376-1.377 0-.758.614-1.375 1.376-1.375.76 0 1.376.617 1.376 1.375 0 .76-.617 1.377-1.376 1.377zm1.188 8.68H2.37V6h2.376v7.635zM14.816 0H1.18C.528 0 0 .516 0 1.153v13.694C0 15.484.528 16 1.18 16h13.635c.652 0 1.185-.516 1.185-1.153V1.153C16 .516 15.467 0 14.815 0z" fill-rule="nonzero" data-astro-cid-sz7xmlte></path> </svg> </a> </div> </footer>  </body></html>

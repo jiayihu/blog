@@ -1,0 +1,435 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-bvzihdzo> <head><!-- Global Metadata --><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><!-- Favicons --><link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png"><link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#5bbad5"><meta name="generator" content="Astro v4.3.2"><!-- Canonical URL --><link rel="canonical" href="https://blog.jiayihu.net/gmail-smart-compose-keras/"><!-- Primary Meta Tags --><title>Gmail Smart Compose in Keras and Tensorflow.js</title><meta name="title" content="Gmail Smart Compose in Keras and Tensorflow.js"><meta name="description" content="A Proof-of-Concept implementation using a sequence-to-sequence model in Keras and Tensorflow.js"><!-- Open Graph / Facebook --><meta property="og:type" content="website"><meta property="og:url" content="https://blog.jiayihu.net/gmail-smart-compose-keras/"><meta property="og:title" content="Gmail Smart Compose in Keras and Tensorflow.js"><meta property="og:description" content="A Proof-of-Concept implementation using a sequence-to-sequence model in Keras and Tensorflow.js"><meta property="og:image" content="https://blog.jiayihu.net/blog-placeholder-1.jpg"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://blog.jiayihu.net/gmail-smart-compose-keras/"><meta property="twitter:title" content="Gmail Smart Compose in Keras and Tensorflow.js"><meta property="twitter:description" content="A Proof-of-Concept implementation using a sequence-to-sequence model in Keras and Tensorflow.js"><meta property="twitter:image" content="https://blog.jiayihu.net/blog-placeholder-1.jpg"><meta name="google-site-verification" content="6DIBzCM2sFIHFrOECCKoODFkMjWkvkmxMqJD0EFb7xU"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="apple-mobile-web-app-title" content="Jiayi's Chronicles"><meta name="msapplication-TileColor" content="#ffffff"><meta name="theme-color" content="#ffffff"><style>:root{--accent: #a00;--accent-dark: rgb(110, 1, 1);--black: 15, 18, 25;--sand: 255, 252, 250;--dark-gold: 90, 68, 13;--purple: 111, 66, 193;--gray: 96, 115, 159;--gray-light: 229, 233, 240;--gray-dark: 34, 41, 57;--gray-gradient: rgba(var(--sand), 100%), #fff;--box-shadow: 0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%), 0 16px 32px rgba(var(--gray), 33%)}body{font-family:-apple-system,BlinkMacSystemFont,avenir next,avenir,helvetica neue,helvetica,ubuntu,roboto,noto,segoe ui,arial,sans-serif;margin:0;padding:0;text-align:left;background:linear-gradient(var(--gray-gradient)) no-repeat;background-size:100% 600px;word-wrap:break-word;overflow-wrap:break-word;color:rgb(var(--gray-dark));font-size:16px;line-height:1.7}main{width:720px;max-width:calc(100% - 2em);margin:auto;padding:3em 1em}h1,h2,h3,h4,h5,h6{font-family:Latin Modern,Georgia,Cambria,Times New Roman,Times,serif;font-weight:400;margin:0 0 .5rem;line-height:1.2}h1{font-size:3.052em}h2{font-size:2.441em}h3{font-size:1.953em}h4{font-size:1.563em}h5{font-size:1.25em}strong,b{font-weight:700}a{color:var(--accent);font-family:Latin Modern,Georgia,Cambria,Times New Roman,Times,serif}a:hover{color:var(--accent-dark);text-decoration:underline}p{margin-bottom:1em}.prose p{margin-bottom:2em}textarea{width:100%;font-size:16px}input{font-size:16px}table{width:100%}img{max-width:100%;height:auto;border-radius:8px}code{padding:2px 5px;background-color:rgb(var(--gray-light));border-radius:2px;color:rgb(var(--purple))}pre{padding:1.5em;border-radius:8px}pre>code{all:unset}blockquote{border-left:4px solid var(--accent);padding:0 0 0 20px;margin:0;font-size:1.333em}hr{border:none;border-top:1px solid rgb(var(--gray-light))}@media (max-width: 720px){body{font-size:18px}main{padding:1em}}.sr-only{border:0;padding:0;margin:0;position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px 1px 1px 1px);clip:rect(1px,1px,1px,1px);clip-path:inset(50%);white-space:nowrap}footer[data-astro-cid-sz7xmlte]{padding:2em 1em 6em;color:rgb(var(--gray));text-align:center}.social-links[data-astro-cid-sz7xmlte]{display:flex;justify-content:center;gap:1em;margin-top:1em}.social-links[data-astro-cid-sz7xmlte] a[data-astro-cid-sz7xmlte]{text-decoration:none;color:rgb(var(--gray))}.social-links[data-astro-cid-sz7xmlte] a[data-astro-cid-sz7xmlte]:hover{color:rgb(var(--gray-dark))}a[data-astro-cid-eimmu3lg]{border-bottom:4px solid transparent;color:var(--black);display:inline-block;text-decoration:none}a[data-astro-cid-eimmu3lg].active{color:var(--accent);text-decoration:underline}header[data-astro-cid-3ef6ksr2]{margin:0;padding:1rem}h2[data-astro-cid-3ef6ksr2]{margin:0;font-size:1.5em}h2[data-astro-cid-3ef6ksr2] a[data-astro-cid-3ef6ksr2],h2[data-astro-cid-3ef6ksr2] a[data-astro-cid-3ef6ksr2].active{font-weight:400;text-decoration:none}nav[data-astro-cid-3ef6ksr2]{display:flex;align-items:center;justify-content:space-between;flex-direction:column}@media (min-width: 720px){nav[data-astro-cid-3ef6ksr2]{flex-direction:row}}nav[data-astro-cid-3ef6ksr2] a[data-astro-cid-3ef6ksr2]{padding:1em .5em}nav[data-astro-cid-3ef6ksr2] .logo[data-astro-cid-3ef6ksr2]{color:var(--accent);text-transform:uppercase}.internal-links[data-astro-cid-3ef6ksr2]{font-size:1rem}
+main[data-astro-cid-bvzihdzo]{width:calc(100% - 2em);max-width:100%;margin:0}.header[data-astro-cid-bvzihdzo]{color:rgb(var(--dark-gold));display:flex;flex-direction:column;gap:1rem;align-items:center;font-family:Latin Modern,Georgia,Cambria,Times New Roman,Times,serif;justify-content:center;height:75vh}.title[data-astro-cid-bvzihdzo]{text-align:center}.title[data-astro-cid-bvzihdzo] h1[data-astro-cid-bvzihdzo]{font-weight:400;font-size:4rem;font-style:italic}.description[data-astro-cid-bvzihdzo]{font-size:1.25rem;width:720px;max-width:calc(100% - 2em)}.date[data-astro-cid-bvzihdzo]{margin-bottom:.5em}.last-updated-on[data-astro-cid-bvzihdzo]{font-style:italic}.dot-separator[data-astro-cid-bvzihdzo]:after{content:" - "}.reading-time[data-astro-cid-bvzihdzo]{text-transform:uppercase}.prose[data-astro-cid-bvzihdzo]{width:720px;max-width:calc(100% - 2em);margin:auto;padding:1em;color:rgb(var(--gray-dark));h2,h3,h4,h5,h6{margin-top:1em;a{color:inherit;font-size:.75em;margin-left:-1em;text-decoration:none}}}
+</style><script type="module">const o=document.querySelectorAll(".prose h2, .prose h3, .prose h4, .prose h5, .prose h6");Array.from(o).forEach(r=>{const e=r.id;r.innerHTML=`<a href="#${e}" aria-hidden="true">#</a> ${r.innerHTML}`});
+</script></head> <body data-astro-cid-bvzihdzo> <header data-astro-cid-3ef6ksr2> <nav data-astro-cid-3ef6ksr2> <h2 data-astro-cid-3ef6ksr2><a href="/" class="logo" data-astro-cid-3ef6ksr2>Jiayi&#39;s Chronicles</a></h2> <div class="internal-links" data-astro-cid-3ef6ksr2> <a href="/" data-astro-cid-3ef6ksr2 data-astro-cid-eimmu3lg> Home </a>  <a href="/about" data-astro-cid-3ef6ksr2 data-astro-cid-eimmu3lg> About </a>  </div> </nav> </header>  <main data-astro-cid-bvzihdzo> <article data-astro-cid-bvzihdzo> <header class="header" data-astro-cid-bvzihdzo> <div class="title" data-astro-cid-bvzihdzo> <h1 data-astro-cid-bvzihdzo>Gmail Smart Compose in Keras and Tensorflow.js</h1> </div> <p class="description" data-astro-cid-bvzihdzo>A Proof-of-Concept implementation using a sequence-to-sequence model in Keras and Tensorflow.js</p> <div class="date" data-astro-cid-bvzihdzo> <time datetime="2020-06-02T00:00:00.000Z"> Jun 2, 2020 </time>  <span class="dot-separator" data-astro-cid-bvzihdzo></span> <span class="reading-time" data-astro-cid-bvzihdzo>15 min read</span> </div> </header> <div class="prose" data-astro-cid-bvzihdzo>  <p><a href="https://www.blog.google/products/gmail/subject-write-emails-faster-smart-compose-gmail/">Gmail Smart Compose</a> is a feature introduced in the popular Google email
+service back in 2018, which helps to save time on repetitive writing by
+suggesting relevant contextual phrases. In this report, I explore the
+approach taken to reproduce a Proof-of-Concept implementation of the
+same feature using <a href="https://www.kaggle.com/wcukierski/enron-email-dataset">the Enron Email Dataset</a>.</p>
+<h3 id="previous-work">Previous work</h3>
+<p>As the first step into the task, I searched for some information about
+the technical implementation. The Google Teams published a paper called
+“<a href="https://dl.acm.org/doi/abs/10.1145/3292500.3330723">Gmail Smart Compose: Real-Time Assisted Writing</a>”  in July 2019 covering
+much of the challenges and implementation details needed to try to
+experiment it on my own.</p>
+<p>An additional article “<a href="https://towardsdatascience.com/gmail-style-smart-compose-using-char-n-gram-language-models-a73c09550447">Building Gmail style smart compose with a char
+ngram language model</a>”  from the Machine Learning community helped to
+gather additional information and implementation details.</p>
+<p>Then most of the code contributions came from the official Keras
+documentation for sequence-to-sequence models: “<a href="https://blog.keras.io/a-ten-minute-introduction-to-sequence-to-sequence-learning-in-keras.html">A ten-minute
+introduction to sequence-to-sequence learning in Keras</a>”  and “<a href="https://keras.io/examples/lstm_seq2seq/">Sequence
+to sequence example in Keras (character-level)</a>” .</p>
+<h3 id="environment-limits">Environment limits</h3>
+<p>The project has been developed mainly using the Colab free plan, thus
+subject to the limit of 13GB RAM. Also, because of the educational
+purposes of the project, I aimed for training time within the range of
+30-60mins.</p>
+<h2 id="architecture">Architecture</h2>
+<p>The fundamental task in Smart Compose is to predict a sequence of tokens
+of variable length, conditioned on the prefix token sequence typed by a
+user and additional contextual information. During training, the
+objective is to maximize the log probability of producing the correct
+target sequence given the input for all data samples in the training
+corpus.</p>
+<h3 id="data">Data</h3>
+<p>The biggest public email dataset available is the Enron email dataset,
+which contains approximately 500,000 emails generated by employees of
+the Enron Corporation. It was obtained by the Federal Energy Regulatory
+Commission during its investigation of Enron’s collapse. Despite its
+relatively big size (Google trained their models on billions of emails),
+the usage of this dataset has faced different challenges.</p>
+<h4 id="previous-email">Previous email</h4>
+<p>An important information for the prediction of the completion is the
+content of the previous email in case the composed one is a response.
+Unfortunately, the Enron dataset is a flatten set of emails with no
+information about conversations other than the subject, such ash
+<code>Re: hello</code>. The subject, however, is too fragile to use to safely
+group emails as related, and it’s also often missing as value within the
+samples. According to the paper, merely joining the subject and the
+previous email to the model input reduces the log perplexity (the metric
+used to evaluate the models) is reduced by 0.13, which is a significant
+improvement.</p>
+<p>Another important consequence is that the only relevant information to
+use as input of the model is the sentence the user is composing.</p>
+<h4 id="preprocessing">Preprocessing</h4>
+<p>Preprocessing was a very important step of the project and required
+careful handling. This is the biggest difference I experienced compared
+to usual tutorials or exercises, where the dataset is just loaded, and
+it’s already prepared for the task.</p>
+<p>The emails are tokenized into words and essential punctuation marks like
+<code>. ? ! , ’</code>. Other special marks like new lines are removed and multiple
+white spaces are compacted as single whitespaces.</p>
+<p>Quoted and forwarded messages are removed from the dataset, along with
+emails longer than 100 words. The latter removal has been done for two
+purposes: long emails tend to be uncommon to be written again by the
+user and the increase the required memory and training time by a great
+amount. Likewise, sentences longer than 20 words are not considered. The
+model is aimed to learn common sentences which are usually below the
+threshold of 20 words.</p>
+<p>This process resulted in approximately 57 000 sentences.</p>
+<h4 id="data-sequences">Data sequences</h4>
+<p>In order to generate the context of a sentence, we train the
+sequence-to-sequence model to predict the sentence completion from pairs
+of split sentences of variable length. For instance, the sentence
+<code>here is our forecast</code> is split in the following pairs within the
+dataset:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0"><code><span class="line"><span>[</span></span>
+<span class="line"><span>    (&#39;&lt;start&gt; here is &lt;end&gt;&#39;, &#39;&lt;start&gt; our forecast &lt;end&gt;&#39;)</span></span>
+<span class="line"><span>    (&#39;&lt;start&gt; here is our &lt;end&gt;&#39;, &#39;&lt;start&gt; forecast &lt;end&gt;&#39;)</span></span>
+<span class="line"><span>    (&#39;&lt;start&gt; way to &lt;end&gt;&#39;, &#39;&lt;start&gt; go !!! &lt;end&gt;&#39;)</span></span>
+<span class="line"><span>    (&#39;&lt;start&gt; way to go &lt;end&gt;&#39;, &#39;&lt;start&gt; !!! &lt;end&gt;&#39;)</span></span>
+<span class="line"><span>    (&#39;&lt;start&gt; let&#39;s shoot &lt;end&gt;&#39;, &#39;&lt;start&gt; for tuesday at . &lt;end&gt;&#39;)</span></span>
+<span class="line"><span>    (&#39;&lt;start&gt; let&#39;s shoot for &lt;end&gt;&#39;, &#39;&lt;start&gt; tuesday at . &lt;end&gt;&#39;)</span></span>
+<span class="line"><span>    (&#39;&lt;start&gt; let&#39;s shoot for tuesday &lt;end&gt;&#39;, &#39;&lt;start&gt; at . &lt;end&gt;&#39;)</span></span>
+<span class="line"><span>    (&#39;&lt;start&gt; let&#39;s shoot for tuesday at &lt;end&gt;&#39;, &#39;&lt;start&gt; . &lt;end&gt;&#39;)</span></span>
+<span class="line"><span>]</span></span></code></pre>
+<p>Unique tokens <code>&lt;start&gt;</code> and <code>&lt;end&gt;</code> are added to delimit the limits on
+the input and output sequences. This is both similar to usual Neural
+Machine Translation (NMT) where the model is given the task to predict
+from the input sequence <code>&lt;start&gt; The weather is nice &lt;end&gt;</code> the output
+sequence <code>&lt;start&gt; Il fault beau &lt;end&gt;</code></p>
+<p>This resulted in approximately 500 000 pairs of sequences.</p>
+<h4 id="tokenization">Tokenization</h4>
+<p>The previous text corpora are transformed into sequences of integers
+(each integer being the index of a token in a dictionary) by using Keras
+<code>Tokenizer</code>. I also put a limit to the 10k most frequent words, deleting
+uncommon words from sentences. This reduces the number of parameters
+needed to learn in the model and thus the training time.</p>
+<p>Sequences are then padded to have the same length, shuffled to avoid
+pairs from the same sentence to be contiguous, and they are finally
+ready to be served to the neural model.</p>
+<h3 id="natural-language-model">Natural Language Model</h3>
+<p>Considering the limits of the available dataset, as mentioned in the
+previous section, the project used the Sequence-to-Sequence Model
+(seq2seq) similar to NMT, where the source sequence is the start of the
+sentence and the target sequence the completion. The original paper also
+uses an attention mechanism to provide better a understanding of the
+context, but it has been left as potential improvement of the project.</p>
+<h4 id="training-model">Training model</h4>
+<p>The following image provides an overview of the final seq2seq model used
+for training. At its core, it’s an Encoder-Decoder model which uses GRU
+units to encode the input context.</p>
+<p><img src="/_astro/model.l0jTlOR-_Z1SIgUe.webp" alt="The layers of the seq2seq model" width="1101" height="959" loading="lazy" decoding="async"></p>
+<ul>
+<li>
+<p>The first layer takes as input the start of the sentences as
+sequences of integers returned by the <code>Tokenizer</code>and padded to have
+the same length, 21 integers.</p>
+</li>
+<li>
+<p>An embedding layer is used to improve the training. The dimension is
+set as 10 by following the general advice of using
+\(vocabulary\_size^0.25\) as embedding size as suggested in
+“<a href="https://developers.googleblog.com/2017/11/introducing-tensorflow-feature-columns.html">Introducing TensorFlow Feature Columns</a>” . The main motivation of
+the usage of an embedding layer is to introduce the ability to
+recognize that two sequences are similar without losing the ability
+to encode both sequences as distinct from the other, while sharing
+the statistical strength between the two of them and their context.
+For instance, the two sequences <code>Have a great</code> and <code>Have a good</code>
+should have the same completion <code>&lt;start&gt; weekend &lt;end&gt;</code>.</p>
+</li>
+<li>
+<p>The Encoder is comprised of a Bidirectional Gated Recurrent Units
+(GRU) layer. GRU units have been used as a gating mechanism to
+better encode the input sequences compared to common RNN. The latter
+suffers the vanishing gradient issue, especially with the case of
+the sequences in this dataset which reach a length of 20 words.
+Compared instead to Long short-term memory (LSTM) units, GRU units
+have been proved in practice to perform better with the task under
+consideration. Furthermore, GRU units have only one state, the
+Hidden State, whereas an Encoder with LSTM units requires working
+with both the Hidden States and the Cell states. Finally, since the
+usage of the Bidirectional model, both the forward and backward
+Hidden States are concatenated to form a single Encoded Hidden
+State.</p>
+</li>
+<li>
+<p>During the training, the model uses <strong>teacher forcing</strong>. Specifically, it is trained to
+turn the target sequences into the same sequences but offset by one
+time-step in the future. After the model is trained, the <code>&lt;start&gt;</code>
+token can be used to start the process and the generated word in the
+output sequence is used as input on the subsequent time step.
+However, during the training, we obtain values which are likely to
+be different from the ground truth and they set the model off track
+because every subsequently generated word will be based on a wrong
+history. For this reason, during the training, the model receives
+the ground truth output (y^t) as input at time <code>t + 1</code>. This
+explains the usage of an additional Input Layer and Embedding,
+containing the ground truth sequence.</p>
+<p><img src="/_astro/autoencoder-training.G2MwlOR2_Z87Q7b.webp" alt="Teacher forcing during training" width="748" height="235" loading="lazy" decoding="async"></p>
+</li>
+<li>
+<p>The Decoder is comprised of a GRU layer which takes as input the
+Encoded Hidden State and the ground truth output from the previous
+time-step. Then a Dropout layer is added to its output to avoid
+overfitting, and an additional Dense layer is used to improve
+inference capabilities. Finally, the last Dense layer produces the
+logits for each word in the dictionary, assigning to each of them a
+probability of being the correct word to predict. Since the
+categories are provided as integers, the function used as loss is
+<code>sparse_categorical_crossentropy</code> whereas <code>perplexity</code> is the
+metric.</p>
+<div class="text-center"> <span class=""><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>l</mi><mi>o</mi><mi>g</mi><mtext> </mtext><mi>P</mi><mi>e</mi><mi>r</mi><mi>p</mi><mi>l</mi><mi>e</mi><mi>x</mi><mi>i</mi><mi>t</mi><mi>y</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mo>−</mo><msub><mo>∑</mo><mi>x</mi></msub><mrow><mi>p</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mtext> </mtext><mi>l</mi><mi>o</mi><mi>g</mi><mtext> </mtext><mi>p</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">log\ Perplexity(x) = -\sum_x{p(x)\ log\ p(x)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mspace"> </span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mord mathnormal" style="margin-right:0.02778em;">er</span><span class="mord mathnormal" style="margin-right:0.01968em;">pl</span><span class="mord mathnormal">e</span><span class="mord mathnormal">x</span><span class="mord mathnormal">i</span><span class="mord mathnormal">t</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.0497em;vertical-align:-0.2997em;"></span><span class="mord">−</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:0em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.0017em;"><span style="top:-2.4003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">x</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2997em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace"> </span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mspace"> </span><span class="mord mathnormal">p</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span></span></span> </div> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous">
+<p><code>x</code> is the ground truth label and <code>p(x)</code> is the model. The lower
+is the perplexity, and the higher is the probability of assigning
+the true target tokens. Perplexity is a typical metric used to
+evaluate language model and it’s the same used in the Google paper.</p>
+</li>
+</ul>
+<p>In the following table the results of different
+architectures or hyper-parameters.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:left">Architecture</th><th style="text-align:center"># Parameters</th><th style="text-align:center">Training time</th><th style="text-align:center">Perplexity</th></tr></thead><tbody><tr><td style="text-align:left">Forward-only GRU 128 outputs with a Decoder Dense Layer of 128 units</td><td style="text-align:center">1,614,032</td><td style="text-align:center">32min</td><td style="text-align:center">2.0357</td></tr><tr><td style="text-align:left">Bidirectional LSTM 128 outputs with a Decoder Dense Layer of 128 units</td><td style="text-align:center">1,938,640</td><td style="text-align:center">35min</td><td style="text-align:center">1.9327</td></tr><tr><td style="text-align:left">Bidirectional GRU 128 outputs with a Decoder Dense Layer of 128 units</td><td style="text-align:center">1,836,240</td><td style="text-align:center">34min</td><td style="text-align:center">1.8793</td></tr><tr><td style="text-align:left">Bidirectional GRU 128 outputs with a Decoder Dense Layer of 256 units</td><td style="text-align:center">3,149,136</td><td style="text-align:center">61min</td><td style="text-align:center">1.6835</td></tr><tr><td style="text-align:left">Bidirectional GRU 64 outputs with a Decoder Dense Layer of 128 units</td><td style="text-align:center">941,200</td><td style="text-align:center">24min</td><td style="text-align:center">2.3211</td></tr><tr><td style="text-align:left">Bidirectional GRU 192 outputs with a Decoder Dense Layer of 192 units</td><td style="text-align:center">2,895,120</td><td style="text-align:center">57min</td><td style="text-align:center">1.7118</td></tr><tr><td style="text-align:left">Bidirectional GRU 192 outputs with a Decoder Dense Layer of 128 units</td><td style="text-align:center">2,230,480</td><td style="text-align:center">41min</td><td style="text-align:center">1.8352</td></tr></tbody></table>
+<p>Despite the best model is 128 GRU outputs with 256 units in the hidden Dense layer, the model has much more parameters and therefore incurs also in slower inference time later. Since inference latency is an important metric for the task under consideration, I preferred to keep the model with 192 GRU outputs and 128 units in the hidden layer. It is the second best-scoring model but with ~2.2mln parameters compared to ~3.2mln parameters of the best-absolute model.</p>
+<h4 id="inference-model">Inference Model</h4>
+<p>During the inference, the model uses separately the Encoder to encode
+the input sequence whereas the Decoder will not be fed with the true
+output and it’s approximated with the model’s output at the previous
+time-step.</p>
+<p><img src="/_astro/autoencoder-inference.P-6GTXSA_22flwC.webp" alt="Prediction re-injected during
+inference" width="1113" height="249" loading="lazy" decoding="async"></p>
+<p>The Encoder uses the same layers of the training
+Encoder-Decoder.</p>
+<p><img src="/_astro/encoder.w5WLTNYc_1fyiw3.webp" alt="The Inference Encoder" width="719" height="405" loading="lazy" decoding="async"></p>
+<p>Likewise, the Inference Decoder uses the same
+layers as before, with the only difference that it uses the word
+predicted at the previous step as input along with the Encoded Hidden
+State.</p>
+<p><img src="/_astro/inf-model.J7QPHozi_ZOBsY4.webp" alt="Layers in the Inference Decoder model" width="800" height="516" loading="lazy" decoding="async"></p>
+<p>The inference Decoder predicts the sentence completion by doing the
+following steps:</p>
+<ol>
+<li>
+<p>It tokenizes and embeds the input sequence using the same
+preprocessing of the training inputs</p>
+</li>
+<li>
+<p>The Encoder returns the Encoded Hidden State</p>
+</li>
+<li>
+<p>The target sequence starts with only the <code>&lt;start&gt;</code> token and is
+conditioned to generate an output work token based on the context
+provided by the Encoded Hidden State. The</p>
+</li>
+<li>
+<p>Step 3 is repeated until the token <code>&lt;end&gt;</code> is generated. The final
+sequence is converted back from integer tokens to words using the
+reverse dictionary of the <code>Tokenizer</code>.</p>
+</li>
+</ol>
+<h2 id="evaluation">Evaluation</h2>
+<p>Below there are some results provided by the inference.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th style="text-align:left">Input</th><th style="text-align:left">Output</th></tr></thead><tbody><tr><td style="text-align:left">here is</td><td style="text-align:left">the latest version of the usec transaction &lt;end&gt;</td></tr><tr><td style="text-align:left">have a</td><td style="text-align:left">good weekend &lt;end&gt;</td></tr><tr><td style="text-align:left">please review</td><td style="text-align:left">and let’s discuss &lt;end&gt;</td></tr><tr><td style="text-align:left">please call me</td><td style="text-align:left">at &lt;end&gt;</td></tr><tr><td style="text-align:left">thanks for</td><td style="text-align:left">the help &lt;end&gt;</td></tr><tr><td style="text-align:left">let me</td><td style="text-align:left">know if you have any questions . &lt;end&gt;</td></tr><tr><td style="text-align:left">Let me know</td><td style="text-align:left">if you have any questions . &lt;end&gt;</td></tr><tr><td style="text-align:left">Let me know if you</td><td style="text-align:left">have any questions &lt;end&gt;</td></tr><tr><td style="text-align:left">this sounds</td><td style="text-align:left">good &lt;end&gt;</td></tr><tr><td style="text-align:left">is this call going to</td><td style="text-align:left">get a look at this ? thanks &lt;end&gt;</td></tr><tr><td style="text-align:left">can you get</td><td style="text-align:left">a look at this problem ? thanks &lt;end&gt;</td></tr><tr><td style="text-align:left">is it okay</td><td style="text-align:left">? &lt;end&gt;</td></tr><tr><td style="text-align:left">it should</td><td style="text-align:left">be the absolute latest &lt;end&gt;</td></tr><tr><td style="text-align:left">call if there’s</td><td style="text-align:left">okay with you &lt;end&gt;</td></tr><tr><td style="text-align:left">gave her a</td><td style="text-align:left">call &lt;end&gt;</td></tr><tr><td style="text-align:left">i will let</td><td style="text-align:left">you know if you have any questions &lt;end&gt;</td></tr><tr><td style="text-align:left">i will be</td><td style="text-align:left">there &lt;end&gt;</td></tr><tr><td style="text-align:left">may i get a copy of all the</td><td style="text-align:left">invoices ? thanks &lt;end&gt;</td></tr><tr><td style="text-align:left">how is our trade</td><td style="text-align:left">? &lt;end&gt;</td></tr><tr><td style="text-align:left">this looks like a</td><td style="text-align:left">good idea &lt;end&gt;</td></tr><tr><td style="text-align:left">i am fine with the changes</td><td style="text-align:left">. &lt;end&gt;</td></tr><tr><td style="text-align:left">please be sure this</td><td style="text-align:left">is the morale booster &lt;end&gt;</td></tr></tbody></table>
+<p>The predicted outputs are actually quite good. The inference model is especially good with short common sentences like <em>“Let me know if you have any questions”</em> or <em>“I will let you know”</em>. Some predictions also show that the predictions are personalized based on the Enron dataset, for instance in the case of <em>“here is the latest version of the usec transaction”</em>.</p>
+<p>Unfortunately, some other cases such as <em>“call if there’s okay with you”</em> or <em>“please be sure this is the morale booster”</em> seem to be a bit off. If we had a bigger dataset and more training time these completions should have been discarded as very unlikely to be correct.</p>
+<h2 id="inference-in-the-browser">Inference in the browser</h2>
+<p>Because the model must be used to predict email autocompletion, the next
+step is to save the model and make the inference on the fly while the
+user types. This can be done on the server or on directly in the
+browser. Because of the low-latency requirements and the cost of renting
+an ever-running server, the decision has been to try using the model
+within the browser.</p>
+<p>For this goal, both the <code>Tokenizer</code> dictionary and the Keras model must
+be saved and loaded later in the browser. The word-to-integer dictionary
+is just saved as JSON, whereas I found that <code>H5</code> is the best working
+format for the Keras model. Attempts to use the Tensorflow <a href="https://www.tensorflow.org/guide/saved_model">SavedModel</a>
+resulted in errors while converting the model to the web using
+<a href="https://www.tensorflow.org/js/guide/conversion">tensorflowjs-converter</a>.</p>
+<p>The model is then loaded in the browser along with the pre-trained
+weights using <a href="https://www.tensorflow.org/js">Tensorflow.js</a> , a JavaScript implementation of the
+framework. In particular, because JavaScript executes in a single main
+thread shared with UI rendering, in order to avoid freezing the page
+while loading the model or during the inference calculations, all the
+Keras processing is done in a separate thread via <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers">Web Worker</a>.</p>
+<p>The main thread communicates with the Web Worker via messages, and the
+latter executes the tokenization of the input sequence and the
+subsequent model inference. Then the result is returned to the browser
+main thread via message again.</p>
+<p><img src="/_astro/keras-web-worker.MhnEZqJY_1VLuDj.webp" alt="A representation of Model inference in the
+browser" width="1498" height="762" loading="lazy" decoding="async"></p>
+<p>The final source code are available on the repository at
+<a href="https://github.com/jiayihu/gmail-smart-compose">github.com/jiayihu/gmail-smart-compose</a>.
+For easier evaluation, there is also a <a href="https://colab.research.google.com/drive/1wjr-Ntnd4zYMneyGUz1beEmyw0fwgnEG?usp=sharing">notebook on
+Colab</a>.</p>
+<h2 id="conclusions">Conclusions</h2>
+<p>The project has been the first real-world usage of NLP notions and Deep
+Learning techniques. The most important lessons have been:</p>
+<ol>
+<li>
+<p>Before even thinking about the learning model, there is a lot of
+work that needs to be done during the preprocessing phase. The
+available dataset to be used as input for the model assumes an
+important role on the subsequent training and goodness of the
+results. I would dare to say that data quality is as important as
+the training model. Unfortunately the Enron dataset is the only
+meaningful dataset but is lacking important information like linking
+responses.</p>
+</li>
+<li>
+<p>Training real-world models requires a lot of RAM and computing
+power. The project has been trained using Colab free plan which
+limits the available RAM to 13GB and there are also limitations on
+the amount of GPU usage. Although this prohibited the training of
+more complex models or for a long time, at first it forced me to
+think better about the data structures I was using and the amount of
+input used to generate the dataset. I started to be more careful
+about what to include in the dataset, which resulted in both less
+RAM usage and more accurate inference predictions. At the same time,
+there are obviously strongs disadvantages in limited RAM and
+training time. According to the paper, Google ran their models on
+billions of emails and for at least 3 days using high-end TPUs. But
+for educational purposes, 13GB should be enough to learn something
+meaningful.</p>
+</li>
+</ol>   <script src="https://giscus.app/client.js" data-repo="jiayihu/blog" data-repo-id="MDEwOlJlcG9zaXRvcnk1ODc1MTUxMA==" data-category="Announcements" data-category-id="DIC_kwDOA4B6Fs4Ce90Z" data-mapping="title" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script> </div> </article> </main> <footer data-astro-cid-sz7xmlte>
+&copy; 2024 Jiayi Hu. All rights reserved.
+<div class="social-links" data-astro-cid-sz7xmlte> <a href="https://twitter.com/jiayi0x10" target="_blank" data-astro-cid-sz7xmlte> <span class="sr-only" data-astro-cid-sz7xmlte>Follow Astro on Twitter</span> <svg viewBox="0 0 16 16" aria-hidden="true" width="32" height="32" astro-icon="social/twitter" data-astro-cid-sz7xmlte><path fill="currentColor" d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z" data-astro-cid-sz7xmlte></path></svg> </a> <a href="https://github.com/jiayihu" target="_blank" data-astro-cid-sz7xmlte> <span class="sr-only" data-astro-cid-sz7xmlte>Go to Jiayi's GitHub repo</span> <svg viewBox="0 0 16 16" aria-hidden="true" width="32" height="32" astro-icon="social/github" data-astro-cid-sz7xmlte><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" data-astro-cid-sz7xmlte></path></svg> </a> <a href="https://www.linkedin.com/in/jiayi-hu/" target="_blank" data-astro-cid-sz7xmlte> <span class="sr-only" data-astro-cid-sz7xmlte>Go to Jiayi's LinkedIn page</span> <svg viewBox="0 0 16 16" aria-hidden="true" width="32" height="32" astro-icon="social/linkedin" data-astro-cid-sz7xmlte> <path fill="currentColor" d="M13.632 13.635h-2.37V9.922c0-.886-.018-2.025-1.234-2.025-1.235 0-1.424.964-1.424 1.96v3.778h-2.37V6H8.51V7.04h.03c.318-.6 1.092-1.233 2.247-1.233 2.4 0 2.845 1.58 2.845 3.637v4.188zM3.558 4.955c-.762 0-1.376-.617-1.376-1.377 0-.758.614-1.375 1.376-1.375.76 0 1.376.617 1.376 1.375 0 .76-.617 1.377-1.376 1.377zm1.188 8.68H2.37V6h2.376v7.635zM14.816 0H1.18C.528 0 0 .516 0 1.153v13.694C0 15.484.528 16 1.18 16h13.635c.652 0 1.185-.516 1.185-1.153V1.153C16 .516 15.467 0 14.815 0z" fill-rule="nonzero" data-astro-cid-sz7xmlte></path> </svg> </a> </div> </footer>  </body></html>
