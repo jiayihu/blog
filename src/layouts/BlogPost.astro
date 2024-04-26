@@ -1,0 +1,132 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import readingTime from 'reading-time';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import Header from '../components/Header.astro';
+
+type Props = CollectionEntry<'blog'>['data'] & { body: string };
+
+const { title, description, pubDate, updatedDate, body } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title={title} description={description} />
+    <style>
+      main {
+        width: calc(100% - 2em);
+        max-width: 100%;
+        margin: 0;
+      }
+
+      .header {
+        color: rgb(var(--dark-gold));
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
+        font-family: 'Latin Modern', Georgia, Cambria, 'Times New Roman', Times, serif;
+        justify-content: center;
+        height: 75vh;
+      }
+
+      .title {
+        text-align: center;
+      }
+
+      .title h1 {
+        font-weight: normal;
+        font-size: 4rem;
+        font-style: italic;
+      }
+
+      .description {
+        font-size: 1.25rem;
+        width: 720px;
+        max-width: calc(100% - 2em);
+      }
+
+      .date {
+        margin-bottom: 0.5em;
+      }
+
+      .last-updated-on {
+        font-style: italic;
+      }
+
+      .dot-separator::after {
+        content: ' - ';
+      }
+
+      .reading-time {
+        text-transform: uppercase;
+      }
+
+      .prose {
+        width: 720px;
+        max-width: calc(100% - 2em);
+        margin: auto;
+        padding: 1em;
+        color: rgb(var(--gray-dark));
+
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+          margin-top: 1em;
+
+          a {
+            color: inherit;
+            font-size: 0.75em;
+            margin-left: -1em;
+            text-decoration: none;
+          }
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <Header />
+    <main>
+      <article>
+        <header class="header">
+          <div class="title">
+            <h1>{title}</h1>
+          </div>
+          <p class="description">{description}</p>
+          <div class="date">
+            {pubDate && <FormattedDate date={pubDate} />}
+            {
+              updatedDate && (
+                <div class="last-updated-on">
+                  Last updated on <FormattedDate date={updatedDate} />
+                </div>
+              )
+            }
+            <span class="dot-separator"></span>
+            <span class="reading-time">{readingTime(body).text}</span>
+          </div>
+        </header>
+        <div class="prose">
+          <slot />
+
+          <script>
+            const headings = document.querySelectorAll(
+              '.prose h2, .prose h3, .prose h4, .prose h5, .prose h6',
+            );
+
+            Array.from(headings).forEach((heading) => {
+              const id = heading.id;
+              heading.innerHTML = `<a href="#${id}" aria-hidden="true">#</a> ${heading.innerHTML}`;
+            });
+          </script>
+        </div>
+      </article>
+    </main>
+    <Footer />
+  </body>
+</html>

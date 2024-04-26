@@ -1,0 +1,88 @@
+---
+import { getCollection } from 'astro:content';
+import readingTime from 'reading-time';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import Header from '../components/Header.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    <style>
+      main {
+        width: 960px;
+      }
+
+      ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .posts {
+        display: grid;
+        gap: 3rem;
+      }
+
+      h2 {
+        font-size: 1.5em;
+        margin: 0.5rem 0;
+      }
+
+      h2 a {
+        color: var(--black);
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      .meta {
+        font-size: 0.75rem;
+        margin: 0;
+      }
+
+      .dot-separator::after {
+        content: ' - ';
+      }
+    </style>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <section>
+        <ul class="posts">
+          {
+            posts.map((post) => (
+              <li>
+                <article>
+                  <header>
+                    <h2>
+                      <a href={`/${post.slug}/`}>{post.data.title}</a>
+                    </h2>
+                    <p class="meta">
+                      <FormattedDate date={post.data.pubDate} />
+                      <span class="dot-separator" />
+                      <span>{readingTime(post.body).text}</span>
+                    </p>
+                  </header>
+                  <section class="lh-copy">{post.data.description}</section>
+                </article>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+    </main>
+    <Footer />
+  </body>
+</html>
