@@ -44,7 +44,7 @@ const { title, description, pubDate, updatedDate, body } = Astro.props;
 
       .description {
         font-size: 1.25rem;
-        width: 720px;
+        width: 680px;
         max-width: calc(100% - 2em);
       }
 
@@ -65,11 +65,10 @@ const { title, description, pubDate, updatedDate, body } = Astro.props;
       }
 
       .prose {
-        width: 720px;
+        width: 680px;
         max-width: calc(100% - 2em);
         margin: auto;
         padding: 1em;
-        color: rgb(var(--gray-dark));
 
         h2,
         h3,
@@ -84,6 +83,10 @@ const { title, description, pubDate, updatedDate, body } = Astro.props;
             margin-left: -1em;
             text-decoration: none;
           }
+        }
+
+        p {
+          margin-bottom: 2em;
         }
       }
     </style>

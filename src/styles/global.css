@@ -9,18 +9,20 @@
   --accent-dark: rgb(110, 1, 1);
   --black: 15, 18, 25;
   --sand: 255, 252, 250;
+  --gold: 247, 237, 213;
   --dark-gold: 90, 68, 13;
   --purple: 111, 66, 193;
-  --gray: 96, 115, 159;
+  --gray: 160, 146, 116;
   --gray-light: 229, 233, 240;
   --gray-dark: 34, 41, 57;
   --gray-gradient: rgba(var(--sand), 100%), #fff;
-  --box-shadow: 0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%),
-    0 16px 32px rgba(var(--gray), 33%);
+  --box-shadow: 0 2px 6px rgba(var(--gray), 25%),
+    0 8px 24px rgba(var(--gray), 33%), 0 16px 32px rgba(var(--gray), 33%);
 }
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'avenir next', avenir, 'helvetica neue', helvetica,
-    ubuntu, roboto, noto, 'segoe ui', arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "avenir next", avenir,
+    "helvetica neue", helvetica, ubuntu, roboto, noto, "segoe ui", arial,
+    sans-serif;
   margin: 0;
   padding: 0;
   text-align: left;
@@ -28,7 +30,7 @@ body {
   background-size: 100% 600px;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  color: rgb(var(--gray-dark));
+  color: rgb(var(--dark-gold));
   font-size: 16px;
   line-height: 1.7;
 }
@@ -44,7 +46,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Latin Modern', Georgia, Cambria, 'Times New Roman', Times, serif;
+  font-family: "Latin Modern", Georgia, Cambria, "Times New Roman", Times, serif;
   font-weight: normal;
   margin: 0 0 0.5rem 0;
   line-height: 1.2;
@@ -68,9 +70,14 @@ strong,
 b {
   font-weight: 700;
 }
+strong {
+  background-color: rgba(var(--gold), 100%);
+  font-weight: normal;
+  outline: 0.125rem solid rgba(var(--gold), 100%);
+}
 a {
   color: var(--accent);
-  font-family: 'Latin Modern', Georgia, Cambria, 'Times New Roman', Times, serif;
+  font-family: "Latin Modern", Georgia, Cambria, "Times New Roman", Times, serif;
 }
 a:hover {
   color: var(--accent-dark);
@@ -79,9 +86,7 @@ a:hover {
 p {
   margin-bottom: 1em;
 }
-.prose p {
-  margin-bottom: 2em;
-}
+
 textarea {
   width: 100%;
   font-size: 16px;
@@ -104,6 +109,7 @@ code {
   color: rgb(var(--purple));
 }
 pre {
+  font-size: 0.875rem;
   padding: 1.5em;
   border-radius: 8px;
 }
@@ -122,7 +128,7 @@ hr {
 }
 @media (max-width: 720px) {
   body {
-    font-size: 18px;
+    font-size: 16px;
   }
   main {
     padding: 1em;
@@ -145,4 +151,8 @@ hr {
   clip-path: inset(50%);
   /* added line to stop words getting smushed together (as they go onto seperate lines and some screen readers do not understand line feeds as a space */
   white-space: nowrap;
+}
+
+.astro-code {
+  background-color: transparent !important;
 }

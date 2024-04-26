@@ -1,10 +1,15 @@
-import mdx from '@astrojs/mdx';
-import { defineConfig } from 'astro/config';
+import mdx from "@astrojs/mdx";
+import { defineConfig } from "astro/config";
 
-import sitemap from '@astrojs/sitemap';
+import sitemap from "@astrojs/sitemap";
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://blog.jiayihu.net/',
+  site: "https://blog.jiayihu.net/",
   integrations: [mdx(), sitemap()],
+  markdown: {
+    shikiConfig: {
+      theme: "github-light",
+    },
+  },
 });
