@@ -124,7 +124,7 @@ const { title, description, pubDate, updatedDate, body } = Astro.props;
 
             Array.from(headings).forEach((heading) => {
               const id = heading.id;
-              heading.innerHTML = `<a href="#${id}" aria-hidden="true">#</a> ${heading.innerHTML}`;
+              heading.innerHTML = `<a href="#${id}" aria-hidden="true" tabindex="-1">#</a> ${heading.innerHTML}`;
             });
           </script>
 
@@ -139,7 +139,7 @@ const { title, description, pubDate, updatedDate, body } = Astro.props;
             data-reactions-enabled="1"
             data-emit-metadata="0"
             data-input-position="top"
-            data-theme="preferred_color_scheme"
+            data-theme="light"
             data-lang="en"
             data-loading="lazy"
             crossorigin="anonymous"
