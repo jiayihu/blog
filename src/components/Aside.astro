@@ -1,0 +1,45 @@
+---
+const { class: className, ...rest } = Astro.props;
+---
+
+<div class="container">
+  <aside class="aside">
+    <slot />
+  </aside>
+</div>
+
+<style>
+  .container {
+    position: relative;
+  }
+
+  .aside {
+    color: #868279;
+    font-size: 0.875rem;
+    padding: 0.875rem;
+    background: rgb(var(--sand));
+    border: solid 1px rgb(var(--gold));
+    border-radius: 3px;
+  }
+
+  @media only screen and (min-width: 1300px) {
+    .aside {
+      position: absolute;
+      width: 240px;
+      transform: translateY(-50%);
+      left: calc(680px + 40px);
+      padding: 0;
+      background: none;
+      border: none;
+      padding-left: 22px;
+      border-radius: 0;
+      border-left: solid 8px rgb(var(--gold));
+    }
+  }
+</style>
+
+<style is:global>
+  .aside.aside p {
+    margin: 0;
+  }
+</style>

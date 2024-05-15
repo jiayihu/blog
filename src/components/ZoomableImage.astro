@@ -1,0 +1,17 @@
+---
+import { Image, type LocalImageProps } from 'astro:assets';
+import Zoom from 'react-medium-image-zoom';
+import 'react-medium-image-zoom/dist/styles.css';
+
+type Props = LocalImageProps;
+
+const props = Astro.props;
+---
+
+<Zoom client:only="react">
+  <figure>
+    {/* @ts-expect-error */}
+    <Image {...props} />
+    <figcaption>{props.alt}</figcaption>
+  </figure>
+</Zoom>

@@ -29,7 +29,7 @@ const { title, description, pubDate, updatedDate, body } = Astro.props;
         align-items: center;
         font-family: 'Latin Modern', Georgia, Cambria, 'Times New Roman', Times, serif;
         justify-content: center;
-        height: 75vh;
+        min-height: 75vh;
       }
 
       .title {
@@ -38,12 +38,11 @@ const { title, description, pubDate, updatedDate, body } = Astro.props;
 
       .title h1 {
         font-weight: normal;
-        font-size: 4rem;
         font-style: italic;
       }
 
       .description {
-        font-size: 1.25rem;
+        font-size: 1.125rem;
         width: 680px;
         max-width: calc(100% - 2em);
       }

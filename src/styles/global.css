@@ -156,3 +156,9 @@ hr {
 .astro-code {
   background-color: transparent !important;
 }
+
+figcaption {
+  font-size: 0.875rem;
+  font-style: italic;
+  text-align: right;
+}

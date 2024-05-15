@@ -77,7 +77,7 @@ const posts = (await getCollection('blog')).sort(
                       <span>{readingTime(post.body).text}</span>
                     </p>
                   </header>
-                  <section class="lh-copy">{post.data.description}...</section>
+                  <section class="lh-copy">{post.data.description}</section>
                 </article>
               </li>
             ))
