@@ -27,7 +27,7 @@ const { class: className, ...rest } = Astro.props;
       position: absolute;
       width: 240px;
       transform: translateY(-50%);
-      left: calc(680px + 40px);
+      left: calc(var(--container) + 40px);
       padding: 0;
       background: none;
       border: none;
