@@ -168,11 +168,13 @@ If you look at the time labels on the left you'll notice something very weird, t
 
 ![isOnScreen on the flame chart](./images/comprenhensive-guide-chrome-performance/isOnScreen.png)
 
+<Aside>I was explained that the reason `isOnScreen` hardly appears on the flame chart is due to Chrome doing sample profiling, which measures the call stack at regular intervals. Thus small frequent calls might not be caught during the samples. Thanks `romgrk`, you can read more on his excellent article about [Optimizing Javascript for fun and for profit](https://romgrk.com/posts/optimizing-javascript#12-profiling--tools).</Aside>
+
 We can prove it's not that significant by changing the `render` method to exclude checking for `isOnScreen`, since all our objects are on screen and animated. We save and record Performance again:
 - the page FPS meter now reaches 14fps (it was 12fps before)
 - each Task in the Flame chart is around 68ms now (it was 78ms before)
 
-That's roughly a ~15% improvement, which is not bad at all but far from what one might have expected from the huge time-label number in the Source panel. That's why I don't fully trust the time labels on the Source panel and it's important to master reading the flame graph instead. While it's a good improvement and we'll apply it later, we were misled into thinking that `isOnScreen` was the main culprit, whereas as we'll find out later there are more effective targets. Especially with complex codes like canvas or game rendering, focusing your energies on improving the wrong code can be very time-consuming. In our case, we could just delete the check knowing our specific case, but typically you could spend hours into thinking and experimenting on how to make `isOnScreen` more efficient.
+That's roughly a ~15% improvement, which is not bad at all but far from what one might have expected from the huge time-label number in the Source panel. That's why I don't fully trust the time labels on the Source panel and it's important to master reading the flame graph instead. While it's a good improvement and we'll apply it later, we were misled into thinking that `isOnScreen` was the main culprit, whereas as we'll find out later there are more effective targets. Especially with complex codes like canvas or game rendering, focusing your energies on improving the wrong code can be very time-consuming. In our case, we could just delete the check knowing our specific case, but typically you would spend hours into thinking and experimenting on how to make `isOnScreen` more efficient.
 
 The rest of the time labels are consistent with the flame graph information: there are several function calls that take a bit of code, and some take a bit more but none of them are outstandingly more expensive than the others. 
 
