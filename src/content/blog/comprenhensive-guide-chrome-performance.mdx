@@ -17,6 +17,8 @@ At work we both use [fabric.js](https://github.com/fabricjs/fabric.js), which is
 
 Most of the changes were not even canvas-specific optimisations, such as we did not change from `CanvasRenderingContext2D` to `WebGLRenderingContext`. So I thought why not use the case to show how we used the Performance tab on Chrome DevTools to measure, investigate and improve the JavaScript execution time of the library? While Chrome has good documentation on how to get started with [Analysing runtime performance](https://developer.chrome.com/docs/devtools/performance), it's more just an introduction and the [#analyse the results](https://developer.chrome.com/docs/devtools/performance#analyze) section is far from being complete in explaining how to find where you can improve, especially in non-trivial cases.
 
+## Table of Contents
+
 ## A first overview of the Performance results
 
 Throughout the article, you can try out the performance analysis and optimisations using the following Code Sandbox. I've prepared a small little clone of the benchmark:
