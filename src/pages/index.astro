@@ -56,6 +56,15 @@ const posts = (await getCollection('blog')).sort(
       .dot-separator::after {
         content: ' - ';
       }
+
+      .end-mark {
+        text-align: center;
+        color: rgba(var(--gold), 100%);
+        font-family: "Latin Modern", Georgia, Cambria, "Times New Roman", Times, serif;
+        font-size: 0.9em;
+        letter-spacing: 0.3em;
+        margin-top: 1rem;
+      }
     </style>
   </head>
   <body>
@@ -83,6 +92,7 @@ const posts = (await getCollection('blog')).sort(
             ))
           }
         </ul>
+        <p class="end-mark" aria-hidden="true">~ &#10086; ~</p>
       </section>
     </main>
     <Footer />

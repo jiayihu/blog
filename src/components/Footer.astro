@@ -3,6 +3,11 @@ const today = new Date();
 ---
 
 <footer>
+  <div class="footer-ornament" aria-hidden="true">
+    <span class="ornament-line"></span>
+    <span class="ornament-symbol">&#10086;</span>
+    <span class="ornament-line"></span>
+  </div>
   &copy; {today.getFullYear()} Jiayi Hu. All rights reserved.
   <div class="social-links">
     <a href="https://twitter.com/jiayi0x10" target="_blank">
@@ -46,6 +51,32 @@ const today = new Date();
     color: rgb(var(--gray));
     text-align: center;
   }
+
+  .footer-ornament {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .ornament-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      rgba(var(--gold), 100%) 20%,
+      rgba(var(--gold), 100%) 80%,
+      transparent
+    );
+  }
+
+  .ornament-symbol {
+    color: rgba(var(--gold), 100%);
+    font-size: 0.9rem;
+    line-height: 1;
+  }
+
   .social-links {
     display: flex;
     justify-content: center;

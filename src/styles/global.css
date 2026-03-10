@@ -126,7 +126,22 @@ blockquote {
 }
 hr {
   border: none;
-  border-top: 1px solid rgb(var(--gray-light));
+  text-align: center;
+  margin: 3em 0;
+  color: rgb(var(--gray));
+  font-size: 1.2em;
+  letter-spacing: 0.5em;
+}
+hr::before {
+  content: '~ \2766 ~';
+  font-family: "Latin Modern", Georgia, Cambria, "Times New Roman", Times, serif;
+}
+li::marker {
+  color: rgba(var(--gold), 100%);
+}
+::selection {
+  background-color: rgba(var(--gold), 100%);
+  color: rgb(var(--dark-gold));
 }
 @media (max-width: 720px) {
   body {

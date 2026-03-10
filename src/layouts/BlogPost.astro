@@ -66,6 +66,33 @@ const { title, description, cover, pubDate, updatedDate, body } = Astro.props;
         text-transform: uppercase;
       }
 
+      .header-ornament {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        width: var(--container);
+        max-width: calc(100% - 2em);
+        margin: 0 auto 3rem;
+      }
+
+      .ornament-line {
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(
+          to right,
+          transparent,
+          rgba(var(--gold), 100%) 20%,
+          rgba(var(--gold), 100%) 80%,
+          transparent
+        );
+      }
+
+      .ornament-symbol {
+        color: rgba(var(--gold), 100%);
+        font-size: 0.9rem;
+        line-height: 1;
+      }
+
       .prose {
         width: var(--container);
         max-width: calc(100% - 2em);
@@ -89,6 +116,18 @@ const { title, description, cover, pubDate, updatedDate, body } = Astro.props;
 
         p {
           margin-bottom: 2em;
+        }
+
+        /* Drop cap for first paragraph */
+        > p:first-child::first-letter {
+          font-family: 'Latin Modern', Georgia, Cambria, 'Times New Roman', Times, serif;
+          font-size: 3.5em;
+          float: left;
+          line-height: 0.8;
+          margin-right: 0.08em;
+          margin-top: 0.05em;
+          color: var(--accent);
+          font-weight: bold;
         }
       }
     </style>
@@ -116,6 +155,11 @@ const { title, description, cover, pubDate, updatedDate, body } = Astro.props;
             <span class="reading-time">{readingTime(body).text}</span>
           </div>
         </header>
+        <div class="header-ornament" aria-hidden="true">
+          <span class="ornament-line"></span>
+          <span class="ornament-symbol">&#10086;</span>
+          <span class="ornament-line"></span>
+        </div>
         <div class="prose">
           <slot />
 
